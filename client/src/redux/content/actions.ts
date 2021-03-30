@@ -1,7 +1,7 @@
 import { actionTypes, Post } from '../actionTypes';
 
 
-export function postData({ id, title, text, creator, like, dislike }: Post) {
+export function postData({ id, title, text, creator, comments, like, dislike }: Post) {
   return {
     type: actionTypes.ADD_POST_DATA,
     payload: {
@@ -9,6 +9,7 @@ export function postData({ id, title, text, creator, like, dislike }: Post) {
       title,
       text,
       creator,
+      comments,
       like,
       dislike,
     }

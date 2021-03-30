@@ -10,8 +10,14 @@ const PostModelSchema = new mongoose.Schema({
     required: true,
   },
   creator: {
-    type: String,
-    required: true,
+    userName: {
+      type: String,
+      required: true
+    },
+    userId: {
+      type: String,
+      required: true
+    },
   },
   like: {
     type: Array,
@@ -22,11 +28,14 @@ const PostModelSchema = new mongoose.Schema({
     default: [],
   },
 });
-
+interface Creator {
+  userName: string,
+  userId: string,
+}
 export interface PostModelType extends mongoose.Document {
   title: string,
   text: string,
-  creator: string,
+  creator: Creator,
   like: [],
   dislike: [],
 }

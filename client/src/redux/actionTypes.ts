@@ -44,17 +44,28 @@ interface LogOutUser {
 }
 export type AuthActionTypes = SignInUser | LogOutUser
 //Post
-interface reaction {
+interface Reaction {
   userId: string,
   status: boolean,
+}
+interface Creator {
+  userName: string,
+  userId: string,
+}
+
+interface Comment {
+  id: string,
+  creator: Creator,
+  text: string,
 }
 export interface Post {
   id: string,
   title: string,
   text: string,
-  creator: string,
-  like: reaction[],
-  dislike: reaction[],
+  comments: Comment[]
+  creator: Creator,
+  like: Reaction[],
+  dislike: Reaction[],
 }
 export interface ContentReducerIS {
   posts: Post[]

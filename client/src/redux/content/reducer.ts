@@ -5,18 +5,22 @@ const initialState = {
   posts: [{
     id: 'fdffds3423dsfsd',
     title: 'testTitle',
-    text: 'testText',
-    creator: 'test',
+    text: 'testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf',
+    creator: {
+      userName: 'Test',
+      userId: 'fgfdgdfg4435',
+    },
     like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
     dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
-  }, {
-    id: 'fdffds3423dsfsdkkk',
-    title: 'testTitle',
-    text: 'testText',
-    creator: 'test',
-    like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
-    dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
-  }],
+    comments: [{
+      id: 'fff322',
+      creator: {
+        userName: 'Test',
+        userId: 'fgfdgdfg4435',
+      },
+      text: 'Привет'
+    }]
+  }]
 };
 export default function userReducer(state = initialState, action: ContentActionTypes): ContentReducerIS {
   switch (action.type) {
