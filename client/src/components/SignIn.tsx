@@ -27,7 +27,6 @@ const SignIn = () => {
       setMessage(messageRes.message)
     }
   };
-  console.log(message)
   return (
     <>
       {isAuth && <Redirect to="/" />}

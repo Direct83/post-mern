@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <nav className="nav-item">
       <Link className="navWords" to="/">Home</Link>
-      <Link className="navWords" to="/first">FirstPage</Link>
+      <Link className="navWords" to="/create-topic">CreateTopic</Link>
       <Link className="navWords" to="/second">SecondPage</Link>
       {!isAuth && <Link className="navWords" to="/auth">Login</Link>}
       {isAuth && <Link className="navWords" to="/login" onClick={logout}>logOut</Link>}

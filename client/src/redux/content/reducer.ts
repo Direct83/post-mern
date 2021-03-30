@@ -9,6 +9,13 @@ const initialState = {
     creator: 'test',
     like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
     dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
+  }, {
+    id: 'fdffds3423dsfsdkkk',
+    title: 'testTitle',
+    text: 'testText',
+    creator: 'test',
+    like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
+    dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
   }],
 };
 export default function userReducer(state = initialState, action: ContentActionTypes): ContentReducerIS {

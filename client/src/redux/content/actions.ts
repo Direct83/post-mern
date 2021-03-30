@@ -1,10 +1,11 @@
 import { actionTypes, Post } from '../actionTypes';
 
 
-export function PostData({ title, text, creator, like, dislike }: Post) {
+export function postData({ id, title, text, creator, like, dislike }: Post) {
   return {
     type: actionTypes.ADD_POST_DATA,
     payload: {
+      id,
       title,
       text,
       creator,
@@ -14,7 +15,7 @@ export function PostData({ title, text, creator, like, dislike }: Post) {
   };
 }
 
-export function Dislike(postId: string, userId: string) {
+export function dislike(postId: string, userId: string) {
   return {
     type: actionTypes.DISLIKE_POST_DATA,
     payload: {
@@ -24,7 +25,7 @@ export function Dislike(postId: string, userId: string) {
   };
 }
 
-export function Like(postId: string, userId: string) {
+export function like(postId: string, userId: string) {
   return {
     type: actionTypes.LIKE_POST_DATA,
     payload: {
@@ -33,5 +34,4 @@ export function Like(postId: string, userId: string) {
     }
   };
 }
-
 

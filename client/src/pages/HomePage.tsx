@@ -1,17 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
-import { Dislike, Like } from '../redux/content/actions'
+import { dislike, like } from '../redux/content/actions'
 
 export default function HomePage() {
   const { isAuth, userId } = useSelector((state: RootState) => state.auth);
   const { posts } = useSelector((state: RootState) => state.content);
   const dispatch = useDispatch();
   const reactionLike = (e: any, postId: string) => {
-    dispatch(Like(postId, userId))
+    dispatch(like(postId, userId))
   }
   const reactionDis = (postId: string) => {
-    dispatch(Dislike(postId, userId))
+    dispatch(dislike(postId, userId))
   }
 
   return (
