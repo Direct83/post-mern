@@ -1,0 +1,157 @@
+/*------------------------------------
+- COLOR blu
+------------------------------------*/
+
+$blu_t1: #33cfd1;
+$blu_t2: #26a8aa;
+$blu_t3: #b4edee;
+$blu_t4: #c8f2f2;
+$blu_t5: #196f70;
+$blu_t6: #239c9e;
+$blu_t7: #29b5b7;
+$blu_t8: #0f4546;
+$blu_t9: #d9f6f6;
+
+$blu_shadow: rgba(51, 207, 209, 0.5);
+$blu_text_color_dark_bright: #212529;
+
+
+.alert-blu {
+  color: $blu_t5;
+  background-color: $blu_t9;
+  border-color: $blu_t4;
+}
+
+.alert-blu hr {
+  border-top-color: $blu_t3;
+}
+
+.alert-blu .alert-link {
+  color: $blu_t8;
+}
+
+.badge-blu {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t1;
+}
+
+.badge-blu[href]:hover, .badge-blu[href]:focus {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t2;
+}
+
+.bg-blu {
+  background-color: $blu_t1 !important;
+}
+
+a.bg-blu:hover, a.bg-blu:focus,
+button.bg-blu:hover,
+button.bg-blu:focus {
+  background-color: $blu_t2 !important;
+}
+
+.border-blu {
+  border-color: $blu_t1 !important;
+}
+
+.btn-blu {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t1;
+  border-color: $blu_t1;
+}
+
+.btn-blu:hover {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t7;
+  border-color: $blu_t2;
+}
+
+.btn-blu:focus, .btn-blu.focus {
+  box-shadow: 0 0 0 0.2rem $blu_shadow;
+}
+
+.btn-blu.disabled, .btn-blu:disabled {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t1;
+  border-color: $blu_t1;
+}
+
+.btn-blu:not(:disabled):not(.disabled):active, .btn-blu:not(:disabled):not(.disabled).active, .show > .btn-blu.dropdown-toggle {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t2;
+  border-color: $blu_t6;
+}
+
+.btn-blu:not(:disabled):not(.disabled):active:focus, .btn-blu:not(:disabled):not(.disabled).active:focus, .show > .btn-blu.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem $blu_shadow;
+}
+
+.btn-outline-blu {
+  color: $blu_t1;
+  background-color: transparent;
+  border-color: $blu_t1;
+}
+
+.btn-outline-blu:hover {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t1;
+  border-color: $blu_t1;
+}
+
+.btn-outline-blu:focus, .btn-outline-blu.focus {
+  box-shadow: 0 0 0 0.2rem $blu_shadow;
+}
+
+.btn-outline-blu.disabled, .btn-outline-blu:disabled {
+  color: $blu_t1;
+  background-color: transparent;
+}
+
+.btn-outline-blu:not(:disabled):not(.disabled):active, .btn-outline-blu:not(:disabled):not(.disabled).active, .show > .btn-outline-blu.dropdown-toggle {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t1;
+  border-color: $blu_t1;
+}
+
+.btn-outline-blu:not(:disabled):not(.disabled):active:focus, .btn-outline-blu:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-blu.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem $blu_shadow;
+}
+
+.list-group-item-blu {
+  color: $blu_t5;
+  background-color: $blu_t4;
+}
+
+.list-group-item-blu.list-group-item-action:hover, .list-group-item-blu.list-group-item-action:focus {
+  color: $blu_t5;
+  background-color: $blu_t3;
+}
+
+.list-group-item-blu.list-group-item-action.active {
+  color: $blu_text_color_dark_bright;
+  background-color: $blu_t5;
+  border-color: $blu_t5;
+}
+
+.table-blu,
+.table-blu > th,
+.table-blu > td {
+  background-color: $blu_t4;
+}
+
+.table-hover .table-blu:hover {
+  background-color: $blu_t3;
+}
+
+.table-hover .table-blu:hover > td,
+.table-hover .table-blu:hover > th {
+  background-color: $blu_t3;
+}
+
+.text-blu {
+  color: $blu_t1 !important;
+}
+
+a.text-blu:hover, a.text-blu:focus {
+  color: $blu_t2 !important;
+}

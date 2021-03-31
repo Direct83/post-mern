@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { authFetchThunk } from '../redux/auth/actions';
 import { RootState } from '../redux/store'
+import './auth.scss'
 
 const SignIn = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
@@ -47,7 +48,12 @@ const SignIn = () => {
                   <input type="password" onChange={inputHundler} name="password" className="form-control" id="exampleInputPassword1" />
                 </label>
               </div>
-              <button type="button" className="btn btn-primary" onClick={loginHandler}>Submit</button>
+              <button
+                type="button"
+                className="btn-blu"
+                onClick={loginHandler}
+                style={{ backgroundColor: '#33cfd1' }}
+              >Submit</button>
             </form>
           </div>
         )}

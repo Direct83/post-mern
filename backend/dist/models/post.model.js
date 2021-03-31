@@ -9,8 +9,14 @@ var PostModelSchema = new mongoose.Schema({
         required: true,
     },
     creator: {
-        type: String,
-        required: true,
+        userName: {
+            type: String,
+            required: true
+        },
+        userId: {
+            type: String,
+            required: true
+        },
     },
     like: {
         type: Array,

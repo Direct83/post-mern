@@ -5,7 +5,6 @@ export enum actionTypes {
   ADD_POST_DATA = 'ADD_POST_DATA',
   DISLIKE_POST_DATA = 'DISLIKE_POST_DATA',
   LIKE_POST_DATA = 'LIKE_POST_DATA'
-
 };
 //Auth
 export interface AuthData {
@@ -52,16 +51,21 @@ interface Creator {
   userName: string,
   userId: string,
 }
-
+interface CreatorComment {
+  userName: string,
+  userId: string,
+  dateComment: string,
+}
 interface Comment {
   id: string,
-  creator: Creator,
+  creator: CreatorComment,
   text: string,
 }
 export interface Post {
   id: string,
   title: string,
   text: string,
+  datePost: string,
   comments: Comment[]
   creator: Creator,
   like: Reaction[],

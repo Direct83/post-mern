@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
 import { dislike, like } from '../redux/content/actions'
 import { Redirect } from 'react-router-dom'
-import style from './homepage.module.scss'
+import style from './pages.module.scss'
 
 export default function HomePage() {
   const { isAuth, userId } = useSelector((state: RootState) => state.auth);
@@ -37,7 +37,8 @@ export default function HomePage() {
                   <div key={el.id} className={style.itemFront}>
                     <h1>{el.title}</h1>
                     <h2>{el.text}</h2>
-                    <div>creator: {el.creator.userName}</div>
+                    <div>Автор: {el.creator.userName} </div>
+                    <div>Дата создания поста: {el.datePost}</div>
                     <div className='like-dislike'>
                       {el.like.filter(el => {
                         return el.userId === userId
@@ -70,7 +71,9 @@ export default function HomePage() {
                       }
                       <span style={{ margin: '5px' }}>: {el.dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
                     </div>
-                    <button onClick={() => redirect(el.id)}
+                    <button
+                      onClick={() => redirect(el.id)}
+                      className='btn-blu'
                     >Обсудить</button>
                   </div>
                 )

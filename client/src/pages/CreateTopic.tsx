@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
 import { postData } from '../redux/content/actions'
+import style from './pages.module.scss'
 
 export default function CreateTopic() {
   const { isAuth, userId, userName } = useSelector((state: RootState) => state.auth);
@@ -9,6 +10,7 @@ export default function CreateTopic() {
     id: '',
     title: '',
     text: '',
+    datePost: '',
     creator: {
       userName: '',
       userId: '',
@@ -23,6 +25,7 @@ export default function CreateTopic() {
     setPost((previousPostData) => ({
       ...previousPostData,
       [name]: value,
+      datePost: new Date().toLocaleString(),
       creator: {
         userName,
         userId,
@@ -48,7 +51,7 @@ export default function CreateTopic() {
                 <label htmlFor="text">Text</label>
                 <textarea className="form-control" onChange={inputHundler} name='text' rows={4} />
               </div>
-              <button type='button' className="btn btn-primary" onClick={createTop}>сохранить</button>
+              <button type='button' className="btn-blu" onClick={createTop}>сохранить</button>
             </form>
           </>
         )

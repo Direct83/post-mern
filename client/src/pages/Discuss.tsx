@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
 import { dislike, like } from '../redux/content/actions'
-import style from './homepage.module.scss'
+import style from './pages.module.scss'
 
 export default function Discuss(props: any) {
   console.log('Discuss', props.location.state.id);
@@ -22,7 +22,8 @@ export default function Discuss(props: any) {
           <div key={el.id + 'a'} className={style.itemFront}>
             <h1>{el.title}</h1>
             <h2>{el.text}</h2>
-            <div>creator: {el.creator.userName}</div>
+            <div>Автор: {el.creator.userName} </div>
+            <div>Дата создания поста: {el.datePost}</div>
             <div className='like-dislike'>
               {el.like.filter(el => {
                 return el.userId === userId
@@ -55,14 +56,23 @@ export default function Discuss(props: any) {
               }
               <span style={{ margin: '5px' }}>: {el.dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
             </div>
-            <ul className={style.discuss}>
-              {el.comments.map((el, i) => <li key={el.id}>{el.text}</li>)}
-            </ul>
+
+
+
+            {el.comments.map(el => {
+              return (
+                <blockquote className={style.discuss}>
+                  <p key={el.id}>{el.text}</p>
+                  <cite>Автор:{el.creator.userName}, {el.creator.dateComment}</cite>
+                </blockquote>
+              )
+            })}
+
           </div>
         )
       })
       }
-      <input type='text' /><button>Написать</button>
+      <input type='text' /><button>Отправить сообщение</button>
     </>
   );
 }
