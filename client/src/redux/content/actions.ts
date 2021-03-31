@@ -77,3 +77,14 @@ export function deleteCommentAction(commentId: string, idPost: string) {
     }
   };
 }
+
+export function updateCommentAction(text: string, commentId: string, idPost: string) {
+  return {
+    type: actionTypes.UPD_COMMENT,
+    payload: {
+      text,
+      commentId,
+      idPost,
+    }
+  };
+}

@@ -8,7 +8,8 @@ export enum actionTypes {
   ADD_COMMENT_DATA = 'ADD_COMMENT_DATA',
   DELETE_POST = 'DELETE_POST',
   UPD_POST = 'UPD_POST',
-  DELETE_COMMENT = 'DELETE_COMMENT'
+  DELETE_COMMENT = 'DELETE_COMMENT',
+  UPD_COMMENT = 'UPD_COMMENT'
 };
 //Auth
 export interface AuthData {
@@ -126,5 +127,14 @@ interface DeleteCommentAction {
     idPost: string,
   }
 }
-export type ContentActionTypes = PostData | Dislike | Like | CommentData | DeletePostAction | UpdPostAction | DeleteCommentAction
+interface UpdateCommentAction {
+  type: typeof actionTypes.UPD_COMMENT,
+  payload: {
+    text: string,
+    commentId: string,
+    idPost: string,
+  }
+}
+export type ContentActionTypes = PostData | Dislike | Like
+  | CommentData | DeletePostAction | UpdPostAction | DeleteCommentAction | UpdateCommentAction
 

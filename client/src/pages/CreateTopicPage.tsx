@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
 import { postData } from '../redux/content/actions'
+import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
 
 export default function CreateTopic() {
   const { isAuth, userId, userName } = useSelector((state: RootState) => state.auth);
+  const [redirect, setRedirect] = useState(false)
   const [post, setPost] = useState({
     id: '',
     title: '',
@@ -33,10 +35,14 @@ export default function CreateTopic() {
     }));
   };
   const createTop = () => {
-    dispatch(postData(post))
+    if (post.text !== '' && post.title !== '') {
+      dispatch(postData(post))
+      setRedirect(true)
+    }
   }
   return (
     <>
+      {redirect ? <Redirect to={'/'} /> : null}
       {!isAuth
         ? <div>Контент доступен только авторизованным пользователям</div>
         : (

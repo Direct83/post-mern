@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislike, like, commentData, deleteCommentAction } from '../redux/content/actions'
+import { dislike, like, commentData, deleteCommentAction, updateCommentAction } from '../redux/content/actions'
 import style from './pages.module.scss'
 import { url } from 'node:inspector';
 
 export default function Discuss(props: any) {
   const { posts } = useSelector((state: RootState) => state.content)
   const { isAuth, userId, userName } = useSelector((state: RootState) => state.auth);
+  const [edit, setEdit] = useState(false)
+  const [updComment, setUpdComment] = useState({
+    text: '',
+  })
   const [comment, setComment] = useState({
     id: '',
     creator: {
@@ -37,19 +41,35 @@ export default function Discuss(props: any) {
     }));
   };
   const sendComment = () => {
-    dispatch(commentData(comment, props.location.state.id))
-    setComment({
-      id: '',
-      creator: {
-        userName: '',
-        userId: '',
-        dateComment: ''
-      },
-      text: ''
-    })
+    if (comment.text !== '') {
+      dispatch(commentData(comment, props.location.state.id))
+      setComment({
+        id: '',
+        creator: {
+          userName: '',
+          userId: '',
+          dateComment: ''
+        },
+        text: ''
+      })
+    }
   }
   const deleteComment = (messageId: string) => {
     dispatch(deleteCommentAction(messageId, props.location.state.id))
+  }
+  const onEdit = () => {
+    setEdit(true)
+  }
+  const textCommentUpd = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setUpdComment((previousPostData) => ({
+      ...previousPostData,
+      [name]: value,
+    }));
+  };
+  const updateComment = (commentId: string) => {
+    dispatch(updateCommentAction(updComment.text, commentId, props.location.state.id))
+    setEdit(false)
   }
   return (
     <>
@@ -95,13 +115,21 @@ export default function Discuss(props: any) {
             {el.comments.map(el => {
               return (
                 <>
-                  <blockquote className={style.discuss}>
-                    <p key={el.id}>{el.text}</p>
-                    <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                    <img className={style.imgUpd} src='img/pen.png' />
-                    <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
+                  <blockquote className={style.discuss} key={el.id}>
+                    {edit
+                      ? <>
+                        <textarea style={{ width: '500px' }} name='text' rows={2} onChange={textCommentUpd}>{el.text}</textarea>
+                        <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                        <img className={style.imgUpd} src='img/save.png' onClick={() => updateComment(el.id)} />
+                      </>
+                      : <>
+                        <p key={el.id}>{el.text}</p>
+                        <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                        <img className={style.imgUpd} src='img/pen.png' onClick={onEdit} />
+                        <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
+                      </>
+                    }
                   </blockquote>
-
                 </>
               )
             })}

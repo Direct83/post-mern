@@ -44,6 +44,20 @@ export default function userReducer(state = initialState, action: ContentActionT
           : el
         )]
       };
+    case actionTypes.UPD_COMMENT:
+      return {
+        ...state,
+        posts: [...state.posts.map(el => el.id === action.payload.idPost
+          ? {
+            ...el,
+            comments: [...el.comments.map(el => el.id === action.payload.commentId
+              ? { ...el, text: action.payload.text }
+              : el
+            )]
+          }
+          : el
+        )]
+      };
     case actionTypes.UPD_POST:
       return {
         ...state,
