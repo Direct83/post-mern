@@ -35,7 +35,6 @@ export default function CreateTopic() {
   const createTop = () => {
     dispatch(postData(post))
   }
-
   return (
     <>
       {!isAuth

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislike, like, commentData } from '../redux/content/actions'
+import { dislike, like, commentData, deleteCommentAction } from '../redux/content/actions'
 import style from './pages.module.scss'
+import { url } from 'node:inspector';
 
 export default function Discuss(props: any) {
   const { posts } = useSelector((state: RootState) => state.content)
@@ -47,7 +48,9 @@ export default function Discuss(props: any) {
       text: ''
     })
   }
-  console.log('comment.text', comment.text)
+  const deleteComment = (messageId: string) => {
+    dispatch(deleteCommentAction(messageId, props.location.state.id))
+  }
   return (
     <>
       {posts.filter(el => el.id === props.location.state.id).map(el => {
@@ -91,10 +94,15 @@ export default function Discuss(props: any) {
             </div>
             {el.comments.map(el => {
               return (
-                <blockquote className={style.discuss}>
-                  <p key={el.id}>{el.text}</p>
-                  <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                </blockquote>
+                <>
+                  <blockquote className={style.discuss}>
+                    <p key={el.id}>{el.text}</p>
+                    <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                    <img className={style.imgUpd} src='img/pen.png' />
+                    <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
+                  </blockquote>
+
+                </>
               )
             })}
           </div>

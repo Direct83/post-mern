@@ -67,3 +67,13 @@ export function updatePostAction(title: string, text: string, idPost: string) {
     }
   };
 }
+
+export function deleteCommentAction(commentId: string, idPost: string) {
+  return {
+    type: actionTypes.DELETE_COMMENT,
+    payload: {
+      commentId,
+      idPost,
+    }
+  };
+}
