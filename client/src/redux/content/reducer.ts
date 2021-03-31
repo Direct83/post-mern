@@ -51,7 +51,7 @@ export default function userReducer(state = initialState, action: ContentActionT
           ? {
             ...el,
             comments: [...el.comments.map(el => el.id === action.payload.commentId
-              ? { ...el, text: action.payload.text }
+              ? { ...el, text: action.payload.text || el.text }
               : el
             )]
           }
@@ -62,7 +62,7 @@ export default function userReducer(state = initialState, action: ContentActionT
       return {
         ...state,
         posts: [...state.posts.map(el => el.id === action.payload.idPost
-          ? { ...el, title: action.payload.title, text: action.payload.text }
+          ? { ...el, title: action.payload.title || el.title, text: action.payload.text || el.text }
           : el
         )]
       };

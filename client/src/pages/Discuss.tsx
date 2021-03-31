@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
 import { dislike, like, commentData, deleteCommentAction, updateCommentAction } from '../redux/content/actions'
 import style from './pages.module.scss'
-import { url } from 'node:inspector';
 
 export default function Discuss(props: any) {
   const { posts } = useSelector((state: RootState) => state.content)
@@ -69,6 +68,9 @@ export default function Discuss(props: any) {
   };
   const updateComment = (commentId: string) => {
     dispatch(updateCommentAction(updComment.text, commentId, props.location.state.id))
+    setUpdComment({
+      text: '',
+    })
     setEdit(false)
   }
   return (
@@ -114,23 +116,21 @@ export default function Discuss(props: any) {
             </div>
             {el.comments.map(el => {
               return (
-                <>
-                  <blockquote className={style.discuss} key={el.id}>
-                    {edit
-                      ? <>
-                        <textarea style={{ width: '500px' }} name='text' rows={2} onChange={textCommentUpd}>{el.text}</textarea>
-                        <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                        <img className={style.imgUpd} src='img/save.png' onClick={() => updateComment(el.id)} />
-                      </>
-                      : <>
-                        <p key={el.id}>{el.text}</p>
-                        <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                        <img className={style.imgUpd} src='img/pen.png' onClick={onEdit} />
-                        <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
-                      </>
-                    }
-                  </blockquote>
-                </>
+                <blockquote className={style.discuss} key={el.id}>
+                  {edit
+                    ? <>
+                      <textarea style={{ width: '500px' }} name='text' rows={2} onChange={textCommentUpd} defaultValue={el.text}></textarea>
+                      <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                      <img className={style.imgUpd} src='img/save.png' onClick={() => updateComment(el.id)} />
+                    </>
+                    : <>
+                      <p key={el.id}>{el.text}</p>
+                      <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                      <img className={style.imgUpd} src='img/pen.png' onClick={onEdit} />
+                      <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
+                    </>
+                  }
+                </blockquote>
               )
             })}
           </div>

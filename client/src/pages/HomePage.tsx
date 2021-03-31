@@ -32,6 +32,10 @@ export default function HomePage() {
   }
   const updatePost = (postId: string) => {
     dispatch(updatePostAction(updPost.title, updPost.text, postId))
+    setUpdPost({
+      text: '',
+      title: '',
+    })
     setEdit(false)
   }
   const inputHundler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -60,7 +64,11 @@ export default function HomePage() {
                       ? (
                         <>
                           <h1><input type='text' name='title' defaultValue={el.title} onChange={inputHundler} /></h1>
-                          <textarea style={{ width: '900px' }} name='text' rows={10} onChange={inputHundler}>{el.text}</textarea>
+                          <textarea
+                            style={{ width: '900px' }}
+                            name='text' rows={10}
+                            onChange={inputHundler}
+                            defaultValue={el.text} />
                         </>)
                       : (
                         <>
