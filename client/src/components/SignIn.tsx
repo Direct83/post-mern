@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { authFetchThunk } from '../redux/auth/actions';
 import { RootState } from '../redux/store'
-import { Action, AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
 import './auth.scss'
 
 const SignIn = () => {
