@@ -17,6 +17,7 @@ export default function CreateTopic() {
       userName: '',
       userId: '',
     },
+    edit: false,
     comments: [],
     like: [],
     dislike: [],

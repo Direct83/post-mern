@@ -9,7 +9,9 @@ export enum actionTypes {
   DELETE_POST = 'DELETE_POST',
   UPD_POST = 'UPD_POST',
   DELETE_COMMENT = 'DELETE_COMMENT',
-  UPD_COMMENT = 'UPD_COMMENT'
+  UPD_COMMENT = 'UPD_COMMENT',
+  EDIT_COMMENT = 'EDIT_COMMENT',
+  EDIT_POST = 'EDIT_POST'
 };
 //Auth
 export interface AuthData {
@@ -65,12 +67,14 @@ export interface Comment {
   id: string,
   creator: CreatorComment,
   text: string,
+  edit: boolean,
 }
 export interface Post {
   id: string,
   title: string,
   text: string,
   datePost: string,
+  edit: boolean,
   comments: Comment[]
   creator: Creator,
   like: Reaction[],
@@ -135,6 +139,20 @@ interface UpdateCommentAction {
     idPost: string,
   }
 }
+interface EditCommentAction {
+  type: typeof actionTypes.EDIT_COMMENT,
+  payload: {
+    commentId: string,
+    idPost: string,
+  }
+}
+interface EditPostAction {
+  type: typeof actionTypes.EDIT_POST,
+  payload: {
+    idPost: string,
+  }
+}
 export type ContentActionTypes = PostData | Dislike | Like
-  | CommentData | DeletePostAction | UpdPostAction | DeleteCommentAction | UpdateCommentAction
+  | CommentData | DeletePostAction | UpdPostAction | DeleteCommentAction
+  | UpdateCommentAction | EditCommentAction | EditPostAction
 

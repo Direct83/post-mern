@@ -88,3 +88,22 @@ export function updateCommentAction(text: string, commentId: string, idPost: str
     }
   };
 }
+
+export function editCommentAction(commentId: string, idPost: string) {
+  return {
+    type: actionTypes.EDIT_COMMENT,
+    payload: {
+      commentId,
+      idPost,
+    }
+  };
+}
+
+export function editPostAction(idPost: string) {
+  return {
+    type: actionTypes.EDIT_POST,
+    payload: {
+      idPost,
+    }
+  };
+}

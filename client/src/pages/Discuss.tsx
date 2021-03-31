@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislike, like, commentData, deleteCommentAction, updateCommentAction } from '../redux/content/actions'
+import { dislike, like, commentData, deleteCommentAction, updateCommentAction, editCommentAction } from '../redux/content/actions'
 import style from './pages.module.scss'
 
 export default function Discuss(props: any) {
   const { posts } = useSelector((state: RootState) => state.content)
   const { isAuth, userId, userName } = useSelector((state: RootState) => state.auth);
-  const [edit, setEdit] = useState(false)
   const [updComment, setUpdComment] = useState({
     text: '',
   })
@@ -18,7 +17,8 @@ export default function Discuss(props: any) {
       userId: '',
       dateComment: ''
     },
-    text: ''
+    text: '',
+    edit: false,
   })
   const dispatch = useDispatch();
   const reactionLike = (postId: string) => {
@@ -49,15 +49,16 @@ export default function Discuss(props: any) {
           userId: '',
           dateComment: ''
         },
-        text: ''
+        text: '',
+        edit: false,
       })
     }
   }
   const deleteComment = (messageId: string) => {
     dispatch(deleteCommentAction(messageId, props.location.state.id))
   }
-  const onEdit = () => {
-    setEdit(true)
+  const onEdit = (commentId: string) => {
+    dispatch(editCommentAction(commentId, props.location.state.id))
   }
   const textCommentUpd = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -71,7 +72,7 @@ export default function Discuss(props: any) {
     setUpdComment({
       text: '',
     })
-    setEdit(false)
+    dispatch(editCommentAction(commentId, props.location.state.id))
   }
   return (
     <>
@@ -117,7 +118,7 @@ export default function Discuss(props: any) {
             {el.comments.map(el => {
               return (
                 <blockquote className={style.discuss} key={el.id}>
-                  {edit
+                  {el.edit
                     ? <>
                       <textarea style={{ width: '500px' }} name='text' rows={2} onChange={textCommentUpd} defaultValue={el.text}></textarea>
                       <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
@@ -126,8 +127,15 @@ export default function Discuss(props: any) {
                     : <>
                       <p key={el.id}>{el.text}</p>
                       <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                      <img className={style.imgUpd} src='img/pen.png' onClick={onEdit} />
-                      <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
+                      {el.creator.userId === userId
+                        ? (
+                          <>
+                            <img className={style.imgUpd} src='img/pen.png' onClick={() => onEdit(el.id)} />
+                            <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
+                          </>
+                        )
+                        : null
+                      }
                     </>
                   }
                 </blockquote>

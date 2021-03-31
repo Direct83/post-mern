@@ -13,6 +13,7 @@ const initialState = {
     },
     like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
     dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
+    edit: false,
     comments: [{
       id: 'fff322',
       creator: {
@@ -20,7 +21,8 @@ const initialState = {
         userId: 'fgfdgdfg4435',
         dateComment: '31.03.2021, 13:31:55'
       },
-      text: 'Привет fdfd fdfd fdf fdfd fdfd fdffdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf'
+      text: 'Привет fdfd fdfd fdf fdfd fdfd fdffdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf',
+      edit: false,
     }]
   }]
 };
@@ -35,6 +37,27 @@ export default function userReducer(state = initialState, action: ContentActionT
       return {
         ...state,
         posts: [...state.posts.filter(el => el.id !== action.payload.idPost)]
+      };
+    case actionTypes.EDIT_POST:
+      return {
+        ...state,
+        posts: [...state.posts.map(el => el.id === action.payload.idPost
+          ? { ...el, edit: !el.edit }
+          : el
+        )]
+      };
+    case actionTypes.EDIT_COMMENT:
+      return {
+        ...state,
+        posts: [...state.posts.map(el => el.id === action.payload.idPost
+          ? {
+            ...el, comments: [...el.comments.map(el => el.id === action.payload.commentId
+              ? { ...el, edit: !el.edit }
+              : el
+            )]
+          }
+          : el
+        )]
       };
     case actionTypes.DELETE_COMMENT:
       return {
@@ -77,7 +100,8 @@ export default function userReducer(state = initialState, action: ContentActionT
               {
                 id: makeId(20),
                 creator: { ...action.payload.creator },
-                text: action.payload.text
+                text: action.payload.text,
+                edit: false,
               }
             ]
           }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislike, like, deletePostAction, updatePostAction } from '../redux/content/actions'
+import { dislike, like, deletePostAction, updatePostAction, editPostAction } from '../redux/content/actions'
 import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
 
@@ -9,7 +9,6 @@ export default function HomePage() {
   const { isAuth, userId } = useSelector((state: RootState) => state.auth);
   const { posts } = useSelector((state: RootState) => state.content);
   const [id, setId] = useState('')
-  const [edit, setEdit] = useState(false)
   const [updPost, setUpdPost] = useState({
     text: '',
     title: '',
@@ -27,8 +26,8 @@ export default function HomePage() {
   const deletePost = (postId: string) => {
     dispatch(deletePostAction(postId))
   }
-  const onEdit = () => {
-    setEdit(true)
+  const onEdit = (postId: string) => {
+    dispatch(editPostAction(postId))
   }
   const updatePost = (postId: string) => {
     dispatch(updatePostAction(updPost.title, updPost.text, postId))
@@ -36,7 +35,7 @@ export default function HomePage() {
       text: '',
       title: '',
     })
-    setEdit(false)
+    dispatch(editPostAction(postId))
   }
   const inputHundler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -60,7 +59,7 @@ export default function HomePage() {
 
                 return (
                   <div key={el.id} className={style.itemFront}>
-                    {edit
+                    {el.edit
                       ? (
                         <>
                           <h1><input type='text' name='title' defaultValue={el.title} onChange={inputHundler} /></h1>
@@ -116,21 +115,28 @@ export default function HomePage() {
                         onClick={() => redirect(el.id)}
                         className='btn-blu'
                       >Обсудить</button>
-                      {edit ? (
-                        <button
-                          className='btn-blu'
-                          onClick={() => updatePost(el.id)}
-                        >Сохранить</button>
-                      )
-                        : (<button
-                          className='btn-blu'
-                          onClick={onEdit}
-                        >Редактировать</button>)
+                      {el.creator.userId === userId
+                        ? <>
+                          {el.edit
+                            ?
+                            <button
+                              className='btn-blu'
+                              onClick={() => updatePost(el.id)}
+                            >Сохранить</button>
+
+                            :
+                            <button
+                              className='btn-blu'
+                              onClick={() => onEdit(el.id)}
+                            >Редактировать</button>
+                          }
+                          <button
+                            className='btn-blu'
+                            onClick={() => deletePost(el.id)}
+                          >Удалить</button>
+                        </>
+                        : null
                       }
-                      <button
-                        className='btn-blu'
-                        onClick={() => deletePost(el.id)}
-                      >Удалить</button>
                     </div>
                   </div>
                 )
