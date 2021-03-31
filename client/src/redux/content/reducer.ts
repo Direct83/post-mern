@@ -31,6 +31,23 @@ export default function userReducer(state = initialState, action: ContentActionT
         ...state,
         posts: [...state.posts, { ...action.payload, id: makeId(20) }]
       };
+    case actionTypes.ADD_COMMENT_DATA:
+      return {
+        ...state,
+        posts: [...state.posts.map(el => el.id === action.payload.idPost
+          ? {
+            ...el,
+            comments: [
+              ...el.comments,
+              {
+                id: makeId(20),
+                creator: { ...action.payload.creator },
+                text: action.payload.text
+              }
+            ]
+          }
+          : el)]
+      };
     case actionTypes.DISLIKE_POST_DATA:
       return {
         ...state,

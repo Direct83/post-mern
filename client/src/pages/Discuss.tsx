@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislike, like } from '../redux/content/actions'
+import { dislike, like, commentData } from '../redux/content/actions'
 import style from './pages.module.scss'
 
 export default function Discuss(props: any) {
-  console.log('Discuss', props.location.state.id);
   const { posts } = useSelector((state: RootState) => state.content)
-  const { isAuth, userId } = useSelector((state: RootState) => state.auth);
+  const { isAuth, userId, userName } = useSelector((state: RootState) => state.auth);
+  const [comment, setComment] = useState({
+    id: '',
+    creator: {
+      userName: '',
+      userId: '',
+      dateComment: ''
+    },
+    text: ''
+  })
   const dispatch = useDispatch();
   const reactionLike = (e: any, postId: string) => {
     dispatch(like(postId, userId))
@@ -15,6 +23,22 @@ export default function Discuss(props: any) {
   const reactionDis = (postId: string) => {
     dispatch(dislike(postId, userId))
   }
+  const inputHundler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setComment((previousPostData) => ({
+      ...previousPostData,
+      creator: {
+        userName,
+        userId,
+        dateComment: new Date().toLocaleString(),
+      },
+      [name]: value,
+    }));
+  };
+  const sendComment = () => {
+    dispatch(commentData(comment, props.location.state.id))
+  }
+
   return (
     <>
       {posts.filter(el => el.id === props.location.state.id).map(el => {
@@ -56,14 +80,11 @@ export default function Discuss(props: any) {
               }
               <span style={{ margin: '5px' }}>: {el.dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
             </div>
-
-
-
             {el.comments.map(el => {
               return (
                 <blockquote className={style.discuss}>
                   <p key={el.id}>{el.text}</p>
-                  <cite>Автор:{el.creator.userName}, {el.creator.dateComment}</cite>
+                  <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
                 </blockquote>
               )
             })}
@@ -72,7 +93,8 @@ export default function Discuss(props: any) {
         )
       })
       }
-      <input type='text' /><button>Отправить сообщение</button>
+      <input type='text' name='text' className={style.inputMessage} onChange={inputHundler} />
+      <button type='button' className='btn-blu comment' onClick={sendComment}>Отправить сообщение</button>
     </>
   );
 }

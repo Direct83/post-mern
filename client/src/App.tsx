@@ -13,7 +13,7 @@ import { RootState } from './redux/store'
 
 function App() {
   const stateCheck = useSelector((state: RootState) => state.content);
-  console.log(stateCheck);
+  console.log('stateCheck', stateCheck);
   const dispatch = useDispatch();
 
   useEffect(() => {
