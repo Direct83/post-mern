@@ -48,3 +48,22 @@ export function commentData({ id, creator, text }: Comment, idPost: string) {
     }
   };
 }
+export function deletePostAction(idPost: string) {
+  return {
+    type: actionTypes.DELETE_POST,
+    payload: {
+      idPost,
+    }
+  };
+}
+
+export function updatePostAction(title: string, text: string, idPost: string) {
+  return {
+    type: actionTypes.UPD_POST,
+    payload: {
+      title,
+      text,
+      idPost,
+    }
+  };
+}

@@ -1,25 +1,46 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislike, like } from '../redux/content/actions'
+import { dislike, like, deletePostAction, updatePostAction } from '../redux/content/actions'
 import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
 
 export default function HomePage() {
   const { isAuth, userId } = useSelector((state: RootState) => state.auth);
   const { posts } = useSelector((state: RootState) => state.content);
-  const [id, setId] = useState()
+  const [id, setId] = useState('')
+  const [edit, setEdit] = useState(false)
+  const [updPost, setUpdPost] = useState({
+    text: '',
+    title: '',
+  })
   const dispatch = useDispatch();
-  const reactionLike = (e: any, postId: string) => {
+  const reactionLike = (postId: string) => {
     dispatch(like(postId, userId))
   }
   const reactionDis = (postId: string) => {
     dispatch(dislike(postId, userId))
   }
-  const redirect = (id: any) => {
+  const redirect = (id: string) => {
     setId(id)
   }
-
+  const deletePost = (postId: string) => {
+    dispatch(deletePostAction(postId))
+  }
+  const onEdit = () => {
+    setEdit(true)
+  }
+  const updatePost = (postId: string) => {
+    dispatch(updatePostAction(updPost.title, updPost.text, postId))
+    setEdit(false)
+  }
+  const inputHundler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setUpdPost((previousPostData) => ({
+      ...previousPostData,
+      [name]: value,
+    }));
+  };
   return (
     <>
       {id ? <Redirect to={{
@@ -35,8 +56,19 @@ export default function HomePage() {
 
                 return (
                   <div key={el.id} className={style.itemFront}>
-                    <h1>{el.title}</h1>
-                    <h2>{el.text}</h2>
+                    {edit
+                      ? (
+                        <>
+                          <h1><input type='text' name='title' defaultValue={el.title} onChange={inputHundler} /></h1>
+                          <textarea style={{ width: '900px' }} name='text' rows={10} onChange={inputHundler}>{el.text}</textarea>
+                        </>)
+                      : (
+                        <>
+                          <h1>{el.title}</h1>
+                          <h2>{el.text}</h2>
+                        </>
+                      )
+                    }
                     <div>Автор: {el.creator.userName} </div>
                     <div>Дата создания поста: {el.datePost}</div>
                     <div className='like-dislike'>
@@ -46,12 +78,12 @@ export default function HomePage() {
                         ? <img
                           src='img/like-red.png'
                           style={{ width: '25px', height: '25px' }}
-                          onClick={(e) => reactionLike(e, el.id)}
+                          onClick={() => reactionLike(el.id)}
                         />
                         : <img
                           src='img/like-wh.png'
                           style={{ width: '25px', height: '25px' }}
-                          onClick={(e) => reactionLike(e, el.id)}
+                          onClick={() => reactionLike(el.id)}
                         />
                       }
                       <span style={{ margin: '5px' }}>: {el.like.filter(el => el.status).filter(Boolean).length}шт.</span>
@@ -71,17 +103,35 @@ export default function HomePage() {
                       }
                       <span style={{ margin: '5px' }}>: {el.dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
                     </div>
-                    <button
-                      onClick={() => redirect(el.id)}
-                      className='btn-blu'
-                    >Обсудить</button>
+                    <div className={style.buttons}>
+                      <button
+                        onClick={() => redirect(el.id)}
+                        className='btn-blu'
+                      >Обсудить</button>
+                      {edit ? (
+                        <button
+                          className='btn-blu'
+                          onClick={() => updatePost(el.id)}
+                        >Сохранить</button>
+                      )
+                        : (<button
+                          className='btn-blu'
+                          onClick={onEdit}
+                        >Редактировать</button>)
+                      }
+                      <button
+                        className='btn-blu'
+                        onClick={() => deletePost(el.id)}
+                      >Удалить</button>
+                    </div>
                   </div>
                 )
               }
               )}
             </div>
           </>
-        )}
+        )
+      }
     </>
   );
 }

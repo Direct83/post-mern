@@ -5,7 +5,9 @@ export enum actionTypes {
   ADD_POST_DATA = 'ADD_POST_DATA',
   DISLIKE_POST_DATA = 'DISLIKE_POST_DATA',
   LIKE_POST_DATA = 'LIKE_POST_DATA',
-  ADD_COMMENT_DATA = 'ADD_COMMENT_DATA'
+  ADD_COMMENT_DATA = 'ADD_COMMENT_DATA',
+  DELETE_POST = 'DELETE_POST',
+  UPD_POST = 'UPD_POST'
 };
 //Auth
 export interface AuthData {
@@ -101,5 +103,20 @@ interface CommentData {
   type: typeof actionTypes.ADD_COMMENT_DATA,
   payload: CommentDataPayload
 }
-export type ContentActionTypes = PostData | Dislike | Like | CommentData
+
+interface DeletePostAction {
+  type: typeof actionTypes.DELETE_POST,
+  payload: {
+    idPost: string,
+  }
+}
+interface UpdPostAction {
+  type: typeof actionTypes.UPD_POST,
+  payload: {
+    title: string,
+    text: string,
+    idPost: string,
+  }
+}
+export type ContentActionTypes = PostData | Dislike | Like | CommentData | DeletePostAction | UpdPostAction
 

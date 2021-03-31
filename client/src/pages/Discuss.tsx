@@ -17,7 +17,7 @@ export default function Discuss(props: any) {
     text: ''
   })
   const dispatch = useDispatch();
-  const reactionLike = (e: any, postId: string) => {
+  const reactionLike = (postId: string) => {
     dispatch(like(postId, userId))
   }
   const reactionDis = (postId: string) => {
@@ -37,8 +37,17 @@ export default function Discuss(props: any) {
   };
   const sendComment = () => {
     dispatch(commentData(comment, props.location.state.id))
+    setComment({
+      id: '',
+      creator: {
+        userName: '',
+        userId: '',
+        dateComment: ''
+      },
+      text: ''
+    })
   }
-
+  console.log('comment.text', comment.text)
   return (
     <>
       {posts.filter(el => el.id === props.location.state.id).map(el => {
@@ -55,12 +64,12 @@ export default function Discuss(props: any) {
                 ? <img
                   src='img/like-red.png'
                   style={{ width: '25px', height: '25px' }}
-                  onClick={(e) => reactionLike(e, el.id)}
+                  onClick={() => reactionLike(el.id)}
                 />
                 : <img
                   src='img/like-wh.png'
                   style={{ width: '25px', height: '25px' }}
-                  onClick={(e) => reactionLike(e, el.id)}
+                  onClick={() => reactionLike(el.id)}
                 />
               }
               <span style={{ margin: '5px' }}>: {el.like.filter(el => el.status).filter(Boolean).length}шт.</span>
@@ -88,12 +97,11 @@ export default function Discuss(props: any) {
                 </blockquote>
               )
             })}
-
           </div>
         )
       })
       }
-      <input type='text' name='text' className={style.inputMessage} onChange={inputHundler} />
+      <input type='text' name='text' className={style.inputMessage} onChange={inputHundler} value={comment.text} />
       <button type='button' className='btn-blu comment' onClick={sendComment}>Отправить сообщение</button>
     </>
   );
