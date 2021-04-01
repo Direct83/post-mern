@@ -4,8 +4,11 @@ import { makeId } from '../../utils/makeId'
 const initialState = {
   posts: [{
     id: 'fdffds3423dsfsd',
-    title: 'testTitle',
-    text: 'testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf',
+    title: 'Принцип программирования KISS — делайте вещи проще',
+    text: `Большая часть программных систем необосновано перегружена практически ненужными функциями, что ухудшает удобство их использование конечными пользователями, а также усложняет их поддержку и развитие разработчиками. Следование принципу «KISS» позволяет разрабатывать решения, которые просты в использовании и в сопровождении.
+
+    KISS — это принцип проектирования и программирования, при котором простота системы декларируется в качестве основной цели или ценности. Есть два варианта расшифровки аббревиатуры: «keep it simple, stupid» и более корректный «keep it short and simple».
+    `,
     datePost: '31.03.2021, 13:29:55',
     creator: {
       userName: 'test',
@@ -21,7 +24,7 @@ const initialState = {
         userId: '6065b0f067b4f66434e2d1e4',
         dateComment: '31.03.2021, 13:31:55'
       },
-      text: 'Привет fdfd fdfd fdf fdfd fdfd fdffdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf',
+      text: 'Привет, мне очень понравился твой пост! спасибо!',
       like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
       dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
       edit: false,
@@ -163,8 +166,6 @@ export default function userReducer(state = initialState, action: ContentActionT
         )]
       };
     case actionTypes.LIKE_COMMENT_DATA:
-      console.log('LIKE_COMMENT_DATA');
-
       return {
         ...state,
         posts: [...state.posts.map(el =>
