@@ -12,10 +12,9 @@ import { checkAuth } from './redux/auth/actions';
 import { RootState } from './redux/store'
 
 function App() {
-  const stateCheck = useSelector((state: RootState) => state.content);
-  console.log('stateCheck', stateCheck.posts[0].comments[0].like);
+  // const stateCheck = useSelector((state: RootState) => state.content);
+  // console.log('stateCheck', stateCheck);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);

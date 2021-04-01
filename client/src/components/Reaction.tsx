@@ -23,7 +23,6 @@ const Reaction = ({ like, dislike, itemId, postId }: ReactionProps) => {
   const reactionDis = (commentId: string) => {
     dispatch(dislikeCommentAction(commentId, userId, postId))
   }
-
   return (
     <div className='like-dislike'>
       {like.filter(el => {
@@ -40,7 +39,11 @@ const Reaction = ({ like, dislike, itemId, postId }: ReactionProps) => {
           onClick={() => reactionLike(itemId)}
         />
       }
-      <span style={{ margin: '5px' }}>: {like.filter(el => el.status).filter(Boolean).length}шт.</span>
+      <span
+        style={{ margin: '5px' }}
+      >
+        : {like.filter(el => el.status).filter(Boolean).length}шт.
+        </span>
       {dislike.filter(el => {
         return el.userId === userId
       })[0]?.status
@@ -55,7 +58,11 @@ const Reaction = ({ like, dislike, itemId, postId }: ReactionProps) => {
           onClick={() => reactionDis(itemId)}
         />
       }
-      <span style={{ margin: '5px' }}>: {dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
+      <span
+        style={{ margin: '5px' }}
+      >
+        : {dislike.filter(el => el.status).filter(Boolean).length}шт.
+        </span>
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import { actionTypes, Post, Comment } from '../actionTypes';
 
-
 export function postData({ id, title, text, creator, datePost, comments, like, dislike }: Post) {
   return {
     type: actionTypes.ADD_POST_DATA,
@@ -16,7 +15,6 @@ export function postData({ id, title, text, creator, datePost, comments, like, d
     }
   };
 }
-
 export function dislikeAction(postId: string, userId: string) {
   return {
     type: actionTypes.DISLIKE_POST_DATA,
@@ -26,7 +24,6 @@ export function dislikeAction(postId: string, userId: string) {
     }
   };
 }
-
 export function likeAction(postId: string, userId: string) {
   return {
     type: actionTypes.LIKE_POST_DATA,
@@ -36,7 +33,6 @@ export function likeAction(postId: string, userId: string) {
     }
   };
 }
-
 export function commentData({ id, creator, text }: Comment, idPost: string) {
   return {
     type: actionTypes.ADD_COMMENT_DATA,
@@ -56,7 +52,6 @@ export function deletePostAction(idPost: string) {
     }
   };
 }
-
 export function updatePostAction(title: string, text: string, idPost: string) {
   return {
     type: actionTypes.UPD_POST,
@@ -67,7 +62,6 @@ export function updatePostAction(title: string, text: string, idPost: string) {
     }
   };
 }
-
 export function deleteCommentAction(commentId: string, idPost: string) {
   return {
     type: actionTypes.DELETE_COMMENT,
@@ -77,7 +71,6 @@ export function deleteCommentAction(commentId: string, idPost: string) {
     }
   };
 }
-
 export function updateCommentAction(text: string, commentId: string, idPost: string) {
   return {
     type: actionTypes.UPD_COMMENT,
@@ -88,7 +81,6 @@ export function updateCommentAction(text: string, commentId: string, idPost: str
     }
   };
 }
-
 export function editCommentAction(commentId: string, idPost: string) {
   return {
     type: actionTypes.EDIT_COMMENT,
@@ -98,7 +90,6 @@ export function editCommentAction(commentId: string, idPost: string) {
     }
   };
 }
-
 export function editPostAction(idPost: string) {
   return {
     type: actionTypes.EDIT_POST,
@@ -107,7 +98,6 @@ export function editPostAction(idPost: string) {
     }
   };
 }
-
 export function dislikeCommentAction(commentId: string, userId: string, postId: string) {
   return {
     type: actionTypes.DISLIKE_COMMENT_DATA,
@@ -118,7 +108,6 @@ export function dislikeCommentAction(commentId: string, userId: string, postId: 
     }
   };
 }
-
 export function likeCommentAction(commentId: string, userId: string, postId: string) {
   return {
     type: actionTypes.LIKE_COMMENT_DATA,

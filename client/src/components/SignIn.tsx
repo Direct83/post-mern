@@ -34,18 +34,39 @@ const SignIn = () => {
       { !isAuth
         && (
           <div className="login">
-            {message ? <h3>{message}</h3> : null}
+            {message
+              ? <h3>{message}</h3>
+              : null
+            }
             <form>
               <div className="mb-3">
-                <label htmlFor="exampleInputName1" className="form-label">
+                <label
+                  htmlFor="exampleInputName1"
+                  className="form-label"
+                >
                   name
-                  <input type="text" onChange={inputHundler} name="name" className="form-control" id="exampleInputName1" />
+                  <input
+                    type="text"
+                    onChange={inputHundler}
+                    name="name"
+                    className="form-control"
+                    id="exampleInputName1"
+                  />
                 </label>
               </div>
               <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">
+                <label
+                  htmlFor="exampleInputPassword1"
+                  className="form-label"
+                >
                   password
-                  <input type="password" onChange={inputHundler} name="password" className="form-control" id="exampleInputPassword1" />
+                  <input
+                    type="password"
+                    onChange={inputHundler}
+                    name="password"
+                    className="form-control"
+                    id="exampleInputPassword1"
+                  />
                 </label>
               </div>
               <button

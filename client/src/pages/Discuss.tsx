@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislikeAction, likeAction, commentData, deleteCommentAction, updateCommentAction, editCommentAction } from '../redux/content/actions'
+import {
+  dislikeAction, likeAction, commentData,
+  deleteCommentAction, updateCommentAction,
+  editCommentAction
+} from '../redux/content/actions'
 import { checkAuth } from '../redux/auth/actions'
 import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
 import Reaction from '../components/Reaction'
 
-
-
 export default function Discuss(props: any) {
   const { posts } = useSelector((state: RootState) => state.content)
-  const { isAuth, userId, userName, role } = useSelector((state: RootState) => state.auth);
+  const { userId, userName, role } = useSelector((state: RootState) => state.auth);
   const [modalActive, setModalActive] = useState(false)
   const [updComment, setUpdComment] = useState({
     text: '',
@@ -84,9 +86,13 @@ export default function Discuss(props: any) {
     })
     dispatch(editCommentAction(commentId, props.location.state.id))
   }
+  const modalHundlerActive = (event: any) => {
+    console.log(event.target)
+    setModalActive(true)
+  }
   useEffect(() => {
     dispatch(checkAuth());
-  }, [posts, setComment]);
+  }, [posts, setComment, modalActive]);
   return (
     <>
       {posts.filter(el => el.id === props.location.state.id).map(el => {
@@ -111,7 +117,11 @@ export default function Discuss(props: any) {
                   onClick={() => reactionLike(el.id)}
                 />
               }
-              <span style={{ margin: '5px' }}>: {el.like.filter(el => el.status).filter(Boolean).length}шт.</span>
+              <span
+                style={{ margin: '5px' }}
+              >
+                : {el.like.filter(el => el.status).filter(Boolean).length}шт.
+              </span>
               {el.dislike.filter(el => {
                 return el.userId === userId
               })[0]?.status
@@ -126,40 +136,74 @@ export default function Discuss(props: any) {
                   onClick={() => reactionDis(el.id)}
                 />
               }
-              <span style={{ margin: '5px' }}>: {el.dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
+              <span
+                style={{ margin: '5px' }}
+              >
+                : {el.dislike.filter(el => el.status).filter(Boolean).length}шт.
+                </span>
             </div>
             <div className={style.chatPost}>
               {el.comments.map(el => {
                 return (
-                  <blockquote className={style.discuss} key={el.id}>
+                  <blockquote
+                    className={style.discuss}
+                    key={el.id}
+                  >
                     {el.edit
                       ? <>
-                        <textarea style={{ width: '500px' }} name='text' rows={2} onChange={textCommentUpd} defaultValue={el.text}></textarea>
+                        <textarea
+                          style={{ width: '500px' }}
+                          name='text'
+                          rows={2}
+                          onChange={textCommentUpd}
+                          defaultValue={el.text}
+                        />
                         <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                        <img className={style.imgUpd} src='img/save.png' onClick={() => updateComment(el.id)} />
+                        <img
+                          className={style.imgUpd}
+                          src='img/save.png'
+                          onClick={() => updateComment(el.id)}
+                        />
                       </>
                       : <>
                         <p key={el.id}>{el.text}</p>
                         {role === 'admin'
                           ? <>
                             <cite
-                              onClick={() => setModalActive(true)}
+                              onClick={(event) => modalHundlerActive(event)}
                             >
                               Автор: {el.creator.userName}, {el.creator.dateComment}
                             </cite>
-                            <Modal active={modalActive} setActive={setModalActive} userInfo={el.creator} />
+                            <Modal
+                              active={modalActive}
+                              setActive={setModalActive}
+                              userInfo={el.creator}
+                            />
                           </>
                           : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
                         }
                         <div style={{ float: 'right' }}>
-                          <Reaction like={el.like} dislike={el.dislike} itemId={el.id} postId={props.location.state.id} />
+                          <Reaction
+                            like={el.like}
+                            dislike={el.dislike}
+                            itemId={el.id}
+                            postId={props.location.state.id}
+                          />
                         </div>
 
                         {el.creator.userId === userId && role === 'user' || role === 'admin'
                           ? (
                             <>
-                              <img className={style.imgUpd} src='img/pen.png' onClick={() => onEdit(el.id)} />
-                              <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
+                              <img
+                                className={style.imgUpd}
+                                src='img/pen.png'
+                                onClick={() => onEdit(el.id)}
+                              />
+                              <img
+                                className={style.imgDelete}
+                                src='img/cross.png'
+                                onClick={() => deleteComment(el.id)}
+                              />
                             </>
                           )
                           : null
@@ -178,8 +222,20 @@ export default function Discuss(props: any) {
         {role === 'user' || role === 'admin'
           ? (
             <>
-              <input type='text' name='text' className={style.inputMessage} onChange={inputHundler} value={comment.text} />
-              <button type='button' className='btn-blu comment' onClick={sendComment}>Отправить сообщение</button>
+              <input
+                type='text'
+                name='text'
+                className={style.inputMessage}
+                onChange={inputHundler}
+                value={comment.text}
+              />
+              <button
+                type='button'
+                className='btn-blu comment'
+                onClick={sendComment}
+              >
+                Отправить сообщение
+              </button>
             </>
           )
           : null}

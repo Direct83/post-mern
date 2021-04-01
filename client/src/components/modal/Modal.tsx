@@ -32,7 +32,6 @@ const Modal = ({ active, setActive, userInfo }: any) => {
       [name]: value,
     }));
   };
-
   const temporaryBan = async () => {
     await (await fetch('auth/change/bannedTime', {
       method: 'POST',
@@ -46,7 +45,6 @@ const Modal = ({ active, setActive, userInfo }: any) => {
       time: '',
     }));
   }
-
   useEffect(() => {
     (async () => {
       const response = await (await fetch('auth/get/user', {
@@ -63,24 +61,53 @@ const Modal = ({ active, setActive, userInfo }: any) => {
     })()
   }, [])
   return (
-    <div className={active ? 'modal active' : 'modal'} >
+    <div className={
+      active
+        ? 'modal active'
+        : 'modal'
+    } >
       <div className='modal__content'>
-        <img src={'img/cross.png'} style={{ width: '25px', height: '25px', float: 'right' }} onClick={closeModal}></img>
-        <form onSubmit={(event) => saveRole(event)} onClick={e => e.stopPropagation()}>
-          <label style={{ margin: '20px' }}>
+        <img
+          src={'img/cross.png'}
+          style={{ width: '25px', height: '25px', float: 'right' }}
+          onClick={closeModal}
+        />
+        <form
+          onSubmit={(event) => saveRole(event)}
+          onClick={e => e.stopPropagation()}
+        >
+          <label
+            style={{ margin: '20px' }}
+          >
             Смена роли для пользователя с именем {userInfo.userName}:
-          <select value={state.role} onChange={handleChange}>
+          <select
+              value={state.role}
+              onChange={handleChange}
+            >
               <option value="user">user</option>
               <option value="admin">admin</option>
               <option value="banned">banned</option>
             </select>
           </label>
-          <input type="submit" value="Сохранить роль" />
+          <input
+            type="submit"
+            value="Сохранить роль"
+          />
         </form>
         <label style={{ margin: '20px' }}>
           Бан на время:
-          <input type="number" name='time' placeholder='в секундах' onChange={inputTime} />
-          <button onClick={temporaryBan} className='button-ban'>BAN!!</button>
+          <input
+            type="number"
+            name='time'
+            placeholder='в секундах'
+            onChange={inputTime}
+          />
+          <button
+            onClick={temporaryBan}
+            className='button-ban'
+          >
+            BAN!!
+          </button>
         </label>
       </div>
     </div>

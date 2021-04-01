@@ -49,7 +49,7 @@ export default function HomePage() {
   };
   useEffect(() => {
     dispatch(checkAuth());
-  }, [posts]);
+  }, [posts, modalActive]);
   return (
     <>
       {id ? <Redirect to={{
@@ -62,13 +62,22 @@ export default function HomePage() {
           <>
             <div className={style.wrapper}>
               {posts.map(el => {
-
                 return (
-                  <div key={el.id} className={style.itemFront}>
+                  <div
+                    key={el.id}
+                    className={style.itemFront}
+                  >
                     {el.edit
                       ? (
                         <>
-                          <h1><input type='text' name='title' defaultValue={el.title} onChange={inputHundler} /></h1>
+                          <h1>
+                            <input
+                              type='text'
+                              name='title'
+                              defaultValue={el.title}
+                              onChange={inputHundler}
+                            />
+                          </h1>
                           <textarea
                             style={{ width: '900px' }}
                             name='text' rows={10}
@@ -84,8 +93,16 @@ export default function HomePage() {
                     }
                     {role === 'admin'
                       ? <>
-                        <div onClick={() => setModalActive(true)}>Автор: {el.creator.userName} </div>
-                        <Modal active={modalActive} setActive={setModalActive} userInfo={el.creator} />
+                        <div
+                          onClick={() => setModalActive(true)}
+                        >
+                          Автор: {el.creator.userName}
+                        </div>
+                        <Modal
+                          active={modalActive}
+                          setActive={setModalActive}
+                          userInfo={el.creator}
+                        />
                       </>
                       : <div>Автор: {el.creator.userName} </div>
                     }
@@ -105,7 +122,11 @@ export default function HomePage() {
                           onClick={() => reactionLike(el.id)}
                         />
                       }
-                      <span style={{ margin: '5px' }}>: {el.like.filter(el => el.status).filter(Boolean).length}шт.</span>
+                      <span
+                        style={{ margin: '5px' }}
+                      >
+                        : {el.like.filter(el => el.status).filter(Boolean).length}шт.
+                        </span>
                       {el.dislike.filter(el => {
                         return el.userId === userId
                       })[0]?.status
@@ -120,24 +141,29 @@ export default function HomePage() {
                           onClick={() => reactionDis(el.id)}
                         />
                       }
-                      <span style={{ margin: '5px' }}>: {el.dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
+                      <span
+                        style={{ margin: '5px' }}
+                      >
+                        : {el.dislike.filter(el => el.status).filter(Boolean).length}шт.
+                        </span>
                     </div>
                     <div className={style.buttons}>
-                      {role === 'user' || role === 'admin' ? <button
-                        onClick={() => redirect(el.id)}
-                        className='btn-blu'
-                      >Обсудить</button> : null}
+                      {role === 'user' || role === 'admin'
+                        ? <button
+                          onClick={() => redirect(el.id)}
+                          className='btn-blu'
+                        >
+                          Обсудить
+                        </button>
+                        : null}
                       {el.creator.userId === userId && role === 'user' || role === 'admin'
                         ? <>
                           {el.edit
-                            ?
-                            <button
+                            ? <button
                               className='btn-blu'
                               onClick={() => updatePost(el.id)}
                             >Сохранить</button>
-
-                            :
-                            <button
+                            : <button
                               className='btn-blu'
                               onClick={() => onEdit(el.id)}
                             >Редактировать</button>
