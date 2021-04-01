@@ -8,8 +8,8 @@ const initialState = {
     text: 'testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf testText fdsfds fsd fsdf dsf dsfdsffsf fdffsfsf',
     datePost: '31.03.2021, 13:29:55',
     creator: {
-      userName: 'Test',
-      userId: 'fgfdgdfg4435',
+      userName: 'test',
+      userId: '60630746a045c24d4012c401',
     },
     like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
     dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],

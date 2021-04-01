@@ -123,4 +123,35 @@ router.get('/check', function (req, res) {
         res.json(__assign({}, req.session.user));
     }
 });
+router.post('/get/user', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var userId, role;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                userId = req.body.userId;
+                return [4 /*yield*/, UserModel.findOne({ _id: userId }).lean()];
+            case 1:
+                role = (_a.sent()).role;
+                res.json({ role: role });
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.post('/change/role', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, userId, roleChange, role;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, userId = _a.userId, roleChange = _a.roleChange;
+                return [4 /*yield*/, UserModel.findByIdAndUpdate({ _id: userId }, { role: roleChange })];
+            case 1:
+                _b.sent();
+                return [4 /*yield*/, UserModel.findOne({ _id: userId }).lean()];
+            case 2:
+                role = (_b.sent()).role;
+                res.json({ role: role });
+                return [2 /*return*/];
+        }
+    });
+}); });
 export default router;

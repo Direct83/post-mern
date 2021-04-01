@@ -11,7 +11,7 @@ export enum actionTypes {
   DELETE_COMMENT = 'DELETE_COMMENT',
   UPD_COMMENT = 'UPD_COMMENT',
   EDIT_COMMENT = 'EDIT_COMMENT',
-  EDIT_POST = 'EDIT_POST'
+  EDIT_POST = 'EDIT_POST',
 };
 //Auth
 export interface AuthData {

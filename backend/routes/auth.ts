@@ -54,4 +54,18 @@ router.get('/check', (req, res) => {
   }
 });
 
+
+router.post('/get/user', async (req, res) => {
+  const { userId } = req.body
+  const { role }: UserModelType = await UserModel.findOne({ _id: userId }).lean();
+  res.json({ role })
+});
+
+router.post('/change/role', async (req, res) => {
+  const { userId, roleChange } = req.body
+  await UserModel.findByIdAndUpdate({ _id: userId }, { role: roleChange })
+  const { role }: UserModelType = await UserModel.findOne({ _id: userId }).lean();
+  res.json({ role })
+});
+
 export default router;

@@ -4,10 +4,12 @@ import { RootState } from '../redux/store'
 import { dislike, like, deletePostAction, updatePostAction, editPostAction } from '../redux/content/actions'
 import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
+import Modal from '../components/modal/Modal';
 
 export default function HomePage() {
   const { isAuth, userId, role } = useSelector((state: RootState) => state.auth);
   const { posts } = useSelector((state: RootState) => state.content);
+  const [modalActive, setModalActive] = useState(false)
   const [id, setId] = useState('')
   const [updPost, setUpdPost] = useState({
     text: '',
@@ -76,7 +78,13 @@ export default function HomePage() {
                         </>
                       )
                     }
-                    <div>Автор: {el.creator.userName} </div>
+                    {role === 'admin'
+                      ? <>
+                        <div onClick={() => setModalActive(true)}>Автор: {el.creator.userName} </div>
+                        <Modal active={modalActive} setActive={setModalActive} userInfo={el.creator} />
+                      </>
+                      : <div>Автор: {el.creator.userName} </div>
+                    }
                     <div>Дата создания поста: {el.datePost}</div>
                     <div className='like-dislike'>
                       {el.like.filter(el => {
@@ -115,7 +123,7 @@ export default function HomePage() {
                         onClick={() => redirect(el.id)}
                         className='btn-blu'
                       >Обсудить</button> : null}
-                      {el.creator.userId === userId || role === 'admin'
+                      {el.creator.userId === userId && role === 'user' || role === 'admin'
                         ? <>
                           {el.edit
                             ?
