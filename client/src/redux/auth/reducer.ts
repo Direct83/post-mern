@@ -9,6 +9,8 @@ const initialState = {
 export default function userReducer(state = initialState, action: AuthActionTypes): AuthReducerIS {
   switch (action.type) {
     case actionTypes.LOGIN_USER:
+      console.log('>>>>', action.payload.bannedTime, new Date().getTime());
+      console.log(action.payload.bannedTime > new Date().getTime());
       return {
         ...state,
         userId: action.payload.userId,

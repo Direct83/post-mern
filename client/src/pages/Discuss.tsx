@@ -4,10 +4,12 @@ import { RootState } from '../redux/store'
 import { dislike, like, commentData, deleteCommentAction, updateCommentAction, editCommentAction } from '../redux/content/actions'
 import { checkAuth } from '../redux/auth/actions'
 import style from './pages.module.scss'
+import Modal from '../components/modal/Modal';
 
 export default function Discuss(props: any) {
   const { posts } = useSelector((state: RootState) => state.content)
   const { isAuth, userId, userName, role } = useSelector((state: RootState) => state.auth);
+  const [modalActive, setModalActive] = useState(false)
   const [updComment, setUpdComment] = useState({
     text: '',
   })
@@ -30,8 +32,8 @@ export default function Discuss(props: any) {
   }
   const inputHundler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    setComment((previousPostData) => ({
-      ...previousPostData,
+    setComment((previousCommentData) => ({
+      ...previousCommentData,
       creator: {
         userName,
         userId,
@@ -63,8 +65,8 @@ export default function Discuss(props: any) {
   }
   const textCommentUpd = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    setUpdComment((previousPostData) => ({
-      ...previousPostData,
+    setUpdComment((previousCommentData) => ({
+      ...previousCommentData,
       [name]: value,
     }));
   };
@@ -132,7 +134,13 @@ export default function Discuss(props: any) {
                       </>
                       : <>
                         <p key={el.id}>{el.text}</p>
-                        <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                        {role === 'admin'
+                          ? <>
+                            <cite onClick={() => setModalActive(true)}>Автор: {el.creator.userName}, {el.creator.dateComment} </cite>
+                            <Modal active={modalActive} setActive={setModalActive} userInfo={el.creator} />
+                          </>
+                          : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                        }
                         {el.creator.userId === userId && role === 'user' || role === 'admin'
                           ? (
                             <>

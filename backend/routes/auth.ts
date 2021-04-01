@@ -70,4 +70,11 @@ router.post('/change/role', async (req, res) => {
   res.json({ role })
 });
 
+
+router.post('/change/bannedTime', async (req, res) => {
+  const { userId, bannedTimeChange } = req.body
+  await UserModel.findByIdAndUpdate({ _id: userId }, { bannedTime: bannedTimeChange })
+  const { bannedTime }: UserModelType = await UserModel.findOne({ _id: userId }).lean();
+  res.json({ bannedTime })
+});
 export default router;

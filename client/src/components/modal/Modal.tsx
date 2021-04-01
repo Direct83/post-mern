@@ -4,24 +4,49 @@ import './modal.scss'
 const Modal = ({ active, setActive, userInfo }: any) => {
   const [state, setState] = useState({
     role: '',
+    time: '',
   })
   function handleChange(event: any) {
-    setState({ role: event.target.value });
+    setState((previousData) => ({
+      ...previousData,
+      role: event.target.value
+    }));
   }
   const closeModal = () => {
     setActive(false)
   }
   const saveRole = async (event: any) => {
     event.preventDefault()
-    const response = await (await fetch('auth/change/role', {
+    await (await fetch('auth/change/role', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ ...userInfo, roleChange: state.role })
     })).json()
-    setActive(false)
   }
+  const inputTime = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setState((previousData) => ({
+      ...previousData,
+      [name]: value,
+    }));
+  };
+
+  const temporaryBan = async () => {
+    await (await fetch('auth/change/bannedTime', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ...userInfo, bannedTimeChange: new Date().getTime() + +state.time * 1000 })
+    })).json()
+    setState((previousData) => ({
+      ...previousData,
+      time: '',
+    }));
+  }
+
   useEffect(() => {
     (async () => {
       const response = await (await fetch('auth/get/user', {
@@ -31,7 +56,10 @@ const Modal = ({ active, setActive, userInfo }: any) => {
         },
         body: JSON.stringify({ ...userInfo })
       })).json();
-      setState(response)
+      setState((previousAuthData) => ({
+        ...previousAuthData,
+        role: response.role
+      }))
     })()
   }, [])
   return (
@@ -49,6 +77,11 @@ const Modal = ({ active, setActive, userInfo }: any) => {
           </label>
           <input type="submit" value="Сохранить роль" />
         </form>
+        <label style={{ margin: '20px' }}>
+          Бан на время:
+          <input type="number" name='time' placeholder='в секундах' onChange={inputTime} />
+          <button onClick={temporaryBan} className='button-ban'>BAN!!</button>
+        </label>
       </div>
     </div>
   )
