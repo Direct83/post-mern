@@ -12,6 +12,8 @@ export enum actionTypes {
   UPD_COMMENT = 'UPD_COMMENT',
   EDIT_COMMENT = 'EDIT_COMMENT',
   EDIT_POST = 'EDIT_POST',
+  DISLIKE_COMMENT_DATA = 'DISLIKE_COMMENT_DATA',
+  LIKE_COMMENT_DATA = 'LIKE_COMMENT_DATA',
 };
 //Auth
 export interface AuthData {
@@ -70,6 +72,8 @@ export interface Comment {
   creator: CreatorComment,
   text: string,
   edit: boolean,
+  like: Reaction[],
+  dislike: Reaction[],
 }
 export interface Post {
   id: string,
@@ -93,11 +97,11 @@ interface reactionDL {
   postId: string,
   userId: string,
 }
-interface Dislike {
+interface DislikeAction {
   type: typeof actionTypes.DISLIKE_POST_DATA,
   payload: reactionDL
 }
-interface Like {
+interface LikeAction {
   type: typeof actionTypes.LIKE_POST_DATA,
   payload: reactionDL
 }
@@ -148,13 +152,28 @@ interface EditCommentAction {
     idPost: string,
   }
 }
+
 interface EditPostAction {
   type: typeof actionTypes.EDIT_POST,
   payload: {
     idPost: string,
   }
 }
-export type ContentActionTypes = PostData | Dislike | Like
+interface reactionCommentDL {
+  commentId: string,
+  postId: string,
+  userId: string,
+}
+interface DislikeCommentAction {
+  type: typeof actionTypes.DISLIKE_COMMENT_DATA,
+  payload: reactionCommentDL
+}
+interface LikeCommentAction {
+  type: typeof actionTypes.LIKE_COMMENT_DATA,
+  payload: reactionCommentDL
+}
+export type ContentActionTypes = PostData | DislikeAction | LikeAction
   | CommentData | DeletePostAction | UpdPostAction | DeleteCommentAction
-  | UpdateCommentAction | EditCommentAction | EditPostAction
+  | UpdateCommentAction | EditCommentAction | EditPostAction | DislikeCommentAction
+  | LikeCommentAction
 

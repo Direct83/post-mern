@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislike, like, commentData, deleteCommentAction, updateCommentAction, editCommentAction } from '../redux/content/actions'
+import { dislikeAction, likeAction, commentData, deleteCommentAction, updateCommentAction, editCommentAction } from '../redux/content/actions'
 import { checkAuth } from '../redux/auth/actions'
 import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
+import Reaction from '../components/Reaction'
+
+
 
 export default function Discuss(props: any) {
   const { posts } = useSelector((state: RootState) => state.content)
@@ -22,13 +25,15 @@ export default function Discuss(props: any) {
     },
     text: '',
     edit: false,
+    like: [],
+    dislike: [],
   })
   const dispatch = useDispatch();
   const reactionLike = (postId: string) => {
-    dispatch(like(postId, userId))
+    dispatch(likeAction(postId, userId))
   }
   const reactionDis = (postId: string) => {
-    dispatch(dislike(postId, userId))
+    dispatch(dislikeAction(postId, userId))
   }
   const inputHundler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -54,6 +59,8 @@ export default function Discuss(props: any) {
         },
         text: '',
         edit: false,
+        like: [],
+        dislike: [],
       })
     }
   }
@@ -80,7 +87,6 @@ export default function Discuss(props: any) {
   useEffect(() => {
     dispatch(checkAuth());
   }, [posts, setComment]);
-  console.log('Discuss', new Date().getTime())
   return (
     <>
       {posts.filter(el => el.id === props.location.state.id).map(el => {
@@ -136,11 +142,19 @@ export default function Discuss(props: any) {
                         <p key={el.id}>{el.text}</p>
                         {role === 'admin'
                           ? <>
-                            <cite onClick={() => setModalActive(true)}>Автор: {el.creator.userName}, {el.creator.dateComment} </cite>
+                            <cite
+                              onClick={() => setModalActive(true)}
+                            >
+                              Автор: {el.creator.userName}, {el.creator.dateComment}
+                            </cite>
                             <Modal active={modalActive} setActive={setModalActive} userInfo={el.creator} />
                           </>
                           : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
                         }
+                        <div style={{ float: 'right' }}>
+                          <Reaction like={el.like} dislike={el.dislike} itemId={el.id} postId={props.location.state.id} />
+                        </div>
+
                         {el.creator.userId === userId && role === 'user' || role === 'admin'
                           ? (
                             <>

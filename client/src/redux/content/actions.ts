@@ -17,7 +17,7 @@ export function postData({ id, title, text, creator, datePost, comments, like, d
   };
 }
 
-export function dislike(postId: string, userId: string) {
+export function dislikeAction(postId: string, userId: string) {
   return {
     type: actionTypes.DISLIKE_POST_DATA,
     payload: {
@@ -27,7 +27,7 @@ export function dislike(postId: string, userId: string) {
   };
 }
 
-export function like(postId: string, userId: string) {
+export function likeAction(postId: string, userId: string) {
   return {
     type: actionTypes.LIKE_POST_DATA,
     payload: {
@@ -104,6 +104,28 @@ export function editPostAction(idPost: string) {
     type: actionTypes.EDIT_POST,
     payload: {
       idPost,
+    }
+  };
+}
+
+export function dislikeCommentAction(commentId: string, userId: string, postId: string) {
+  return {
+    type: actionTypes.DISLIKE_COMMENT_DATA,
+    payload: {
+      commentId,
+      postId,
+      userId,
+    }
+  };
+}
+
+export function likeCommentAction(commentId: string, userId: string, postId: string) {
+  return {
+    type: actionTypes.LIKE_COMMENT_DATA,
+    payload: {
+      commentId,
+      postId,
+      userId,
     }
   };
 }

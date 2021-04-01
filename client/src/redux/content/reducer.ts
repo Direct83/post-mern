@@ -22,6 +22,8 @@ const initialState = {
         dateComment: '31.03.2021, 13:31:55'
       },
       text: 'Привет fdfd fdfd fdf fdfd fdfd fdffdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf',
+      like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
+      dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
       edit: false,
     }]
   }]
@@ -102,6 +104,8 @@ export default function userReducer(state = initialState, action: ContentActionT
                 creator: { ...action.payload.creator },
                 text: action.payload.text,
                 edit: false,
+                like: [],
+                dislike: [],
               }
             ]
           }
@@ -112,20 +116,79 @@ export default function userReducer(state = initialState, action: ContentActionT
         ...state,
         posts: [...state.posts.map(el =>
           action.payload.postId === el.id
-            ? (el.dislike.find(el => el.userId === action.payload.userId) ? {
-              ...el,
-              dislike: el.dislike.map(el => el.userId === action.payload.userId
-                ? { ...el, status: !el.status }
-                : el),
-              like: el.like.map(el => el.userId === action.payload.userId
-                ? { ...el, status: false }
-                : el)
-            }
+            ? (el.dislike.find(el => el.userId === action.payload.userId)
+              ? {
+                ...el,
+                dislike: el.dislike.map(el => el.userId === action.payload.userId
+                  ? { ...el, status: !el.status }
+                  : el),
+                like: el.like.map(el => el.userId === action.payload.userId
+                  ? { ...el, status: false }
+                  : el)
+              }
               : {
                 ...el,
                 dislike: [...el.dislike, { userId: action.payload.userId, status: true }],
                 like: [...el.like, { userId: action.payload.userId, status: false }]
               })
+            : el
+        )]
+      };
+    case actionTypes.DISLIKE_COMMENT_DATA:
+      return {
+        ...state,
+        posts: [...state.posts.map(el =>
+          action.payload.postId === el.id
+            ? {
+              ...el,
+              comments: el.comments.map(el => el.id === action.payload.commentId
+                ? (el.dislike.find(el => el.userId === action.payload.userId)
+                  ? {
+                    ...el,
+                    dislike: el.dislike.map(el => el.userId === action.payload.userId
+                      ? { ...el, status: !el.status }
+                      : el),
+                    like: el.like.map(el => el.userId === action.payload.userId
+                      ? { ...el, status: false }
+                      : el)
+                  }
+                  : {
+                    ...el,
+                    dislike: [...el.dislike, { userId: action.payload.userId, status: true }],
+                    like: [...el.like, { userId: action.payload.userId, status: false }]
+                  })
+                : el)
+            }
+            : el
+        )]
+      };
+    case actionTypes.LIKE_COMMENT_DATA:
+      console.log('LIKE_COMMENT_DATA');
+
+      return {
+        ...state,
+        posts: [...state.posts.map(el =>
+          action.payload.postId === el.id
+            ? {
+              ...el,
+              comments: el.comments.map(el => el.id === action.payload.commentId
+                ? (el.like.find(el => el.userId === action.payload.userId)
+                  ? {
+                    ...el,
+                    like: el.like.map(el => el.userId === action.payload.userId
+                      ? { ...el, status: !el.status }
+                      : el),
+                    dislike: el.dislike.map(el => el.userId === action.payload.userId
+                      ? { ...el, status: false }
+                      : el)
+                  }
+                  : {
+                    ...el,
+                    like: [...el.like, { userId: action.payload.userId, status: true }],
+                    dislike: [...el.dislike, { userId: action.payload.userId, status: false }]
+                  })
+                : el)
+            }
             : el
         )]
       };

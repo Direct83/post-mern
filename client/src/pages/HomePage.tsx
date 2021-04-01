@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislike, like, deletePostAction, updatePostAction, editPostAction } from '../redux/content/actions'
+import { dislikeAction, likeAction, deletePostAction, updatePostAction, editPostAction } from '../redux/content/actions'
 import { checkAuth } from '../redux/auth/actions'
 import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
@@ -18,10 +18,10 @@ export default function HomePage() {
   })
   const dispatch = useDispatch();
   const reactionLike = (postId: string) => {
-    dispatch(like(postId, userId))
+    dispatch(likeAction(postId, userId))
   }
   const reactionDis = (postId: string) => {
-    dispatch(dislike(postId, userId))
+    dispatch(dislikeAction(postId, userId))
   }
   const redirect = (id: string) => {
     setId(id)
