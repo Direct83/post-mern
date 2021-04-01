@@ -13,7 +13,7 @@ export default function userReducer(state = initialState, action: AuthActionType
         ...state,
         userId: action.payload.userId,
         userName: action.payload.userName,
-        role: action.payload.role,
+        role: action.payload.bannedTime < new Date().getTime() ? action.payload.role : 'banned',
         isAuth: true,
       };
     case actionTypes.LOGOUT_USER:

@@ -43,6 +43,7 @@ interface UserSession {
   userId: string,
   userName: string,
   role: string,
+  bannedTime: string,
 }
 declare module 'express-session' {
   interface SessionData {

@@ -75,10 +75,10 @@ export default function Discuss(props: any) {
     })
     dispatch(editCommentAction(commentId, props.location.state.id))
   }
-
   useEffect(() => {
     dispatch(checkAuth());
   }, [posts, setComment]);
+  console.log('Discuss', new Date().getTime())
   return (
     <>
       {posts.filter(el => el.id === props.location.state.id).map(el => {

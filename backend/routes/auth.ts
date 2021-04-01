@@ -13,9 +13,10 @@ router.post('/signup', async (req: express.Request, res: express.Response) => {
       email,
       password: hashedPassword,
       role: 'user',
+      bannedTime: '0',
     })
-    req.session.user = { userId: user.id, userName: user.name, role: user.role }
-    res.json({ userId: user.id, userName: user.name, role: user.role })
+    req.session.user = { userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime }
+    res.json({ userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime })
   } catch (error) {
     return res.json({ message: "что то пошло не так", error: error.message });
   }
@@ -33,8 +34,8 @@ router.post('/signin', async (req, res) => {
     if (!isValidPassword) {
       return res.json({ message: 'не тот пароль' })
     }
-    req.session.user = { userId: user.id, userName: user.name, role: user.role };
-    res.json({ userId: user.id, userName: user.name, role: user.role })
+    req.session.user = { userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime };
+    res.json({ userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime })
   } catch (error) {
     return res.json({ message: "что то пошло не так", error: error.message });
   }
@@ -50,8 +51,8 @@ router.get('/signout', (req, res, next) => {
 
 router.get('/check', async (req, res) => {
   if (req.session.user) {
-    const { role }: UserModelType = await UserModel.findOne({ _id: req.session.user.userId }).lean();
-    res.json({ ...req.session.user, role })
+    const { role, bannedTime }: UserModelType = await UserModel.findOne({ _id: req.session.user.userId }).lean();
+    res.json({ ...req.session.user, role, bannedTime })
   }
 });
 

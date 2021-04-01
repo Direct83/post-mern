@@ -66,11 +66,12 @@ router.post('/signup', function (req, res) { return __awaiter(void 0, void 0, vo
                         email: email,
                         password: hashedPassword,
                         role: 'user',
+                        bannedTime: '0',
                     })];
             case 3:
                 user = _b.sent();
-                req.session.user = { userId: user.id, userName: user.name, role: user.role };
-                res.json({ userId: user.id, userName: user.name, role: user.role });
+                req.session.user = { userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime };
+                res.json({ userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime });
                 return [3 /*break*/, 5];
             case 4:
                 error_1 = _b.sent();
@@ -100,8 +101,8 @@ router.post('/signin', function (req, res) { return __awaiter(void 0, void 0, vo
                 if (!isValidPassword) {
                     return [2 /*return*/, res.json({ message: 'не тот пароль' })];
                 }
-                req.session.user = { userId: user.id, userName: user.name, role: user.role };
-                res.json({ userId: user.id, userName: user.name, role: user.role });
+                req.session.user = { userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime };
+                res.json({ userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime });
                 return [3 /*break*/, 5];
             case 4:
                 error_2 = _b.sent();
@@ -119,16 +120,16 @@ router.get('/signout', function (req, res, next) {
     });
 });
 router.get('/check', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var role;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, role, bannedTime;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
                 if (!req.session.user) return [3 /*break*/, 2];
                 return [4 /*yield*/, UserModel.findOne({ _id: req.session.user.userId }).lean()];
             case 1:
-                role = (_a.sent()).role;
-                res.json(__assign(__assign({}, req.session.user), { role: role }));
-                _a.label = 2;
+                _a = _b.sent(), role = _a.role, bannedTime = _a.bannedTime;
+                res.json(__assign(__assign({}, req.session.user), { role: role, bannedTime: bannedTime }));
+                _b.label = 2;
             case 2: return [2 /*return*/];
         }
     });

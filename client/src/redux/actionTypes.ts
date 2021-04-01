@@ -23,6 +23,7 @@ export interface ResponseAuth {
   userName: string,
   role: string,
   message: string,
+  bannedTime: string,
 }
 export interface AuthUserPayload {
   type: actionTypes.AUTH_USER
@@ -43,6 +44,7 @@ interface SignInUser {
     userId: string,
     userName: string,
     role: string,
+    bannedTime: number,
   }
 }
 interface LogOutUser {

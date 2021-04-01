@@ -18,6 +18,7 @@ var UserModelSchema = new mongoose.Schema({
         // minlength: 3,
         // match: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
     },
-    role: String
+    role: String,
+    bannedTime: String,
 });
 export var UserModel = mongoose.model('UserModel', UserModelSchema);

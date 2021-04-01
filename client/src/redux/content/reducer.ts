@@ -9,7 +9,7 @@ const initialState = {
     datePost: '31.03.2021, 13:29:55',
     creator: {
       userName: 'test',
-      userId: '60630746a045c24d4012c401',
+      userId: '6065b0f067b4f66434e2d1e4',
     },
     like: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
     dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
@@ -18,7 +18,7 @@ const initialState = {
       id: 'fff322',
       creator: {
         userName: 'test',
-        userId: '60630746a045c24d4012c401',
+        userId: '6065b0f067b4f66434e2d1e4',
         dateComment: '31.03.2021, 13:31:55'
       },
       text: 'Привет fdfd fdfd fdf fdfd fdfd fdffdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf',

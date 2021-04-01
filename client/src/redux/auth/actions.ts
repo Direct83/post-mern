@@ -2,13 +2,14 @@ import { actionTypes, AuthData, ResponseAuth } from '../actionTypes';
 import { ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux';
 
-export function signInUser(userId: string, userName: string, role: string) {
+export function signInUser(userId: string, userName: string, role: string, bannedTime: number) {
   return {
     type: actionTypes.LOGIN_USER,
     payload: {
       userId,
       userName,
       role,
+      bannedTime,
     },
   };
 }
@@ -30,7 +31,7 @@ export function authFetchThunk(authData: AuthData, path: string) {
     if (response.message === 'Имени нет в базе, пожалуйста, пройдите регистрацию') {
       return { message: response.message }
     }
-    dispatch(signInUser(response.userId, response.userName, response.role))
+    dispatch(signInUser(response.userId, response.userName, response.role, +response.bannedTime))
   }
 }
 
@@ -39,6 +40,6 @@ export function checkAuth() {
     const response: any = await (await fetch('auth/check')).json();
     console.log('checkAuth res', response);
 
-    dispatch(signInUser(response.userId, response.userName, response.role));
+    dispatch(signInUser(response.userId, response.userName, response.role, +response.bannedTime));
   };
 }
