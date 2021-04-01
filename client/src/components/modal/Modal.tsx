@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import './modal.scss'
 
-const Modal = ({ active, setActive, userInfo }: any) => {
+interface ModalObj {
+  userName: string;
+  userId: string;
+}
+interface ModalType {
+  active: boolean,
+  setActive: CallableFunction,
+  userInfo: ModalObj
+}
+const Modal = ({ active, setActive, userInfo }: ModalType) => {
   const [state, setState] = useState({
     role: '',
     time: '',
   })
-  function handleChange(event: any) {
+  function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
     setState((previousData) => ({
       ...previousData,
       role: event.target.value
@@ -15,15 +24,15 @@ const Modal = ({ active, setActive, userInfo }: any) => {
   const closeModal = () => {
     setActive(false)
   }
-  const saveRole = async (event: any) => {
+  const saveRole = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    await (await fetch('auth/change/role', {
+    await fetch('auth/change/role', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ...userInfo, roleChange: state.role })
-    })).json()
+      body: JSON.stringify({ ...userInfo, roleChange: state.role || 'user' })
+    })
   }
   const inputTime = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -45,21 +54,6 @@ const Modal = ({ active, setActive, userInfo }: any) => {
       time: '',
     }));
   }
-  useEffect(() => {
-    (async () => {
-      const response = await (await fetch('auth/get/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ ...userInfo })
-      })).json();
-      setState((previousAuthData) => ({
-        ...previousAuthData,
-        role: response.role
-      }))
-    })()
-  }, [])
   return (
     <div className={
       active
@@ -76,32 +70,35 @@ const Modal = ({ active, setActive, userInfo }: any) => {
           onSubmit={(event) => saveRole(event)}
           onClick={e => e.stopPropagation()}
         >
-          <label
-            style={{ margin: '20px' }}
-          >
-            Смена роли для пользователя с именем {userInfo.userName}:
-          <select
-              value={state.role}
-              onChange={handleChange}
-            >
-              <option value="user">user</option>
-              <option value="admin">admin</option>
-              <option value="banned">banned</option>
-            </select>
+          <label>
+            <p>Смена роли для пользователя с именем {userInfo.userName}:
+            <select
+                style={{ marginLeft: '10px' }}
+                value={state.role}
+                onChange={handleChange}
+              >
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+                <option value="banned">banned</option>
+              </select>
+            </p>
           </label>
           <input
+            style={{ marginBottom: '30px' }}
             type="submit"
             value="Сохранить роль"
           />
         </form>
-        <label style={{ margin: '20px' }}>
-          Бан на время:
+        <label>
+          <p>Бан на время:
           <input
-            type="number"
-            name='time'
-            placeholder='в секундах'
-            onChange={inputTime}
-          />
+              style={{ marginLeft: '10px' }}
+              type="number"
+              name='time'
+              placeholder='в секундах'
+              onChange={inputTime}
+            />
+          </p>
           <button
             onClick={temporaryBan}
             className='button-ban'

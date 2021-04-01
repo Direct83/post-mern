@@ -11,12 +11,16 @@ import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
 import Reaction from '../components/Reaction'
 
-export default function Discuss(props: any) {
+export default function Discuss(props: { location: { state: { id: string; }; }; }) {
   const { posts } = useSelector((state: RootState) => state.content)
   const { userId, userName, role } = useSelector((state: RootState) => state.auth);
   const [modalActive, setModalActive] = useState(false)
   const [updComment, setUpdComment] = useState({
     text: '',
+  })
+  const [postCreator, setPostCreator] = useState({
+    userName: '',
+    userId: '',
   })
   const [comment, setComment] = useState({
     id: '',
@@ -86,15 +90,30 @@ export default function Discuss(props: any) {
     })
     dispatch(editCommentAction(commentId, props.location.state.id))
   }
-  const modalHundlerActive = (event: any) => {
-    console.log(event.target)
+  interface clickPostCreatorType {
+    userName: string,
+    userId: string,
+  }
+  const onModal = ({ userName, userId }: clickPostCreatorType) => {
+    setPostCreator({
+      userName,
+      userId
+    })
     setModalActive(true)
   }
   useEffect(() => {
     dispatch(checkAuth());
-  }, [posts, setComment, modalActive]);
+  }, [posts]);
   return (
     <>
+      {modalActive
+        ? <Modal
+          active={modalActive}
+          setActive={setModalActive}
+          userInfo={postCreator}
+        />
+        : null
+      }
       {posts.filter(el => el.id === props.location.state.id).map(el => {
         return (
           <div key={el.id + 'a'} className={style.itemFront}>
@@ -170,15 +189,10 @@ export default function Discuss(props: any) {
                         {role === 'admin'
                           ? <>
                             <cite
-                              onClick={(event) => modalHundlerActive(event)}
+                              onClick={() => onModal(el.creator)}
                             >
                               Автор: {el.creator.userName}, {el.creator.dateComment}
                             </cite>
-                            <Modal
-                              active={modalActive}
-                              setActive={setModalActive}
-                              userInfo={el.creator}
-                            />
                           </>
                           : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
                         }

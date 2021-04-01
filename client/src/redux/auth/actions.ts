@@ -37,7 +37,7 @@ export function authFetchThunk(authData: AuthData, path: string) {
 
 export function checkAuth() {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    const response: any = await (await fetch('auth/check')).json();
+    const response = await (await fetch('auth/check')).json();
     dispatch(signInUser(response.userId, response.userName, response.role, +response.bannedTime));
   };
 }

@@ -16,6 +16,10 @@ export default function HomePage() {
     text: '',
     title: '',
   })
+  const [postCreator, setPostCreator] = useState({
+    userName: '',
+    userId: '',
+  })
   const dispatch = useDispatch();
   const reactionLike = (postId: string) => {
     dispatch(likeAction(postId, userId))
@@ -47,11 +51,30 @@ export default function HomePage() {
       [name]: value,
     }));
   };
+  interface clickPostCreatorType {
+    userName: string,
+    userId: string,
+  }
+  const onModal = ({ userName, userId }: clickPostCreatorType) => {
+    setPostCreator({
+      userName,
+      userId
+    })
+    setModalActive(true)
+  }
   useEffect(() => {
     dispatch(checkAuth());
-  }, [posts, modalActive]);
+  }, [posts]);
   return (
     <>
+      {modalActive
+        ? <Modal
+          active={modalActive}
+          setActive={setModalActive}
+          userInfo={postCreator}
+        />
+        : null
+      }
       {id ? <Redirect to={{
         pathname: '/discuss',
         state: { id }
@@ -94,15 +117,10 @@ export default function HomePage() {
                     {role === 'admin'
                       ? <>
                         <div
-                          onClick={() => setModalActive(true)}
+                          onClick={() => onModal(el.creator)}
                         >
                           Автор: {el.creator.userName}
                         </div>
-                        <Modal
-                          active={modalActive}
-                          setActive={setModalActive}
-                          userInfo={el.creator}
-                        />
                       </>
                       : <div>Автор: {el.creator.userName} </div>
                     }
