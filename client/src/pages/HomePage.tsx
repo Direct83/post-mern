@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
 
 export default function HomePage() {
-  const { isAuth, userId } = useSelector((state: RootState) => state.auth);
+  const { isAuth, userId, role } = useSelector((state: RootState) => state.auth);
   const { posts } = useSelector((state: RootState) => state.content);
   const [id, setId] = useState('')
   const [updPost, setUpdPost] = useState({
@@ -111,11 +111,11 @@ export default function HomePage() {
                       <span style={{ margin: '5px' }}>: {el.dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
                     </div>
                     <div className={style.buttons}>
-                      <button
+                      {role === 'user' || role === 'admin' ? <button
                         onClick={() => redirect(el.id)}
                         className='btn-blu'
-                      >Обсудить</button>
-                      {el.creator.userId === userId
+                      >Обсудить</button> : null}
+                      {el.creator.userId === userId || role === 'admin'
                         ? <>
                           {el.edit
                             ?

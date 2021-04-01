@@ -6,7 +6,7 @@ import style from './pages.module.scss'
 
 export default function Discuss(props: any) {
   const { posts } = useSelector((state: RootState) => state.content)
-  const { isAuth, userId, userName } = useSelector((state: RootState) => state.auth);
+  const { isAuth, userId, userName, role } = useSelector((state: RootState) => state.auth);
   const [updComment, setUpdComment] = useState({
     text: '',
   })
@@ -115,38 +115,48 @@ export default function Discuss(props: any) {
               }
               <span style={{ margin: '5px' }}>: {el.dislike.filter(el => el.status).filter(Boolean).length}шт.</span>
             </div>
-            {el.comments.map(el => {
-              return (
-                <blockquote className={style.discuss} key={el.id}>
-                  {el.edit
-                    ? <>
-                      <textarea style={{ width: '500px' }} name='text' rows={2} onChange={textCommentUpd} defaultValue={el.text}></textarea>
-                      <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                      <img className={style.imgUpd} src='img/save.png' onClick={() => updateComment(el.id)} />
-                    </>
-                    : <>
-                      <p key={el.id}>{el.text}</p>
-                      <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                      {el.creator.userId === userId
-                        ? (
-                          <>
-                            <img className={style.imgUpd} src='img/pen.png' onClick={() => onEdit(el.id)} />
-                            <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
-                          </>
-                        )
-                        : null
-                      }
-                    </>
-                  }
-                </blockquote>
-              )
-            })}
+            <div className={style.chatPost}>
+              {el.comments.map(el => {
+                return (
+                  <blockquote className={style.discuss} key={el.id}>
+                    {el.edit
+                      ? <>
+                        <textarea style={{ width: '500px' }} name='text' rows={2} onChange={textCommentUpd} defaultValue={el.text}></textarea>
+                        <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                        <img className={style.imgUpd} src='img/save.png' onClick={() => updateComment(el.id)} />
+                      </>
+                      : <>
+                        <p key={el.id}>{el.text}</p>
+                        <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                        {el.creator.userId === userId || role === 'admin'
+                          ? (
+                            <>
+                              <img className={style.imgUpd} src='img/pen.png' onClick={() => onEdit(el.id)} />
+                              <img className={style.imgDelete} src='img/cross.png' onClick={() => deleteComment(el.id)} />
+                            </>
+                          )
+                          : null
+                        }
+                      </>
+                    }
+                  </blockquote>
+                )
+              })}
+            </div>
           </div>
         )
       })
       }
-      <input type='text' name='text' className={style.inputMessage} onChange={inputHundler} value={comment.text} />
-      <button type='button' className='btn-blu comment' onClick={sendComment}>Отправить сообщение</button>
+      <div className={style.sendMessage}>
+        {role === 'user' || role === 'admin'
+          ? (
+            <>
+              <input type='text' name='text' className={style.inputMessage} onChange={inputHundler} value={comment.text} />
+              <button type='button' className='btn-blu comment' onClick={sendComment}>Отправить сообщение</button>
+            </>
+          )
+          : null}
+      </div>
     </>
   );
 }
