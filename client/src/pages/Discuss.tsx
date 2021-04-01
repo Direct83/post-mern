@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
 import { dislike, like, commentData, deleteCommentAction, updateCommentAction, editCommentAction } from '../redux/content/actions'
+import { checkAuth } from '../redux/auth/actions'
 import style from './pages.module.scss'
 
 export default function Discuss(props: any) {
@@ -74,6 +75,10 @@ export default function Discuss(props: any) {
     })
     dispatch(editCommentAction(commentId, props.location.state.id))
   }
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [posts, setComment]);
   return (
     <>
       {posts.filter(el => el.id === props.location.state.id).map(el => {
@@ -128,7 +133,7 @@ export default function Discuss(props: any) {
                       : <>
                         <p key={el.id}>{el.text}</p>
                         <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                        {el.creator.userId === userId || role === 'admin'
+                        {el.creator.userId === userId && role === 'user' || role === 'admin'
                           ? (
                             <>
                               <img className={style.imgUpd} src='img/pen.png' onClick={() => onEdit(el.id)} />

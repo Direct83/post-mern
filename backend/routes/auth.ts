@@ -48,9 +48,10 @@ router.get('/signout', (req, res, next) => {
   });
 });
 
-router.get('/check', (req, res) => {
+router.get('/check', async (req, res) => {
   if (req.session.user) {
-    res.json({ ...req.session.user })
+    const { role }: UserModelType = await UserModel.findOne({ _id: req.session.user.userId }).lean();
+    res.json({ ...req.session.user, role })
   }
 });
 

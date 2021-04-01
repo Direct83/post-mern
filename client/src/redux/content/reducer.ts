@@ -17,8 +17,8 @@ const initialState = {
     comments: [{
       id: 'fff322',
       creator: {
-        userName: 'Test',
-        userId: 'fgfdgdfg4435',
+        userName: 'test',
+        userId: '60630746a045c24d4012c401',
         dateComment: '31.03.2021, 13:31:55'
       },
       text: 'Привет fdfd fdfd fdf fdfd fdfd fdffdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf fdfd fdfd fdf',

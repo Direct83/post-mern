@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
 import { dislike, like, deletePostAction, updatePostAction, editPostAction } from '../redux/content/actions'
+import { checkAuth } from '../redux/auth/actions'
 import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
@@ -46,6 +47,9 @@ export default function HomePage() {
       [name]: value,
     }));
   };
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [posts]);
   return (
     <>
       {id ? <Redirect to={{

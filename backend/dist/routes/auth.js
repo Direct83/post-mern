@@ -118,11 +118,21 @@ router.get('/signout', function (req, res, next) {
         return res.redirect('/');
     });
 });
-router.get('/check', function (req, res) {
-    if (req.session.user) {
-        res.json(__assign({}, req.session.user));
-    }
-});
+router.get('/check', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var role;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!req.session.user) return [3 /*break*/, 2];
+                return [4 /*yield*/, UserModel.findOne({ _id: req.session.user.userId }).lean()];
+            case 1:
+                role = (_a.sent()).role;
+                res.json(__assign(__assign({}, req.session.user), { role: role }));
+                _a.label = 2;
+            case 2: return [2 /*return*/];
+        }
+    });
+}); });
 router.post('/get/user', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var userId, role;
     return __generator(this, function (_a) {
