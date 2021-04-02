@@ -6,6 +6,7 @@ import { checkAuth } from '../redux/auth/actions'
 import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
+import Reaction from '../components/Reaction';
 
 export default function HomePage() {
   const { isAuth, userId, role } = useSelector((state: RootState) => state.auth);
@@ -125,46 +126,13 @@ export default function HomePage() {
                       : <div>Автор: {el.creator.userName} </div>
                     }
                     <div>Дата создания поста: {el.datePost}</div>
-                    <div className='like-dislike'>
-                      {el.like.filter(el => {
-                        return el.userId === userId
-                      })[0]?.status
-                        ? <img
-                          src='img/like-red.png'
-                          style={{ width: '25px', height: '25px' }}
-                          onClick={() => reactionLike(el.id)}
-                        />
-                        : <img
-                          src='img/like-wh.png'
-                          style={{ width: '25px', height: '25px' }}
-                          onClick={() => reactionLike(el.id)}
-                        />
-                      }
-                      <span
-                        style={{ margin: '5px' }}
-                      >
-                        : {el.like.filter(el => el.status).filter(Boolean).length}шт.
-                        </span>
-                      {el.dislike.filter(el => {
-                        return el.userId === userId
-                      })[0]?.status
-                        ? <img
-                          src='img/dis-bl.png'
-                          style={{ width: '25px', height: '25px', }}
-                          onClick={() => reactionDis(el.id)}
-                        />
-                        : <img
-                          src='img/dis-wh.png'
-                          style={{ width: '25px', height: '25px' }}
-                          onClick={() => reactionDis(el.id)}
-                        />
-                      }
-                      <span
-                        style={{ margin: '5px' }}
-                      >
-                        : {el.dislike.filter(el => el.status).filter(Boolean).length}шт.
-                        </span>
-                    </div>
+                    <Reaction
+                      like={el.like}
+                      dislike={el.dislike}
+                      itemId={''}
+                      postId={el.id}
+                      from={'post'}
+                    />
                     <div className={style.buttons}>
                       {role === 'user' || role === 'admin'
                         ? <button

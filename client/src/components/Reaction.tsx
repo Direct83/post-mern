@@ -1,5 +1,5 @@
 import React from 'react'
-import { likeCommentAction, dislikeCommentAction } from '../redux/content/actions'
+import { likeCommentAction, dislikeCommentAction, likeAction, dislikeAction } from '../redux/content/actions'
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
 
@@ -13,15 +13,20 @@ interface ReactionProps {
   dislike: ArrReaction[],
   itemId: string,
   postId: string,
+  from: string,
 }
-const Reaction = ({ like, dislike, itemId, postId }: ReactionProps) => {
+const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
   const { userId } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const reactionLike = (commentId: string) => {
-    dispatch(likeCommentAction(commentId, userId, postId))
+    from === 'post'
+      ? dispatch(likeAction(postId, userId))
+      : dispatch(likeCommentAction(commentId, userId, postId))
   }
   const reactionDis = (commentId: string) => {
-    dispatch(dislikeCommentAction(commentId, userId, postId))
+    from === 'post'
+      ? dispatch(dislikeAction(postId, userId))
+      : dispatch(dislikeCommentAction(commentId, userId, postId))
   }
   return (
     <div className='like-dislike'>
