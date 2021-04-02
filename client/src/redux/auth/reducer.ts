@@ -5,6 +5,7 @@ const initialState = {
   userName: '',
   role: '',
   isAuth: false,
+  message: '',
 };
 export default function userReducer(state = initialState, action: AuthActionTypes): AuthReducerIS {
   switch (action.type) {
@@ -22,6 +23,12 @@ export default function userReducer(state = initialState, action: AuthActionType
         userName: '',
         role: '',
         isAuth: false,
+        message: '',
+      };
+    case actionTypes.AUTH_MESSAGE_RESPONSE:
+      return {
+        ...state,
+        message: action.payload.message,
       };
     default:
       return state;

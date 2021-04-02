@@ -4,11 +4,9 @@ import { Redirect } from 'react-router-dom';
 import { authFetchThunk } from '../redux/auth/actions';
 import { RootState } from '../redux/store'
 import './auth.scss'
-
 const SignIn = () => {
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { isAuth, message } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
-  const [message, setMessage] = useState('')
   const [authData, setAuthData] = useState({
     name: '',
     password: '',
@@ -22,11 +20,7 @@ const SignIn = () => {
   };
   const loginHandler = async () => {
     const path = 'signin';
-    const response = dispatch(authFetchThunk(authData, path));
-    const messageRes: any = await response
-    if (messageRes?.message === "Имени нет в базе, пожалуйста, пройдите регистрацию") {
-      setMessage(messageRes.message)
-    }
+    await dispatch(authFetchThunk(authData, path))
   };
   return (
     <>

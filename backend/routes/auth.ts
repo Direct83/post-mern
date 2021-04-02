@@ -8,6 +8,10 @@ router.post('/signup', async (req: express.Request, res: express.Response) => {
   const { name, password, email } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
+    const checkUser = await UserModel.findOne({ name }).exec();
+    if (checkUser) {
+      return res.json({ message: 'Такое имя уже есть в базе, пожалуйста, выберите другое!' })
+    }
     const user: UserModelType = await UserModel.create({
       name,
       email,

@@ -50,17 +50,23 @@ import express from 'express';
 import { UserModel } from '../models/user.model.js';
 var router = express.Router();
 router.post('/signup', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, password, email, hashedPassword, user, error_1;
+    var _a, name, password, email, hashedPassword, checkUser, user, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = req.body, name = _a.name, password = _a.password, email = _a.email;
                 _b.label = 1;
             case 1:
-                _b.trys.push([1, 4, , 5]);
+                _b.trys.push([1, 5, , 6]);
                 return [4 /*yield*/, bcrypt.hash(password, 10)];
             case 2:
                 hashedPassword = _b.sent();
+                return [4 /*yield*/, UserModel.findOne({ name: name }).exec()];
+            case 3:
+                checkUser = _b.sent();
+                if (checkUser) {
+                    return [2 /*return*/, res.json({ message: 'Такое имя уже есть в базе, пожалуйста, выберите другое!' })];
+                }
                 return [4 /*yield*/, UserModel.create({
                         name: name,
                         email: email,
@@ -68,15 +74,15 @@ router.post('/signup', function (req, res) { return __awaiter(void 0, void 0, vo
                         role: 'user',
                         bannedTime: '0',
                     })];
-            case 3:
+            case 4:
                 user = _b.sent();
                 req.session.user = { userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime };
                 res.json({ userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime });
-                return [3 /*break*/, 5];
-            case 4:
+                return [3 /*break*/, 6];
+            case 5:
                 error_1 = _b.sent();
                 return [2 /*return*/, res.json({ message: "что то пошло не так", error: error_1.message })];
-            case 5: return [2 /*return*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); });

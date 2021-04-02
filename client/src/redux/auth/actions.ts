@@ -1,6 +1,7 @@
-import { actionTypes, AuthData, ResponseAuth } from '../actionTypes';
-import { ThunkDispatch } from 'redux-thunk'
+import { actionTypes, AuthData, ResponseAuth, AuthActionTypes } from '../actionTypes';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux';
+import { RootState } from '../store'
 
 export function signInUser(userId: string, userName: string, role: string, bannedTime: number) {
   return {
@@ -19,19 +20,17 @@ export function logOutUser() {
   };
 }
 
-export function authFetchThunk(authData: AuthData, path: string) {
-  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    const response: ResponseAuth = await (await fetch(`auth/${path}`, {
+export function authFetchThunk(authData: AuthData, path: string): ThunkAction<Promise<void>, RootState, unknown, AnyAction> {
+  return async (dispatch, getState) => {
+    const { userId, userName, role, bannedTime, message }: ResponseAuth = await (await fetch(`auth/${path}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ ...authData }),
     })).json();
-    if (response.message === 'Имени нет в базе, пожалуйста, пройдите регистрацию') {
-      return { message: response.message }
-    }
-    dispatch(signInUser(response.userId, response.userName, response.role, +response.bannedTime))
+
+    message !== undefined ? dispatch(sendMessage(message)) : dispatch(signInUser(userId, userName, role, +bannedTime))
   }
 }
 
@@ -39,5 +38,14 @@ export function checkAuth() {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     const response = await (await fetch('auth/check')).json();
     dispatch(signInUser(response.userId, response.userName, response.role, +response.bannedTime));
+  };
+}
+
+export function sendMessage(message: string) {
+  return {
+    type: actionTypes.AUTH_MESSAGE_RESPONSE,
+    payload: {
+      message,
+    }
   };
 }

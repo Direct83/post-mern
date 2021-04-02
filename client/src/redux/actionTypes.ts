@@ -14,7 +14,9 @@ export enum actionTypes {
   EDIT_POST = 'EDIT_POST',
   DISLIKE_COMMENT_DATA = 'DISLIKE_COMMENT_DATA',
   LIKE_COMMENT_DATA = 'LIKE_COMMENT_DATA',
+  AUTH_MESSAGE_RESPONSE = 'AUTH_MESSAGE_RESPONSE'
 };
+
 //Auth
 export interface AuthData {
   name: string,
@@ -39,6 +41,7 @@ export interface AuthReducerIS {
   userName: string,
   role: string,
   isAuth: boolean,
+  message: string,
 }
 interface SignInUser {
   type: typeof actionTypes.LOGIN_USER,
@@ -49,10 +52,16 @@ interface SignInUser {
     bannedTime: number,
   }
 }
+interface SendMessage {
+  type: typeof actionTypes.AUTH_MESSAGE_RESPONSE,
+  payload: {
+    message: string,
+  }
+}
 interface LogOutUser {
   type: typeof actionTypes.LOGOUT_USER,
 }
-export type AuthActionTypes = SignInUser | LogOutUser
+export type AuthActionTypes = SignInUser | LogOutUser | SendMessage
 //Post
 interface Reaction {
   userId: string,

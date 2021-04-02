@@ -6,7 +6,7 @@ import { RootState } from '../redux/store'
 import './auth.scss'
 
 export default function SignUp() {
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { isAuth, message } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [authData, setAuthData] = useState({
     name: '',
@@ -30,6 +30,10 @@ export default function SignUp() {
       {isAuth && <Redirect to="/" />}
       { !isAuth && (
         <div className="registration">
+          {message
+            ? <h3>{message}</h3>
+            : null
+          }
           <form>
             <div className="mb-3">
               <label htmlFor="exampleInputName1" className="form-label">
