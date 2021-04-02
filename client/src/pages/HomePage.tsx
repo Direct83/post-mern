@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
-import { dislikeAction, likeAction, deletePostAction, updatePostAction, editPostAction } from '../redux/content/actions'
+import { deletePostAction, updatePostAction, editPostAction } from '../redux/content/actions'
 import { checkAuth } from '../redux/auth/actions'
 import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
@@ -22,12 +22,6 @@ export default function HomePage() {
     userId: '',
   })
   const dispatch = useDispatch();
-  const reactionLike = (postId: string) => {
-    dispatch(likeAction(postId, userId))
-  }
-  const reactionDis = (postId: string) => {
-    dispatch(dislikeAction(postId, userId))
-  }
   const redirect = (id: string) => {
     setId(id)
   }
@@ -81,7 +75,7 @@ export default function HomePage() {
         state: { id }
       }} /> : null}
       {!isAuth
-        ? <div>Контент доступен только авторизованным пользователям</div>
+        ? <div style={{ textAlign: 'center' }}>Контент доступен только авторизованным пользователям</div>
         : (
           <>
             <div className={style.wrapper}>
@@ -137,7 +131,6 @@ export default function HomePage() {
                       {role === 'user' || role === 'admin'
                         ? <button
                           onClick={() => redirect(el.id)}
-                          className='btn-blu'
                         >
                           Обсудить
                         </button>
@@ -146,16 +139,13 @@ export default function HomePage() {
                         ? <>
                           {el.edit
                             ? <button
-                              className='btn-blu'
                               onClick={() => updatePost(el.id)}
                             >Сохранить</button>
                             : <button
-                              className='btn-blu'
                               onClick={() => onEdit(el.id)}
                             >Редактировать</button>
                           }
                           <button
-                            className='btn-blu'
                             onClick={() => deletePost(el.id)}
                           >Удалить</button>
                         </>

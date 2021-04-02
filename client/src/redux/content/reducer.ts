@@ -29,6 +29,33 @@ const initialState = {
       dislike: [{ userId: "6061fff9b3d24b0af8495a44", status: false }],
       edit: false,
     }]
+  }, {
+    id: 'fdffds3423dsfsd1',
+    title: 'DRY – Don’t repeat yourself (не повторяй себя)',
+    text: `Этот принцип настолько важен, что не требует повторения! Обычно его упоминают акронимом DRY, который впервые появился в небезызвестной книге "The pragmatic programmer", но концепт, сам по себе, был известен довольно давно. Он относится к самым мелким частям вашего ПО.
+
+    Когда вы разрабатываете крупный проект, часто приходится сталкиваться с избыточной общей сложностью реализации. Люди плохо справляются с управлением сложных систем, им лучше удается находить необычные решения определенных задач. Самое простое решение по уменьшению сложности – разделить систему на мелкие, независимые модули, которыми проще управлять.
+    `,
+    datePost: '31.03.2021, 13:29:55',
+    creator: {
+      userName: 'test',
+      userId: '6065c9e2973a1c65600a0891',
+    },
+    like: [{ userId: "6065c9e2973a1c65600a0891", status: false }],
+    dislike: [{ userId: "6065c9e2973a1c65600a0891", status: false }],
+    edit: false,
+    comments: [{
+      id: 'fff322',
+      creator: {
+        userName: 'test',
+        userId: '6065c9e2973a1c65600a0891',
+        dateComment: '31.03.2021, 13:31:55'
+      },
+      text: 'Пост просто класс!',
+      like: [{ userId: "6065c9e2973a1c65600a0891", status: false }],
+      dislike: [{ userId: "6065c9e2973a1c65600a0891", status: false }],
+      edit: false,
+    }]
   }]
 };
 export default function userReducer(state = initialState, action: ContentActionTypes): ContentReducerIS {

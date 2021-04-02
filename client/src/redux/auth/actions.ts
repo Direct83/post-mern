@@ -1,4 +1,4 @@
-import { actionTypes, AuthData, ResponseAuth, AuthActionTypes } from '../actionTypes';
+import { actionTypes, AuthData, ResponseAuth } from '../actionTypes';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux';
 import { RootState } from '../store'

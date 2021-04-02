@@ -45,34 +45,31 @@ export default function CreateTopic() {
     <>
       {redirect ? <Redirect to={'/'} /> : null}
       {!isAuth
-        ? <div>Контент доступен только авторизованным пользователям</div>
+        ? <div style={{ textAlign: 'center' }}>Контент доступен только авторизованным пользователям</div>
         : (
           <>
             <form
-              className="text-center"
-              style={{ width: '400px' }}
+              className={style.createItem}
             >
-              <div className="form-group mx-sm-3 mb-2">
-                <label htmlFor="title">Title</label>
+              <div>
+                <div>Title</div>
                 <input
                   type='text'
                   name='title'
-                  className="form-control"
                   onChange={inputHundler}
                 />
               </div>
-              <div className="form-group mx-sm-3 mb-2">
-                <label htmlFor="text">Text</label>
+              <div>
+                <div style={{ margin: '20px' }}>Text</div>
                 <textarea
-                  className="form-control"
                   onChange={inputHundler}
                   name='text'
-                  rows={4}
+                  cols={80}
+                  rows={10}
                 />
               </div>
               <button
                 type='button'
-                className="btn-blu"
                 onClick={createTop}
               >
                 сохранить

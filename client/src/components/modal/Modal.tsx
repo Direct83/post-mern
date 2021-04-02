@@ -83,11 +83,10 @@ const Modal = ({ active, setActive, userInfo }: ModalType) => {
               </select>
             </p>
           </label>
-          <input
+          <button
             style={{ marginBottom: '30px' }}
             type="submit"
-            value="Сохранить роль"
-          />
+          >Сохранить роль</button>
         </form>
         <label>
           <p>Бан на время:

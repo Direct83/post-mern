@@ -3,7 +3,6 @@ import { likeCommentAction, dislikeCommentAction, likeAction, dislikeAction } fr
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
 
-
 interface ArrReaction {
   userId: string,
   status: boolean

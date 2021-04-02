@@ -107,92 +107,94 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
         />
         : null
       }
-      {posts.filter(el => el.id === props.location.state.id).map(el => {
-        return (
-          <div key={el.id + 'a'} className={style.itemFront}>
-            <h1>{el.title}</h1>
-            <h2>{el.text}</h2>
-            <div>Автор: {el.creator.userName} </div>
-            <div>Дата создания поста: {el.datePost}</div>
-            <Reaction
-              like={el.like}
-              dislike={el.dislike}
-              itemId={el.id}
-              postId={props.location.state.id}
-              from={'post'}
-            />
-            <div className={style.chatPost}>
-              {el.comments.map(el => {
-                return (
-                  <blockquote
-                    className={style.discuss}
-                    key={el.id}
-                  >
-                    {el.edit
-                      ? <>
-                        <textarea
-                          style={{ width: '500px' }}
-                          name='text'
-                          rows={2}
-                          onChange={textCommentUpd}
-                          defaultValue={el.text}
-                        />
-                        <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                        <img
-                          className={style.imgUpd}
-                          src='img/save.png'
-                          onClick={() => updateComment(el.id)}
-                        />
-                      </>
-                      : <>
-                        <p key={el.id}>{el.text}</p>
-                        {role === 'admin'
-                          ? <>
-                            <cite
-                              onClick={() => onModal(el.creator)}
-                            >
-                              Автор: {el.creator.userName}, {el.creator.dateComment}
-                            </cite>
-                          </>
-                          : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                        }
-                        <div style={{ float: 'right' }}>
-                          <Reaction
-                            like={el.like}
-                            dislike={el.dislike}
-                            itemId={el.id}
-                            postId={props.location.state.id}
-                            from={'postDiscussComment'}
+      <div className={style.wrapper}>
+        {posts.filter(el => el.id === props.location.state.id).map(el => {
+          return (
+            <div key={el.id + 'a'} className={style.itemFront}>
+              <h1>{el.title}</h1>
+              <h2>{el.text}</h2>
+              <div>Автор: {el.creator.userName} </div>
+              <div>Дата создания поста: {el.datePost}</div>
+              <Reaction
+                like={el.like}
+                dislike={el.dislike}
+                itemId={el.id}
+                postId={props.location.state.id}
+                from={'post'}
+              />
+              <div className={style.chatPost}>
+                {el.comments.map(el => {
+                  return (
+                    <blockquote
+                      className={style.discuss}
+                      key={el.id}
+                    >
+                      {el.edit
+                        ? <>
+                          <textarea
+                            style={{ width: '500px' }}
+                            name='text'
+                            rows={2}
+                            onChange={textCommentUpd}
+                            defaultValue={el.text}
                           />
-                        </div>
-
-                        {el.creator.userId === userId && role === 'user' || role === 'admin'
-                          ? (
-                            <>
-                              <img
-                                className={style.imgUpd}
-                                src='img/pen.png'
-                                onClick={() => onEdit(el.id)}
-                              />
-                              <img
-                                className={style.imgDelete}
-                                src='img/cross.png'
-                                onClick={() => deleteComment(el.id)}
-                              />
+                          <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                          <img
+                            className={style.imgUpd}
+                            src='img/save.png'
+                            onClick={() => updateComment(el.id)}
+                          />
+                        </>
+                        : <>
+                          <p key={el.id}>{el.text}</p>
+                          {role === 'admin'
+                            ? <>
+                              <cite
+                                onClick={() => onModal(el.creator)}
+                              >
+                                Автор: {el.creator.userName}, {el.creator.dateComment}
+                              </cite>
                             </>
-                          )
-                          : null
-                        }
-                      </>
-                    }
-                  </blockquote>
-                )
-              })}
+                            : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                          }
+                          <div style={{ float: 'right' }}>
+                            <Reaction
+                              like={el.like}
+                              dislike={el.dislike}
+                              itemId={el.id}
+                              postId={props.location.state.id}
+                              from={'postDiscussComment'}
+                            />
+                          </div>
+
+                          {el.creator.userId === userId && role === 'user' || role === 'admin'
+                            ? (
+                              <>
+                                <img
+                                  className={style.imgUpd}
+                                  src='img/pen.png'
+                                  onClick={() => onEdit(el.id)}
+                                />
+                                <img
+                                  className={style.imgDelete}
+                                  src='img/cross.png'
+                                  onClick={() => deleteComment(el.id)}
+                                />
+                              </>
+                            )
+                            : null
+                          }
+                        </>
+                      }
+                    </blockquote>
+                  )
+                })}
+              </div>
             </div>
-          </div>
-        )
-      })
-      }
+          )
+        })
+        }
+      </div>
       <div className={style.sendMessage}>
         {role === 'user' || role === 'admin'
           ? (
@@ -206,7 +208,6 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
               />
               <button
                 type='button'
-                className='btn-blu comment'
                 onClick={sendComment}
               >
                 Отправить сообщение

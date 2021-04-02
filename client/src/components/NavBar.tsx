@@ -13,11 +13,16 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="nav-item">
-      <Link className="navWords" to="/">Home</Link>
-      {role === 'user' || role === 'admin' ? <Link className="navWords" to="/create-topic">CreateTopic</Link> : null}
-      {!isAuth && <Link className="navWords" to="/auth">Login</Link>}
-      {isAuth && <Link className="navWords" to="/login" onClick={logout}>logOut</Link>}
-    </nav>
+    <>
+      <div className="dropdown">
+        <button className='dropbtn'>Menu</button>
+        <nav className="sidenav">
+          <Link className="navWords" to="/">Home</Link>
+          {role === 'user' || role === 'admin' ? <Link className="navWords" to="/create-topic">CreateTopic</Link> : null}
+          {!isAuth && <Link className="navWords" to="/auth">Login</Link>}
+          {isAuth && <Link className="navWords" to="/login" onClick={logout}>logOut</Link>}
+        </nav>
+      </div>
+    </>
   );
 }

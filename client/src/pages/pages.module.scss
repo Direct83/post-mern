@@ -1,29 +1,29 @@
-$blu_t1: #33cfd1;
-$blu_t2: #26a8aa;
-$blu_t3: #b4edee;
-$blu_t4: #c8f2f2;
-$blu_t5: #196f70;
-$blu_t6: #239c9e;
-$blu_t7: #29b5b7;
-$blu_t8: #0f4546;
-$blu_t9: #d9f6f6;
-
-$blu_shadow: rgba(51, 207, 209, 0.5);
-$blu_text_color_dark_bright: #212529;
-
-.btn-blu:not(:disabled):not(.disabled):active, .btn-blu:not(:disabled):not(.disabled).active, .show > .btn-blu.dropdown-toggle {
-  color: $blu_text_color_dark_bright;
-  background-color: $blu_t2;
-  border-color: $blu_t6;
+.authPage{
+  height: 100vh;
+  width: 100vw;
+  display:table-cell;
+  vertical-align:middle;
+  text-align:center;
+  padding: 10px;
+}
+.authItem{
+  margin: 30px;
+  font-size: 64px;
+  text-decoration: none!important;
+  font-weight: 900;
+  color: #33cfd1;
+  text-decoration: none;
+  &:hover{
+    color:#000000;
+  }
 }
 .wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 50px;
 }
 .itemFront{
-  margin: 50px;
+  margin-bottom: 20px;
   text-align: center;
   h2{
     text-align: left;
@@ -41,7 +41,6 @@ blockquote {
   font-family: 'Lato', sans-serif;
   text-align: center;
   & cite {
-    margin: 0;
     font-size: 12px;
     font-style: normal;
     }
@@ -63,11 +62,12 @@ blockquote {
   }
   & p {
     font-size: 20px;
-    margin: 0;
+    margin-top: 10px;
   }
 }
 .inputMessage{
   width: 370px;
+  font-size: 18px;
   margin-bottom: 200px;
 }
 .buttons{
@@ -98,4 +98,22 @@ blockquote {
 
 .sendMessage{
   text-align: center;
+}
+
+.createItem{
+  text-align: center;
+  margin: 0 auto 20px auto;
+  max-width: 800px;
+  font-size: 18px;
+  input{
+    width: 710px;
+    font-size: 18px;
+  }
+  textarea{
+    font-size: 18px;
+  }
+  button{
+    margin: 20px;
+    border-radius: 12px;
+  }
 }

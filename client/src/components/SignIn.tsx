@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { authFetchThunk } from '../redux/auth/actions';
 import { RootState } from '../redux/store'
-import './auth.scss'
+
 const SignIn = () => {
   const { isAuth, message } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
@@ -32,46 +32,29 @@ const SignIn = () => {
               ? <h3>{message}</h3>
               : null
             }
-            <form>
-              <div className="mb-3">
-                <label
-                  htmlFor="exampleInputName1"
-                  className="form-label"
-                >
-                  name
-                  <input
-                    type="text"
-                    onChange={inputHundler}
-                    name="name"
-                    className="form-control"
-                    id="exampleInputName1"
-                  />
-                </label>
-              </div>
-              <div className="mb-3">
-                <label
-                  htmlFor="exampleInputPassword1"
-                  className="form-label"
-                >
-                  password
-                  <input
-                    type="password"
-                    onChange={inputHundler}
-                    name="password"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                  />
-                </label>
-              </div>
+            <form className='login-form'>
+              <div>Login</div>
+              <input
+                type="text"
+                onChange={inputHundler}
+                name="name"
+              />
+              <div>Password</div>
+              <input
+                type="password"
+                onChange={inputHundler}
+                name="password"
+              />
               <button
                 type="button"
-                className="btn-blu"
                 onClick={loginHandler}
-                style={{ backgroundColor: '#33cfd1' }}
-              >Submit</button>
+              >
+                Submit
+              </button>
             </form>
           </div>
-        )}
+        )
+      }
     </>
   );
 };
