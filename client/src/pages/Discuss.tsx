@@ -112,7 +112,7 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
           return (
             <div key={el.id + 'a'} className={style.itemFront}>
               <h1>{el.title}</h1>
-              <h2>{el.text}</h2>
+              <p>{el.text}</p>
               <div>Автор: {el.creator.userName} </div>
               <div>Дата создания поста: {el.datePost}</div>
               <Reaction

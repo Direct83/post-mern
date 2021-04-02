@@ -105,7 +105,7 @@ export default function HomePage() {
                       : (
                         <>
                           <h1>{el.title}</h1>
-                          <h2>{el.text}</h2>
+                          <p>{el.text}</p>
                         </>
                       )
                     }
