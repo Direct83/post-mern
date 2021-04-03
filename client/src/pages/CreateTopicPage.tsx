@@ -51,23 +51,19 @@ export default function CreateTopic() {
             <form
               className={style.createItem}
             >
-              <div>
-                <div>Title</div>
-                <input
-                  type='text'
-                  name='title'
-                  onChange={inputHundler}
-                />
-              </div>
-              <div>
-                <div style={{ margin: '20px' }}>Text</div>
-                <textarea
-                  onChange={inputHundler}
-                  name='text'
-                  cols={80}
-                  rows={10}
-                />
-              </div>
+              <div>Title</div>
+              <input
+                type='text'
+                name='title'
+                onChange={inputHundler}
+              />
+              <div style={{ margin: '20px' }}>Text</div>
+              <textarea
+                onChange={inputHundler}
+                name='text'
+                cols={80}
+                rows={10}
+              />
               <button
                 type='button'
                 onClick={createTop}

@@ -105,7 +105,7 @@ export default function HomePage() {
                       : (
                         <>
                           <h1>{el.title}</h1>
-                          <p>{el.text}</p>
+                          <textarea cols={175} rows={7} style={{ width: "100%" }} readOnly>{el.text}</textarea>
                         </>
                       )
                     }
