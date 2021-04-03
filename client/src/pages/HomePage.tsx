@@ -97,7 +97,7 @@ export default function HomePage() {
                             />
                           </h1>
                           <textarea
-                            style={{ width: '900px' }}
+                            style={{ width: '1195px', border: '1px solid #33cfd1' }}
                             name='text' rows={10}
                             onChange={inputHundler}
                             defaultValue={el.text} />
@@ -105,13 +105,14 @@ export default function HomePage() {
                       : (
                         <>
                           <h1>{el.title}</h1>
-                          <textarea cols={175} rows={7} style={{ width: "100%" }} readOnly>{el.text}</textarea>
+                          <textarea cols={175} rows={8} readOnly>{el.text}</textarea>
                         </>
                       )
                     }
                     {role === 'admin'
                       ? <>
                         <div
+                          className={style.creator}
                           onClick={() => onModal(el.creator)}
                         >
                           Автор: {el.creator.userName}

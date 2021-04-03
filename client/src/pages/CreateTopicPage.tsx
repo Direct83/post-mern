@@ -57,7 +57,7 @@ export default function CreateTopic() {
                 name='title'
                 onChange={inputHundler}
               />
-              <div style={{ margin: '20px' }}>Text</div>
+              <div>Text</div>
               <textarea
                 onChange={inputHundler}
                 name='text'

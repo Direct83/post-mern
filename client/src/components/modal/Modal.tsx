@@ -60,10 +60,9 @@ const Modal = ({ active, setActive, userInfo }: ModalType) => {
         ? 'modal active'
         : 'modal'
     } >
-      <div className='modal__content'>
+      <div className='modal-content'>
         <img
           src={'img/cross.png'}
-          style={{ width: '25px', height: '25px', float: 'right' }}
           onClick={closeModal}
         />
         <form

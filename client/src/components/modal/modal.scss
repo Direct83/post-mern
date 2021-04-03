@@ -11,13 +11,18 @@
   justify-content: center;
   transform: scale(0);
 }
-.modal__content{
+.modal-content{
   text-align: center;
   padding: 20px;
   border-radius: 12px;
   background-color: white;
-  height: 325px;
+  height: 300px;
   width: 400px;
+  img{
+    width: 25px;
+    height: 25px;
+    float: right;
+  }
 }
 
 .modal.active{

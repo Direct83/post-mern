@@ -68,67 +68,67 @@ export default function userReducer(state = initialState, action: ContentActionT
     case actionTypes.DELETE_POST:
       return {
         ...state,
-        posts: [...state.posts.filter(el => el.id !== action.payload.idPost)]
+        posts: [...state.posts.filter(post => post.id !== action.payload.idPost)]
       };
     case actionTypes.EDIT_POST:
       return {
         ...state,
-        posts: [...state.posts.map(el => el.id === action.payload.idPost
-          ? { ...el, edit: !el.edit }
-          : el
+        posts: [...state.posts.map(post => post.id === action.payload.idPost
+          ? { ...post, edit: !post.edit }
+          : post
         )]
       };
     case actionTypes.EDIT_COMMENT:
       return {
         ...state,
-        posts: [...state.posts.map(el => el.id === action.payload.idPost
+        posts: [...state.posts.map(post => post.id === action.payload.idPost
           ? {
-            ...el, comments: [...el.comments.map(el => el.id === action.payload.commentId
-              ? { ...el, edit: !el.edit }
-              : el
+            ...post, comments: [...post.comments.map(comment => comment.id === action.payload.commentId
+              ? { ...comment, edit: !comment.edit }
+              : comment
             )]
           }
-          : el
+          : post
         )]
       };
     case actionTypes.DELETE_COMMENT:
       return {
         ...state,
-        posts: [...state.posts.map(el => el.id === action.payload.idPost
-          ? { ...el, comments: [...el.comments.filter(el => el.id !== action.payload.commentId)] }
-          : el
+        posts: [...state.posts.map(post => post.id === action.payload.idPost
+          ? { ...post, comments: [...post.comments.filter(comment => comment.id !== action.payload.commentId)] }
+          : post
         )]
       };
     case actionTypes.UPD_COMMENT:
       return {
         ...state,
-        posts: [...state.posts.map(el => el.id === action.payload.idPost
+        posts: [...state.posts.map(post => post.id === action.payload.idPost
           ? {
-            ...el,
-            comments: [...el.comments.map(el => el.id === action.payload.commentId
-              ? { ...el, text: action.payload.text || el.text }
-              : el
+            ...post,
+            comments: [...post.comments.map(comment => comment.id === action.payload.commentId
+              ? { ...comment, text: action.payload.text || comment.text }
+              : comment
             )]
           }
-          : el
+          : post
         )]
       };
     case actionTypes.UPD_POST:
       return {
         ...state,
-        posts: [...state.posts.map(el => el.id === action.payload.idPost
-          ? { ...el, title: action.payload.title || el.title, text: action.payload.text || el.text }
-          : el
+        posts: [...state.posts.map(post => post.id === action.payload.idPost
+          ? { ...post, title: action.payload.title || post.title, text: action.payload.text || post.text }
+          : post
         )]
       };
     case actionTypes.ADD_COMMENT_DATA:
       return {
         ...state,
-        posts: [...state.posts.map(el => el.id === action.payload.idPost
+        posts: [...state.posts.map(post => post.id === action.payload.idPost
           ? {
-            ...el,
+            ...post,
             comments: [
-              ...el.comments,
+              ...post.comments,
               {
                 id: makeId(20),
                 creator: { ...action.payload.creator },
@@ -139,107 +139,107 @@ export default function userReducer(state = initialState, action: ContentActionT
               }
             ]
           }
-          : el)]
+          : post)]
       };
     case actionTypes.DISLIKE_POST_DATA:
       return {
         ...state,
-        posts: [...state.posts.map(el =>
-          action.payload.postId === el.id
-            ? (el.dislike.find(el => el.userId === action.payload.userId)
+        posts: [...state.posts.map(post =>
+          action.payload.postId === post.id
+            ? (post.dislike.find(dislike => dislike.userId === action.payload.userId)
               ? {
-                ...el,
-                dislike: el.dislike.map(el => el.userId === action.payload.userId
-                  ? { ...el, status: !el.status }
-                  : el),
-                like: el.like.map(el => el.userId === action.payload.userId
-                  ? { ...el, status: false }
-                  : el)
+                ...post,
+                dislike: post.dislike.map(dislike => dislike.userId === action.payload.userId
+                  ? { ...dislike, status: !dislike.status }
+                  : dislike),
+                like: post.like.map(like => like.userId === action.payload.userId
+                  ? { ...like, status: false }
+                  : like)
               }
               : {
-                ...el,
-                dislike: [...el.dislike, { userId: action.payload.userId, status: true }],
-                like: [...el.like, { userId: action.payload.userId, status: false }]
+                ...post,
+                dislike: [...post.dislike, { userId: action.payload.userId, status: true }],
+                like: [...post.like, { userId: action.payload.userId, status: false }]
               })
-            : el
+            : post
         )]
       };
     case actionTypes.DISLIKE_COMMENT_DATA:
       return {
         ...state,
-        posts: [...state.posts.map(el =>
-          action.payload.postId === el.id
+        posts: [...state.posts.map(post =>
+          action.payload.postId === post.id
             ? {
-              ...el,
-              comments: el.comments.map(el => el.id === action.payload.commentId
-                ? (el.dislike.find(el => el.userId === action.payload.userId)
+              ...post,
+              comments: post.comments.map(comment => comment.id === action.payload.commentId
+                ? (comment.dislike.find(el => el.userId === action.payload.userId)
                   ? {
-                    ...el,
-                    dislike: el.dislike.map(el => el.userId === action.payload.userId
-                      ? { ...el, status: !el.status }
-                      : el),
-                    like: el.like.map(el => el.userId === action.payload.userId
-                      ? { ...el, status: false }
-                      : el)
+                    ...comment,
+                    dislike: comment.dislike.map(dislike => dislike.userId === action.payload.userId
+                      ? { ...dislike, status: !dislike.status }
+                      : dislike),
+                    like: comment.like.map(like => like.userId === action.payload.userId
+                      ? { ...like, status: false }
+                      : like)
                   }
                   : {
-                    ...el,
-                    dislike: [...el.dislike, { userId: action.payload.userId, status: true }],
-                    like: [...el.like, { userId: action.payload.userId, status: false }]
+                    ...comment,
+                    dislike: [...comment.dislike, { userId: action.payload.userId, status: true }],
+                    like: [...comment.like, { userId: action.payload.userId, status: false }]
                   })
-                : el)
+                : comment)
             }
-            : el
+            : post
         )]
       };
     case actionTypes.LIKE_COMMENT_DATA:
       return {
         ...state,
-        posts: [...state.posts.map(el =>
-          action.payload.postId === el.id
+        posts: [...state.posts.map(post =>
+          action.payload.postId === post.id
             ? {
-              ...el,
-              comments: el.comments.map(el => el.id === action.payload.commentId
-                ? (el.like.find(el => el.userId === action.payload.userId)
+              ...post,
+              comments: post.comments.map(comment => comment.id === action.payload.commentId
+                ? (comment.like.find(el => el.userId === action.payload.userId)
                   ? {
-                    ...el,
-                    like: el.like.map(el => el.userId === action.payload.userId
-                      ? { ...el, status: !el.status }
-                      : el),
-                    dislike: el.dislike.map(el => el.userId === action.payload.userId
-                      ? { ...el, status: false }
-                      : el)
+                    ...comment,
+                    like: comment.like.map(like => like.userId === action.payload.userId
+                      ? { ...like, status: !like.status }
+                      : like),
+                    dislike: comment.dislike.map(dislike => dislike.userId === action.payload.userId
+                      ? { ...dislike, status: false }
+                      : dislike)
                   }
                   : {
-                    ...el,
-                    like: [...el.like, { userId: action.payload.userId, status: true }],
-                    dislike: [...el.dislike, { userId: action.payload.userId, status: false }]
+                    ...comment,
+                    like: [...comment.like, { userId: action.payload.userId, status: true }],
+                    dislike: [...comment.dislike, { userId: action.payload.userId, status: false }]
                   })
-                : el)
+                : comment)
             }
-            : el
+            : post
         )]
       };
     case actionTypes.LIKE_POST_DATA:
       return {
         ...state,
-        posts: [...state.posts.map(el =>
-          action.payload.postId === el.id
-            ? (el.like.find(el => el.userId === action.payload.userId) ? {
-              ...el,
-              like: el.like.map(el => el.userId === action.payload.userId
-                ? { ...el, status: !el.status }
-                : el),
-              dislike: el.dislike.map(el => el.userId === action.payload.userId
-                ? { ...el, status: false }
-                : el)
+        posts: [...state.posts.map(post =>
+          action.payload.postId === post.id
+            ? (post.like.find(like => like.userId === action.payload.userId) ? {
+              ...post,
+              like: post.like.map(like => like.userId === action.payload.userId
+                ? { ...like, status: !like.status }
+                : like),
+              dislike: post.dislike.map(dislike => dislike.userId === action.payload.userId
+                ? { ...dislike, status: false }
+                : dislike)
             }
               : {
-                ...el,
-                like: [...el.like, { userId: action.payload.userId, status: true }],
-                dislike: [...el.dislike, { userId: action.payload.userId, status: false }]
+                ...post,
+                like: [...post.like, { userId: action.payload.userId, status: true }],
+                dislike: [...post.dislike, { userId: action.payload.userId, status: false }]
               })
-            : el
+            : post
         )]
       };
     default:

@@ -112,8 +112,13 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
           return (
             <div key={el.id + 'a'} className={style.itemFront}>
               <h1>{el.title}</h1>
-              <textarea cols={175} rows={10} style={{ width: "100%" }} readOnly>{el.text}</textarea>
-              <div>Автор: {el.creator.userName} </div>
+              <textarea cols={175} rows={8} readOnly>{el.text}</textarea>
+              <div
+                className={style.creator}
+                onClick={() => onModal(el.creator)}
+              >
+                Автор: {el.creator.userName}
+              </div>
               <div>Дата создания поста: {el.datePost}</div>
               <Reaction
                 like={el.like}
@@ -126,13 +131,11 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
                 {el.comments.map(el => {
                   return (
                     <blockquote
-                      className={style.discuss}
                       key={el.id}
                     >
                       {el.edit
                         ? <>
                           <textarea
-                            style={{ width: '525px' }}
                             name='text'
                             rows={2}
                             onChange={textCommentUpd}
@@ -157,7 +160,7 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
                             </>
                             : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
                           }
-                          <div style={{ float: 'right' }}>
+                          <div>
                             <Reaction
                               like={el.like}
                               dislike={el.dislike}

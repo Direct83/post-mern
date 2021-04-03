@@ -30,6 +30,12 @@ blockquote {
     font-size: 20px;
     margin-top: 10px;
   }
+  textarea {
+    width: 525px;
+  }
+  div{
+    float: right;
+  }
 }
 .authPage{
   display: flex;
@@ -67,6 +73,11 @@ blockquote {
     font-family:Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
     border: none;
+    width: 100%;
+  }
+  h1 input{
+    width: 100%;
+    font-size: 20px;
   }
 }
 .inputMessage{
@@ -111,6 +122,9 @@ blockquote {
     width: 710px;
     font-size: 18px;
   }
+  div{
+    margin: 10px;
+  }
   textarea{
     font-size: 18px;
   }
@@ -118,4 +132,8 @@ blockquote {
     margin: 20px;
     border-radius: 12px;
   }
+}
+.creator{
+  width: 100px;
+  margin: 0 auto;
 }

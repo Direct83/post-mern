@@ -34,18 +34,14 @@ const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
       })[0]?.status
         ? <img
           src='img/like-red.png'
-          style={{ width: '25px', height: '25px' }}
           onClick={() => reactionLike(itemId)}
         />
         : <img
           src='img/like-wh.png'
-          style={{ width: '25px', height: '25px' }}
           onClick={() => reactionLike(itemId)}
         />
       }
-      <span
-        style={{ margin: '5px' }}
-      >
+      <span>
         : {like.filter(el => el.status).filter(Boolean).length}шт.
         </span>
       {dislike.filter(el => {
@@ -53,18 +49,14 @@ const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
       })[0]?.status
         ? <img
           src='img/dis-bl.png'
-          style={{ width: '25px', height: '25px', }}
           onClick={() => reactionDis(itemId)}
         />
         : <img
           src='img/dis-wh.png'
-          style={{ width: '25px', height: '25px' }}
           onClick={() => reactionDis(itemId)}
         />
       }
-      <span
-        style={{ margin: '5px' }}
-      >
+      <span>
         : {dislike.filter(el => el.status).filter(Boolean).length}шт.
         </span>
     </div>
