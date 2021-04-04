@@ -1,90 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
-import {
-  commentData, deleteCommentAction, updateCommentAction,
-  editCommentAction
-} from '../redux/content/actions'
 import { checkAuth } from '../redux/auth/actions'
 import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
 import Reaction from '../components/Reaction'
 import AutoTextArea from '../components/AutoTextArea';
 import Auth from '../components/Auth';
+import Comments from '../components/Comments';
 
 export default function Discuss(props: { location: { state: { id: string; }; }; }) {
   const { posts } = useSelector((state: RootState) => state.content)
-  const { isAuth, userId, userName, role } = useSelector((state: RootState) => state.auth);
+  const { isAuth } = useSelector((state: RootState) => state.auth);
   const [modalActive, setModalActive] = useState(false)
-  const [updComment, setUpdComment] = useState({
-    text: '',
-  })
   const [postCreator, setPostCreator] = useState({
     userName: '',
     userId: '',
   })
-  const [comment, setComment] = useState({
-    id: '',
-    creator: {
-      userName: '',
-      userId: '',
-      dateComment: ''
-    },
-    text: '',
-    edit: false,
-    like: [],
-    dislike: [],
-  })
   const dispatch = useDispatch();
-  const inputHundler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setComment((previousCommentData) => ({
-      ...previousCommentData,
-      creator: {
-        userName,
-        userId,
-        dateComment: new Date().toLocaleString(),
-      },
-      [name]: value,
-    }));
-  };
-  const sendComment = () => {
-    if (comment.text !== '') {
-      dispatch(commentData(comment, props.location.state.id))
-      setComment({
-        id: '',
-        creator: {
-          userName: '',
-          userId: '',
-          dateComment: ''
-        },
-        text: '',
-        edit: false,
-        like: [],
-        dislike: [],
-      })
-    }
-  }
-  const deleteComment = (messageId: string) => {
-    dispatch(deleteCommentAction(messageId, props.location.state.id))
-  }
-  const onEdit = (commentId: string) => {
-    dispatch(editCommentAction(commentId, props.location.state.id))
-  }
-  const textCommentUpd = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setUpdComment((previousCommentData) => ({
-      ...previousCommentData,
-      [name]: value,
-    }));
-  };
-  const updateComment = (commentId: string) => {
-    dispatch(updateCommentAction(updComment.text, commentId, props.location.state.id))
-    setUpdComment({
-      text: '',
-    })
-    dispatch(editCommentAction(commentId, props.location.state.id))
-  }
   interface clickPostCreatorType {
     userName: string,
     userId: string,
@@ -133,96 +66,15 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
                       postId={props.location.state.id}
                       from={'post'}
                     />
-                    <div className={style.chatPost}>
-                      {el.comments.map(el => {
-                        return (
-                          <blockquote
-                            key={el.id}
-                          >
-                            {el.edit
-                              ? <>
-                                <textarea
-                                  name='text'
-                                  rows={2}
-                                  onChange={textCommentUpd}
-                                  defaultValue={el.text}
-                                />
-                                <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                                <img
-                                  className={style.imgUpdateDeleteSave}
-                                  src='img/save.png'
-                                  onClick={() => updateComment(el.id)}
-                                />
-                              </>
-                              : <>
-                                <p key={el.id}>{el.text}</p>
-                                {role === 'admin'
-                                  ? <>
-                                    <cite
-                                      onClick={() => onModal(el.creator)}
-                                    >
-                                      Автор: {el.creator.userName}, {el.creator.dateComment}
-                                    </cite>
-                                  </>
-                                  : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                                }
-                                <div>
-                                  <Reaction
-                                    like={el.like}
-                                    dislike={el.dislike}
-                                    itemId={el.id}
-                                    postId={props.location.state.id}
-                                    from={'postDiscussComment'}
-                                  />
-                                </div>
-
-                                {el.creator.userId === userId && role === 'user' || role === 'admin'
-                                  ? (
-                                    <>
-                                      <img
-                                        className={style.imgUpdateDeleteSave}
-                                        src='img/pen.png'
-                                        onClick={() => onEdit(el.id)}
-                                      />
-                                      <img
-                                        className={style.imgUpdateDeleteSave}
-                                        src='img/cross.png'
-                                        onClick={() => deleteComment(el.id)}
-                                      />
-                                    </>
-                                  )
-                                  : null
-                                }
-                              </>
-                            }
-                          </blockquote>
-                        )
-                      })}
-                    </div>
+                    <Comments
+                      postId={props.location.state.id}
+                      modal={onModal}
+                      comments={el.comments}
+                    />
                   </div>
                 )
               })
               }
-            </div>
-            <div className={style.sendMessage}>
-              {role === 'user' || role === 'admin'
-                ? (
-                  <>
-                    <input
-                      type='text'
-                      name='text'
-                      onChange={inputHundler}
-                      value={comment.text}
-                    />
-                    <button
-                      type='button'
-                      onClick={sendComment}
-                    >
-                      Отправить сообщение
-              </button>
-                  </>
-                )
-                : null}
             </div>
           </>
         )}
