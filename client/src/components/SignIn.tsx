@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { authFetchThunk } from '../redux/auth/actions';
+import { Link, Redirect } from 'react-router-dom';
+import { authFetchThunk, sendMessage } from '../redux/auth/actions';
 import { RootState } from '../redux/store'
+import style from '../pages/pages.module.scss'
 
 const SignIn = () => {
   const { isAuth, message } = useSelector((state: RootState) => state.auth);
@@ -18,10 +19,13 @@ const SignIn = () => {
       [name]: value,
     }));
   };
-  const loginHandler = async () => {
+  const loginHandler = () => {
     const path = 'signin';
     dispatch(authFetchThunk(authData, path))
   };
+  const messageNull = () => {
+    dispatch(sendMessage(''))
+  }
   return (
     <>
       {isAuth && <Redirect to="/" />}
@@ -29,7 +33,12 @@ const SignIn = () => {
         && (
           <div className="login">
             {message
-              ? <h3>{message}</h3>
+              ? (
+                <>
+                  <h3>{message}</h3>
+                  <Link to="/signup" onClick={messageNull} className={style.authSignIn}>Registration</Link>
+                </>
+              )
               : null
             }
             <form className='login-form'>

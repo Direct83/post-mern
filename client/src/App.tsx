@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import AuthPage from './pages/AuthPage';
 import CreateTopicPage from './pages/CreateTopicPage';
 import Discuss from './pages/Discuss';
 import HomePage from './pages/HomePage';
@@ -25,7 +24,6 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/create-topic" exact component={CreateTopicPage} />
         <Route path="/discuss" exact component={Discuss} />
-        <Route path="/auth" exact component={AuthPage} />
         <Route path="/signin" exact component={SignIn} />
         <Route path="/signup" exact component={SignUp} />
         <Route path="/" component={HomePage} />

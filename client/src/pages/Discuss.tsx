@@ -44,40 +44,37 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
       }
       {!isAuth
         ? <Auth />
-        : (
-          <>
-            <div className={style.wrapper}>
-              {posts.filter(el => el.id === props.location.state.id).map(el => {
-                return (
-                  <div key={el.id + 'a'} className={style.itemFront}>
-                    <h1>{el.title}</h1>
-                    <AutoTextArea text={el.text} />
-                    <div
-                      className={style.creator}
-                      onClick={() => onModal(el.creator)}
-                    >
-                      Автор: {el.creator.userName}
-                    </div>
-                    <div>Дата создания поста: {el.datePost}</div>
-                    <Reaction
-                      like={el.like}
-                      dislike={el.dislike}
-                      itemId={el.id}
-                      postId={props.location.state.id}
-                      from={'post'}
-                    />
-                    <Comments
-                      postId={props.location.state.id}
-                      modal={onModal}
-                      comments={el.comments}
-                    />
-                  </div>
-                )
-              })
-              }
-            </div>
-          </>
-        )}
+        : <div className={style.wrapper}>
+          {posts.filter(el => el.id === props.location.state.id).map(el => {
+            return (
+              <div key={el.id + 'a'} className={style.itemFront}>
+                <h1>{el.title}</h1>
+                <AutoTextArea text={el.text} />
+                <div
+                  className={style.creator}
+                  onClick={() => onModal(el.creator)}
+                >
+                  Автор: {el.creator.userName}
+                </div>
+                <div>Дата создания поста: {el.datePost}</div>
+                <Reaction
+                  like={el.like}
+                  dislike={el.dislike}
+                  itemId={el.id}
+                  postId={props.location.state.id}
+                  from={'post'}
+                />
+                <Comments
+                  postId={props.location.state.id}
+                  modal={onModal}
+                  comments={el.comments}
+                />
+              </div>
+            )
+          })
+          }
+        </div>
+      }
     </>
   );
 }

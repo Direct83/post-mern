@@ -1,53 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
-import { deletePostAction, updatePostAction, editPostAction } from '../redux/content/actions'
 import { checkAuth } from '../redux/auth/actions'
-import { Redirect } from 'react-router-dom'
-import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
-import Reaction from '../components/Reaction';
-import AutoTextArea from '../components/AutoTextArea';
 import Auth from '../components/Auth';
+import Posts from '../components/Posts';
 
 export default function HomePage() {
-  const { isAuth, userId, role } = useSelector((state: RootState) => state.auth);
-  const { posts } = useSelector((state: RootState) => state.content);
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { posts } = useSelector((state: RootState) => state.content)
   const [modalActive, setModalActive] = useState(false)
-  const [id, setId] = useState('')
-  const [updPost, setUpdPost] = useState({
-    text: '',
-    title: '',
-  })
   const [postCreator, setPostCreator] = useState({
     userName: '',
     userId: '',
   })
-  const dispatch = useDispatch();
-  const redirect = (id: string) => {
-    setId(id)
-  }
-  const deletePost = (postId: string) => {
-    dispatch(deletePostAction(postId))
-  }
-  const onEdit = (postId: string) => {
-    dispatch(editPostAction(postId))
-  }
-  const updatePost = (postId: string) => {
-    dispatch(updatePostAction(updPost.title, updPost.text, postId))
-    setUpdPost({
-      text: '',
-      title: '',
-    })
-    dispatch(editPostAction(postId))
-  }
-  const inputHundler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setUpdPost((previousPostData) => ({
-      ...previousPostData,
-      [name]: value,
-    }));
-  };
+  const dispatch = useDispatch()
   interface clickPostCreatorType {
     userName: string,
     userId: string,
@@ -72,96 +39,11 @@ export default function HomePage() {
         />
         : null
       }
-      {id ? <Redirect to={{
-        pathname: '/discuss',
-        state: { id }
-      }} /> : null}
       {!isAuth
         ? <Auth />
-        : (
-          <>
-            <div className={style.wrapper}>
-              {posts.map(el => {
-                return (
-                  <div
-                    key={el.id}
-                    className={style.itemFront}
-                  >
-                    {el.edit
-                      ? (
-                        <>
-                          <h1>
-                            <input
-                              type='text'
-                              name='title'
-                              defaultValue={el.title}
-                              onChange={inputHundler}
-                            />
-                          </h1>
-                          <textarea
-                            className={style.textareaEdit}
-                            name='text' rows={10}
-                            onChange={inputHundler}
-                            defaultValue={el.text} />
-                        </>)
-                      : (
-                        <>
-                          <h1>{el.title}</h1>
-                          <AutoTextArea text={el.text} />
-                        </>
-                      )
-                    }
-                    {role === 'admin'
-                      ? <>
-                        <div
-                          className={style.creator}
-                          onClick={() => onModal(el.creator)}
-                        >
-                          Автор: {el.creator.userName}
-                        </div>
-                      </>
-                      : <div>Автор: {el.creator.userName} </div>
-                    }
-                    <div>Дата создания поста: {el.datePost}</div>
-                    <Reaction
-                      like={el.like}
-                      dislike={el.dislike}
-                      itemId={''}
-                      postId={el.id}
-                      from={'post'}
-                    />
-                    <div className={style.buttons}>
-                      {role === 'user' || role === 'admin'
-                        ? <button
-                          onClick={() => redirect(el.id)}
-                        >
-                          Обсудить
-                        </button>
-                        : null}
-                      {el.creator.userId === userId && role === 'user' || role === 'admin'
-                        ? <>
-                          {el.edit
-                            ? <button
-                              onClick={() => updatePost(el.id)}
-                            >Сохранить</button>
-                            : <button
-                              onClick={() => onEdit(el.id)}
-                            >Редактировать</button>
-                          }
-                          <button
-                            onClick={() => deletePost(el.id)}
-                          >Удалить</button>
-                        </>
-                        : null
-                      }
-                    </div>
-                  </div>
-                )
-              }
-              )}
-            </div>
-          </>
-        )
+        : <Posts
+          modal={onModal}
+        />
       }
     </>
   );

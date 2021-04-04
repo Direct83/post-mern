@@ -59,6 +59,28 @@ blockquote {
     }
   }
 }
+.authSignIn {
+  margin: 0;
+  font-size: 20px;
+  text-decoration: none!important;
+  font-weight: 900;
+
+  text-decoration: none;
+  &:hover {
+    color:#000000;
+  }
+}
+.authItem {
+  margin: 30px;
+  font-size: 64px;
+  text-decoration: none!important;
+  font-weight: 900;
+  color: #33cfd1;
+  text-decoration: none;
+  &:hover {
+    color:#000000;
+  }
+}
 .wrapper {
   display: flex;
   flex-wrap: wrap;

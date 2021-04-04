@@ -5,7 +5,7 @@ import style from '../pages/pages.module.scss'
 const Auth = () => {
   return (
     <>
-      <div className={style.isAuthMessage}>Контент доступен только авторизованным пользователям</div>
+      <h1 className={style.isAuthMessage}>Контент доступен только авторизованным пользователям</h1>
       <div className={style.authPage}>
         <div className={style.authItem}>
           <Link to="/signin" className={style.authItem}>Login</Link>
