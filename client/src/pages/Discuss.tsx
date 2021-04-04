@@ -9,6 +9,7 @@ import { checkAuth } from '../redux/auth/actions'
 import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
 import Reaction from '../components/Reaction'
+import AutoTextArea from '../components/AutoTextArea';
 
 export default function Discuss(props: { location: { state: { id: string; }; }; }) {
   const { posts } = useSelector((state: RootState) => state.content)
@@ -112,7 +113,7 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
           return (
             <div key={el.id + 'a'} className={style.itemFront}>
               <h1>{el.title}</h1>
-              <textarea cols={175} rows={8} readOnly>{el.text}</textarea>
+              <AutoTextArea text={el.text} />
               <div
                 className={style.creator}
                 onClick={() => onModal(el.creator)}

@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
 import Reaction from '../components/Reaction';
+import AutoTextArea from '../components/AutoTextArea';
 
 export default function HomePage() {
   const { isAuth, userId, role } = useSelector((state: RootState) => state.auth);
@@ -105,7 +106,7 @@ export default function HomePage() {
                       : (
                         <>
                           <h1>{el.title}</h1>
-                          <textarea cols={175} rows={8} readOnly>{el.text}</textarea>
+                          <AutoTextArea text={el.text} />
                         </>
                       )
                     }
