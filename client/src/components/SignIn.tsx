@@ -5,7 +5,7 @@ import { authFetchThunk, sendMessage } from '../redux/auth/actions';
 import { RootState } from '../redux/store'
 import style from '../pages/pages.module.scss'
 
-const SignIn = () => {
+export default function SignIn() {
   const { isAuth, message } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [authData, setAuthData] = useState({
@@ -67,5 +67,3 @@ const SignIn = () => {
     </>
   );
 };
-
-export default SignIn;

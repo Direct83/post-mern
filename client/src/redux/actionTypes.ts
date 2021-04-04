@@ -67,7 +67,7 @@ interface Reaction {
   userId: string,
   status: boolean,
 }
-interface Creator {
+export interface Creator {
   userName: string,
   userId: string,
 }

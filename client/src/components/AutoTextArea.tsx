@@ -7,7 +7,7 @@ import React, {
 interface Props {
   text: string
 }
-const AutoTextArea = ({ text }: Props) => {
+export default function AutoTextArea({ text }: Props) {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   useEffect(() => {
@@ -23,7 +23,5 @@ const AutoTextArea = ({ text }: Props) => {
       defaultValue={`${text}`}
       readOnly
     />
-  );
-};
-
-export default AutoTextArea;
+  )
+}

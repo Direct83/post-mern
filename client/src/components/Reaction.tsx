@@ -2,7 +2,7 @@ import React from 'react'
 import { likeCommentAction, dislikeCommentAction, likeAction, dislikeAction } from '../redux/content/actions'
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
-
+import style from '../pages/pages.module.scss'
 interface ArrReaction {
   userId: string,
   status: boolean
@@ -14,7 +14,7 @@ interface ReactionProps {
   postId: string,
   from: string,
 }
-const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
+export default function Reaction({ like, dislike, itemId, postId, from }: ReactionProps) {
   const { userId } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const reactionLike = (commentId: string) => {
@@ -28,7 +28,7 @@ const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
       : dispatch(dislikeCommentAction(commentId, userId, postId))
   }
   return (
-    <div className='like-dislike'>
+    <div className={style.likeDislike}>
       {like.filter(like => {
         return like.userId === userId
       })[0]?.status
@@ -62,5 +62,3 @@ const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
     </div>
   )
 }
-
-export default Reaction;

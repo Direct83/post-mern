@@ -9,7 +9,7 @@ import AutoTextArea from '../components/AutoTextArea';
 import Auth from '../components/Auth';
 import Comments from '../components/Comments';
 
-export default function Discuss(props: { location: { state: { id: string; }; }; }) {
+export default function DiscussPage(props: { location: { state: { id: string; }; }; }) {
   const { posts } = useSelector((state: RootState) => state.content)
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const [modalActive, setModalActive] = useState(false)

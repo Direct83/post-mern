@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import style from '../pages/pages.module.scss'
 
-const Auth = () => {
+export default function Auth() {
   return (
     <>
       <h1 className={style.isAuthMessage}>Контент доступен только авторизованным пользователям</h1>
@@ -17,5 +17,3 @@ const Auth = () => {
     </>
   )
 }
-
-export default Auth;

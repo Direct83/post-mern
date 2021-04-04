@@ -14,7 +14,7 @@ interface Comments {
   modal: Function
   comments: Comment[]
 }
-const Comments = ({ postId, modal, comments }: Comments) => {
+export default function Comments({ postId, modal, comments }: Comments) {
   const { userId, userName, role } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [updComment, setUpdComment] = useState({
@@ -172,5 +172,3 @@ const Comments = ({ postId, modal, comments }: Comments) => {
     </>
   )
 }
-
-export default Comments;
