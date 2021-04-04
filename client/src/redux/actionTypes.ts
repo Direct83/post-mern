@@ -76,7 +76,7 @@ interface CreatorComment {
   userId: string,
   dateComment: string,
 }
-export interface Comment {
+export interface CommentType {
   id: string,
   creator: CreatorComment,
   text: string,
@@ -90,7 +90,7 @@ export interface Post {
   text: string,
   datePost: string,
   edit: boolean,
-  comments: Comment[]
+  comments: CommentType[]
   creator: Creator,
   like: Reaction[],
   dislike: Reaction[],
@@ -180,6 +180,11 @@ interface DislikeCommentAction {
 interface LikeCommentAction {
   type: typeof actionTypes.LIKE_COMMENT_DATA,
   payload: reactionCommentDL
+}
+export interface CommentsType {
+  postId: string,
+  comments: CommentType[],
+  modal: Function,
 }
 export type ContentActionTypes = PostData | DislikeAction | LikeAction
   | CommentData | DeletePostAction | UpdPostAction | DeleteCommentAction

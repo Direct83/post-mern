@@ -1,4 +1,4 @@
-import { actionTypes, Post, Comment } from '../actionTypes';
+import { actionTypes, Post, CommentType } from '../actionTypes';
 
 export function postData({ id, title, text, creator, datePost, comments, like, dislike }: Post) {
   return {
@@ -33,7 +33,7 @@ export function likeAction(postId: string, userId: string) {
     }
   };
 }
-export function commentData({ id, creator, text }: Comment, idPost: string) {
+export function commentData({ id, creator, text }: CommentType, idPost: string) {
   return {
     type: actionTypes.ADD_COMMENT_DATA,
     payload: {

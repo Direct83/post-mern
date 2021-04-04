@@ -9,7 +9,7 @@ import AutoTextArea from '../components/AutoTextArea';
 import Auth from '../components/Auth';
 import Comments from '../components/Comments';
 
-export default function DiscussPage(props: { location: { state: { id: string; }; }; }) {
+export default function DiscussPage(props: { location: { state: { id: string } } }) {
   const { posts } = useSelector((state: RootState) => state.content)
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const [modalActive, setModalActive] = useState(false)
@@ -18,11 +18,11 @@ export default function DiscussPage(props: { location: { state: { id: string; };
     userId: '',
   })
   const dispatch = useDispatch();
-  interface clickPostCreatorType {
+
+  const onModal = ({ userName, userId }: {
     userName: string,
     userId: string,
-  }
-  const onModal = ({ userName, userId }: clickPostCreatorType) => {
+  }) => {
     setPostCreator({
       userName,
       userId
@@ -45,29 +45,29 @@ export default function DiscussPage(props: { location: { state: { id: string; };
       {!isAuth
         ? <Auth />
         : <div className={style.wrapper}>
-          {posts.filter(el => el.id === props.location.state.id).map(el => {
+          {posts.filter(post => post.id === props.location.state.id).map(post => {
             return (
-              <div key={el.id + 'a'} className={style.itemFront}>
-                <h1>{el.title}</h1>
-                <AutoTextArea text={el.text} />
+              <div key={post.id + 'a'} className={style.itemFront}>
+                <h1>{post.title}</h1>
+                <AutoTextArea text={post.text} />
                 <div
                   className={style.creator}
-                  onClick={() => onModal(el.creator)}
+                  onClick={() => onModal(post.creator)}
                 >
-                  Автор: {el.creator.userName}
+                  Автор: {post.creator.userName}
                 </div>
-                <div>Дата создания поста: {el.datePost}</div>
+                <div>Дата создания поста: {post.datePost}</div>
                 <Reaction
-                  like={el.like}
-                  dislike={el.dislike}
-                  itemId={el.id}
+                  like={post.like}
+                  dislike={post.dislike}
+                  itemId={post.id}
                   postId={props.location.state.id}
                   from={'post'}
                 />
                 <Comments
                   postId={props.location.state.id}
                   modal={onModal}
-                  comments={el.comments}
+                  comments={post.comments}
                 />
               </div>
             )

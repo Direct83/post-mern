@@ -4,10 +4,7 @@ import React, {
   useRef,
 } from "react";
 
-interface Props {
-  text: string
-}
-export default function AutoTextArea({ text }: Props) {
+export default function AutoTextArea({ text }: { text: string }) {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   useEffect(() => {

@@ -7,14 +7,13 @@ interface ArrReaction {
   userId: string,
   status: boolean
 }
-interface ReactionProps {
+export default function Reaction({ like, dislike, itemId, postId, from }: {
   like: ArrReaction[],
   dislike: ArrReaction[],
   itemId: string,
   postId: string,
   from: string,
-}
-export default function Reaction({ like, dislike, itemId, postId, from }: ReactionProps) {
+}) {
   const { userId } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const reactionLike = (commentId: string) => {

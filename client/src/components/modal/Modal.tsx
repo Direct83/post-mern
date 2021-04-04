@@ -3,16 +3,14 @@ import { useDispatch } from 'react-redux'
 import { bannedTimeFetchThunk, roleFetchThunk } from '../../redux/auth/actions'
 import './modal.scss'
 
-interface ModalObj {
-  userName: string;
-  userId: string;
-}
-interface ModalType {
+export default function Modal({ active, setActive, userInfo }: {
   active: boolean,
   setActive: CallableFunction,
-  userInfo: ModalObj
-}
-const Modal = ({ active, setActive, userInfo }: ModalType) => {
+  userInfo: {
+    userName: string;
+    userId: string;
+  }
+}) {
   const dispatch = useDispatch()
   const [state, setState] = useState({
     role: '',
@@ -101,5 +99,3 @@ const Modal = ({ active, setActive, userInfo }: ModalType) => {
     </div>
   )
 }
-
-export default Modal;
