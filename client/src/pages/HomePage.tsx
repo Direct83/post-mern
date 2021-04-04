@@ -8,6 +8,7 @@ import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
 import Reaction from '../components/Reaction';
 import AutoTextArea from '../components/AutoTextArea';
+import Auth from '../components/Auth';
 
 export default function HomePage() {
   const { isAuth, userId, role } = useSelector((state: RootState) => state.auth);
@@ -76,7 +77,7 @@ export default function HomePage() {
         state: { id }
       }} /> : null}
       {!isAuth
-        ? <div className={style.isAuthMessage}>Контент доступен только авторизованным пользователям</div>
+        ? <Auth />
         : (
           <>
             <div className={style.wrapper}>

@@ -10,8 +10,6 @@ interface Props {
 const AutoTextArea = ({ text }: Props) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
-  console.log(document.querySelector<HTMLInputElement>('textarea'));
-
   useEffect(() => {
     setTextAreaHeight(`${textAreaRef.current!.scrollHeight}px`);
   }, [text]);
@@ -21,7 +19,6 @@ const AutoTextArea = ({ text }: Props) => {
       cols={175}
       style={{
         height: textAreaHeight,
-        fontSize: '18px',
       }}
       defaultValue={`${text}`}
       readOnly

@@ -20,7 +20,7 @@ const SignIn = () => {
   };
   const loginHandler = async () => {
     const path = 'signin';
-    await dispatch(authFetchThunk(authData, path))
+    dispatch(authFetchThunk(authData, path))
   };
   return (
     <>

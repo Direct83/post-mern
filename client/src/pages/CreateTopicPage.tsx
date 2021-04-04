@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
 import { postData } from '../redux/content/actions'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import style from './pages.module.scss'
+import Auth from '../components/Auth';
 
 export default function CreateTopic() {
   const { isAuth, userId, userName } = useSelector((state: RootState) => state.auth);
@@ -45,7 +46,7 @@ export default function CreateTopic() {
     <>
       {redirect ? <Redirect to={'/'} /> : null}
       {!isAuth
-        ? <div className={style.isAuthMessage}>Контент доступен только авторизованным пользователям</div>
+        ? <Auth />
         : (
           <>
             <form

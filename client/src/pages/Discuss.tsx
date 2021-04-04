@@ -10,10 +10,11 @@ import style from './pages.module.scss'
 import Modal from '../components/modal/Modal';
 import Reaction from '../components/Reaction'
 import AutoTextArea from '../components/AutoTextArea';
+import Auth from '../components/Auth';
 
 export default function Discuss(props: { location: { state: { id: string; }; }; }) {
   const { posts } = useSelector((state: RootState) => state.content)
-  const { userId, userName, role } = useSelector((state: RootState) => state.auth);
+  const { isAuth, userId, userName, role } = useSelector((state: RootState) => state.auth);
   const [modalActive, setModalActive] = useState(false)
   const [updComment, setUpdComment] = useState({
     text: '',
@@ -108,117 +109,123 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
         />
         : null
       }
-      <div className={style.wrapper}>
-        {posts.filter(el => el.id === props.location.state.id).map(el => {
-          return (
-            <div key={el.id + 'a'} className={style.itemFront}>
-              <h1>{el.title}</h1>
-              <AutoTextArea text={el.text} />
-              <div
-                className={style.creator}
-                onClick={() => onModal(el.creator)}
-              >
-                Автор: {el.creator.userName}
-              </div>
-              <div>Дата создания поста: {el.datePost}</div>
-              <Reaction
-                like={el.like}
-                dislike={el.dislike}
-                itemId={el.id}
-                postId={props.location.state.id}
-                from={'post'}
-              />
-              <div className={style.chatPost}>
-                {el.comments.map(el => {
-                  return (
-                    <blockquote
-                      key={el.id}
+      {!isAuth
+        ? <Auth />
+        : (
+          <>
+            <div className={style.wrapper}>
+              {posts.filter(el => el.id === props.location.state.id).map(el => {
+                return (
+                  <div key={el.id + 'a'} className={style.itemFront}>
+                    <h1>{el.title}</h1>
+                    <AutoTextArea text={el.text} />
+                    <div
+                      className={style.creator}
+                      onClick={() => onModal(el.creator)}
                     >
-                      {el.edit
-                        ? <>
-                          <textarea
-                            name='text'
-                            rows={2}
-                            onChange={textCommentUpd}
-                            defaultValue={el.text}
-                          />
-                          <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                          <img
-                            className={style.imgUpdateDeleteSave}
-                            src='img/save.png'
-                            onClick={() => updateComment(el.id)}
-                          />
-                        </>
-                        : <>
-                          <p key={el.id}>{el.text}</p>
-                          {role === 'admin'
-                            ? <>
-                              <cite
-                                onClick={() => onModal(el.creator)}
-                              >
-                                Автор: {el.creator.userName}, {el.creator.dateComment}
-                              </cite>
-                            </>
-                            : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
-                          }
-                          <div>
-                            <Reaction
-                              like={el.like}
-                              dislike={el.dislike}
-                              itemId={el.id}
-                              postId={props.location.state.id}
-                              from={'postDiscussComment'}
-                            />
-                          </div>
-
-                          {el.creator.userId === userId && role === 'user' || role === 'admin'
-                            ? (
-                              <>
-                                <img
-                                  className={style.imgUpdateDeleteSave}
-                                  src='img/pen.png'
-                                  onClick={() => onEdit(el.id)}
+                      Автор: {el.creator.userName}
+                    </div>
+                    <div>Дата создания поста: {el.datePost}</div>
+                    <Reaction
+                      like={el.like}
+                      dislike={el.dislike}
+                      itemId={el.id}
+                      postId={props.location.state.id}
+                      from={'post'}
+                    />
+                    <div className={style.chatPost}>
+                      {el.comments.map(el => {
+                        return (
+                          <blockquote
+                            key={el.id}
+                          >
+                            {el.edit
+                              ? <>
+                                <textarea
+                                  name='text'
+                                  rows={2}
+                                  onChange={textCommentUpd}
+                                  defaultValue={el.text}
                                 />
+                                <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
                                 <img
                                   className={style.imgUpdateDeleteSave}
-                                  src='img/cross.png'
-                                  onClick={() => deleteComment(el.id)}
+                                  src='img/save.png'
+                                  onClick={() => updateComment(el.id)}
                                 />
                               </>
-                            )
-                            : null
-                          }
-                        </>
-                      }
-                    </blockquote>
-                  )
-                })}
-              </div>
+                              : <>
+                                <p key={el.id}>{el.text}</p>
+                                {role === 'admin'
+                                  ? <>
+                                    <cite
+                                      onClick={() => onModal(el.creator)}
+                                    >
+                                      Автор: {el.creator.userName}, {el.creator.dateComment}
+                                    </cite>
+                                  </>
+                                  : <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
+                                }
+                                <div>
+                                  <Reaction
+                                    like={el.like}
+                                    dislike={el.dislike}
+                                    itemId={el.id}
+                                    postId={props.location.state.id}
+                                    from={'postDiscussComment'}
+                                  />
+                                </div>
+
+                                {el.creator.userId === userId && role === 'user' || role === 'admin'
+                                  ? (
+                                    <>
+                                      <img
+                                        className={style.imgUpdateDeleteSave}
+                                        src='img/pen.png'
+                                        onClick={() => onEdit(el.id)}
+                                      />
+                                      <img
+                                        className={style.imgUpdateDeleteSave}
+                                        src='img/cross.png'
+                                        onClick={() => deleteComment(el.id)}
+                                      />
+                                    </>
+                                  )
+                                  : null
+                                }
+                              </>
+                            }
+                          </blockquote>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              })
+              }
             </div>
-          )
-        })
-        }
-      </div>
-      <div className={style.sendMessage}>
-        {role === 'user' || role === 'admin'
-          ? (
-            <>
-              <input
-                type='text'
-                name='text'
-                onChange={inputHundler}
-                value={comment.text}
-              />
-              <button
-                type='button'
-                onClick={sendComment}
-              >
-                Отправить сообщение
+            <div className={style.sendMessage}>
+              {role === 'user' || role === 'admin'
+                ? (
+                  <>
+                    <input
+                      type='text'
+                      name='text'
+                      onChange={inputHundler}
+                      value={comment.text}
+                    />
+                    <button
+                      type='button'
+                      onClick={sendComment}
+                    >
+                      Отправить сообщение
               </button>
-            </>
-          )
-          : null}
-      </div>
+                  </>
+                )
+                : null}
+            </div>
+          </>
+        )}
     </>
   );
 }

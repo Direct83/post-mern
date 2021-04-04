@@ -1,17 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOutUser } from '../redux/auth/actions';
+import { LogOutUserFetchThunk } from '../redux/auth/actions';
 import { RootState } from '../redux/store'
 
 export default function Navbar() {
   const { isAuth, role } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
-  const logout = async () => {
-    await fetch('auth/signout');
-    dispatch(logOutUser());
+  const logout = () => {
+    dispatch(LogOutUserFetchThunk())
   };
-
   return (
     <>
       <div className="dropdown">

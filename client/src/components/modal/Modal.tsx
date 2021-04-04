@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { bannedTimeFetchThunk, roleFetchThunk } from '../../redux/auth/actions'
 import './modal.scss'
 
 interface ModalObj {
@@ -11,6 +13,7 @@ interface ModalType {
   userInfo: ModalObj
 }
 const Modal = ({ active, setActive, userInfo }: ModalType) => {
+  const dispatch = useDispatch()
   const [state, setState] = useState({
     role: '',
     time: '',
@@ -26,13 +29,10 @@ const Modal = ({ active, setActive, userInfo }: ModalType) => {
   }
   const saveRole = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    await fetch('auth/change/role', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ ...userInfo, roleChange: state.role || 'user' })
-    })
+    dispatch(roleFetchThunk(
+      userInfo.userId,
+      state.role || 'user',
+    ))
   }
   const inputTime = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -42,13 +42,10 @@ const Modal = ({ active, setActive, userInfo }: ModalType) => {
     }));
   };
   const temporaryBan = async () => {
-    await (await fetch('auth/change/bannedTime', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ ...userInfo, bannedTimeChange: new Date().getTime() + +state.time * 1000 })
-    })).json()
+    dispatch(bannedTimeFetchThunk(
+      userInfo.userId,
+      String(new Date().getTime() + +state.time * 1000)
+    ))
     setState((previousData) => ({
       ...previousData,
       time: '',

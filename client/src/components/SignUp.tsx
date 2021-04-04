@@ -23,7 +23,6 @@ export default function SignUp() {
     const path = 'signup';
     dispatch(authFetchThunk(authData, path));
   };
-
   return (
     <>
       {isAuth && <Redirect to="/" />}
