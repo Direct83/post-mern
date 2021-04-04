@@ -33,25 +33,30 @@ blockquote {
   textarea {
     width: 525px;
   }
-  div{
+  div {
     float: right;
   }
+  .imgUpdateDeleteSave {
+    margin-left: 15px;
+    width: 20px;
+    height: 20px;
+  }
 }
-.authPage{
+.authPage {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   padding: 10px;
-}
-.authItem{
-  margin: 30px;
-  font-size: 64px;
-  text-decoration: none!important;
-  font-weight: 900;
-  color: #33cfd1;
-  text-decoration: none;
-  &:hover{
-    color:#000000;
+  .authItem {
+    margin: 30px;
+    font-size: 64px;
+    text-decoration: none!important;
+    font-weight: 900;
+    color: #33cfd1;
+    text-decoration: none;
+    &:hover {
+      color:#000000;
+    }
   }
 }
 .wrapper {
@@ -59,81 +64,78 @@ blockquote {
   flex-wrap: wrap;
   justify-content: center;
 }
-.itemFront{
+.itemFront {
   margin: 0 80px 20px 80px;
   text-align: center;
-  p{
+  p {
     text-align: left;
     font-size: 20px;
   }
-  button{
+  button {
     margin-top: 10px;
   }
-  textarea{
+  textarea {
     font-family:Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
     border: none;
     width: 100%;
   }
-  h1 input{
+  h1 input {
     width: 100%;
     font-size: 20px;
   }
+  .chatPost{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .textareaEdit {
+    width: 1195px;
+    border: 1px solid #33cfd1;
+  }
+  .buttons {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .creator {
+    width: 100px;
+    margin: 0 auto;
+  }
 }
-.inputMessage{
-  width: 370px;
-  font-size: 18px;
-  margin-bottom: 200px;
-}
-.buttons{
-  width: 400px;
-  display: flex;
-  justify-content: center;
-  justify-content: space-around;
-  margin-left: auto;
-  margin-right: auto;
-}
-.imgDelete {
-  width: 20px;
-  height: 20px;
-}
-.imgUpd {
-  margin-left: 10px;
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
-}
-.chatPost{
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.sendMessage{
+.sendMessage {
   text-align: center;
+  input {
+    width: 370px;
+    font-size: 18px;
+    margin-bottom: 200px;
+  }
 }
-.createItem{
+.createItem {
   text-align: center;
   padding-top: 20px;
   margin: 0 auto;
   max-width: 800px;
   font-size: 18px;
-  input{
+  input {
     width: 710px;
     font-size: 18px;
   }
-  div{
+  div {
     margin: 10px;
   }
-  textarea{
+  textarea {
     font-size: 18px;
   }
-  button{
+  button {
     margin: 20px;
     border-radius: 12px;
   }
 }
-.creator{
-  width: 100px;
-  margin: 0 auto;
+.isAuthMessage {
+  text-align: center;
 }

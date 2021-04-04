@@ -72,7 +72,6 @@ const Modal = ({ active, setActive, userInfo }: ModalType) => {
           <label>
             <p>Смена роли для пользователя с именем {userInfo.userName}:
             <select
-                style={{ marginLeft: '10px' }}
                 value={state.role}
                 onChange={handleChange}
               >
@@ -83,14 +82,12 @@ const Modal = ({ active, setActive, userInfo }: ModalType) => {
             </p>
           </label>
           <button
-            style={{ marginBottom: '30px' }}
             type="submit"
           >Сохранить роль</button>
         </form>
         <label>
           <p>Бан на время:
           <input
-              style={{ marginLeft: '10px' }}
               type="number"
               name='time'
               placeholder='в секундах'
@@ -99,7 +96,6 @@ const Modal = ({ active, setActive, userInfo }: ModalType) => {
           </p>
           <button
             onClick={temporaryBan}
-            className='button-ban'
           >
             BAN!!
           </button>

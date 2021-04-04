@@ -10,45 +10,51 @@
   align-items: center;
   justify-content: center;
   transform: scale(0);
+  &.active {
+    transform: scale(1);
+  }
 }
-.modal-content{
+.modal-content {
   text-align: center;
   padding: 20px;
   border-radius: 12px;
   background-color: white;
   height: 300px;
   width: 400px;
-  img{
+  img {
     width: 25px;
     height: 25px;
     float: right;
   }
+  label {
+    p input {
+      margin: 10px;
+    }
+    button {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color: #922929;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 9px #999;
+    }
+    button:hover {
+      background-color:
+      #ff0000
+    }
+    button:active {
+      background-color: #ff0000;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+  }
+  form > button{
+    margin-bottom: 30px;
+  }
 }
-
-.modal.active{
-  transform: scale(1);
-}
-.button-ban {
-  display: inline-block;
-  padding: 15px 25px;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: #922929;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-}
-.button-ban:hover {
-  background-color:
-  #ff0000
-}
-.button-ban:active {
-  background-color: #ff0000;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-

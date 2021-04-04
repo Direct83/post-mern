@@ -15,8 +15,8 @@ export default function Navbar() {
   return (
     <>
       <div className="dropdown">
-        <button className='dropbtn'>Menu</button>
-        <nav className="sidenav">
+        <button>Menu</button>
+        <nav>
           <Link to="/">Home</Link>
           {role === 'user' || role === 'admin' ? <Link to="/create-topic">CreateTopic</Link> : null}
           {!isAuth && <Link to="/auth">Login</Link>}

@@ -45,7 +45,7 @@ export default function CreateTopic() {
     <>
       {redirect ? <Redirect to={'/'} /> : null}
       {!isAuth
-        ? <div style={{ textAlign: 'center' }}>Контент доступен только авторизованным пользователям</div>
+        ? <div className={style.isAuthMessage}>Контент доступен только авторизованным пользователям</div>
         : (
           <>
             <form

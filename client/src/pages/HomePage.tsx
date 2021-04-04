@@ -75,7 +75,7 @@ export default function HomePage() {
         state: { id }
       }} /> : null}
       {!isAuth
-        ? <div style={{ textAlign: 'center' }}>Контент доступен только авторизованным пользователям</div>
+        ? <div className={style.isAuthMessage}>Контент доступен только авторизованным пользователям</div>
         : (
           <>
             <div className={style.wrapper}>
@@ -97,7 +97,7 @@ export default function HomePage() {
                             />
                           </h1>
                           <textarea
-                            style={{ width: '1195px', border: '1px solid #33cfd1' }}
+                            className={style.textareaEdit}
                             name='text' rows={10}
                             onChange={inputHundler}
                             defaultValue={el.text} />

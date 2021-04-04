@@ -29,8 +29,8 @@ const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
   }
   return (
     <div className='like-dislike'>
-      {like.filter(el => {
-        return el.userId === userId
+      {like.filter(like => {
+        return like.userId === userId
       })[0]?.status
         ? <img
           src='img/like-red.png'
@@ -42,10 +42,10 @@ const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
         />
       }
       <span>
-        : {like.filter(el => el.status).filter(Boolean).length}шт.
+        : {like.filter(like => like.status).filter(Boolean).length}шт.
         </span>
-      {dislike.filter(el => {
-        return el.userId === userId
+      {dislike.filter(dislike => {
+        return dislike.userId === userId
       })[0]?.status
         ? <img
           src='img/dis-bl.png'
@@ -57,7 +57,7 @@ const Reaction = ({ like, dislike, itemId, postId, from }: ReactionProps) => {
         />
       }
       <span>
-        : {dislike.filter(el => el.status).filter(Boolean).length}шт.
+        : {dislike.filter(dislike => dislike.status).filter(Boolean).length}шт.
         </span>
     </div>
   )

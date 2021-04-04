@@ -143,7 +143,7 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
                           />
                           <cite>Автор: {el.creator.userName}, {el.creator.dateComment}</cite>
                           <img
-                            className={style.imgUpd}
+                            className={style.imgUpdateDeleteSave}
                             src='img/save.png'
                             onClick={() => updateComment(el.id)}
                           />
@@ -174,12 +174,12 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
                             ? (
                               <>
                                 <img
-                                  className={style.imgUpd}
+                                  className={style.imgUpdateDeleteSave}
                                   src='img/pen.png'
                                   onClick={() => onEdit(el.id)}
                                 />
                                 <img
-                                  className={style.imgDelete}
+                                  className={style.imgUpdateDeleteSave}
                                   src='img/cross.png'
                                   onClick={() => deleteComment(el.id)}
                                 />
@@ -205,7 +205,6 @@ export default function Discuss(props: { location: { state: { id: string; }; }; 
               <input
                 type='text'
                 name='text'
-                className={style.inputMessage}
                 onChange={inputHundler}
                 value={comment.text}
               />
