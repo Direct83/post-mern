@@ -48,7 +48,7 @@ export default function DiscussPage(props: RouteComponentProps<{}, {}, { id: str
         : <div className={style.wrapper}>
           {posts.filter(post => post.id === props.location.state.id).map(post => {
             return (
-              <div key={post.id + 'a'} className={style.itemFront}>
+              <div key={post.id} className={style.itemFront}>
                 <h1>{post.title}</h1>
                 <AutoTextArea text={post.text} />
                 <div
