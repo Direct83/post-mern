@@ -1,4 +1,4 @@
-import { actionTypes, AuthActionTypes, AuthReducerIS } from '../actionTypes';
+import { actionTypes, AuthActionTypes, AuthReducerISType } from '../actionTypes';
 
 const initialState = {
   userId: '',
@@ -7,7 +7,7 @@ const initialState = {
   isAuth: false,
   message: '',
 };
-export default function userReducer(state = initialState, action: AuthActionTypes): AuthReducerIS {
+export default function userReducer(state = initialState, action: AuthActionTypes): AuthReducerISType {
   switch (action.type) {
     case actionTypes.LOGIN_USER:
       return {

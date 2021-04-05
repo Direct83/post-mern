@@ -1,4 +1,4 @@
-import { actionTypes, ContentReducerIS, ContentActionTypes } from '../actionTypes';
+import { actionTypes, ContentReducerISType, ContentActionTypes } from '../actionTypes';
 import { makeId } from '../../utils/makeId'
 
 const initialState = {
@@ -56,7 +56,7 @@ KISS — это принцип проектирования и программ�
     }]
   }]
 };
-export default function userReducer(state = initialState, action: ContentActionTypes): ContentReducerIS {
+export default function userReducer(state = initialState, action: ContentActionTypes): ContentReducerISType {
   switch (action.type) {
     case actionTypes.ADD_POST_DATA:
       return {

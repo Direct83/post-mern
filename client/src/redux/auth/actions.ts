@@ -1,4 +1,4 @@
-import { actionTypes, AuthData, ResponseAuth } from '../actionTypes';
+import { actionTypes, AuthDataType, ResponseAuthType } from '../actionTypes';
 import { ThunkAction } from 'redux-thunk'
 import { AnyAction } from 'redux';
 import { RootState } from '../store'
@@ -26,11 +26,11 @@ export function LogOutUserFetchThunk()
     dispatch(logOutUser());
   };
 }
-export function authFetchThunk(authData: AuthData, path: string)
+export function authFetchThunk(authData: AuthDataType, path: string)
   : ThunkAction<Promise<void>, RootState, unknown, AnyAction> {
   return async (dispatch) => {
     const { userId, userName, role, bannedTime, message }
-      : ResponseAuth = await (await fetch(`auth/${path}`, {
+      : ResponseAuthType = await (await fetch(`auth/${path}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

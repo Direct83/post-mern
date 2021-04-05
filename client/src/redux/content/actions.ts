@@ -1,6 +1,6 @@
-import { actionTypes, Post, CommentType } from '../actionTypes';
+import { actionTypes, PostType, CommentType } from '../actionTypes';
 
-export function postData({ id, title, text, creator, datePost, comments, like, dislike }: Post) {
+export function postData({ id, title, text, creator, datePost, comments, like, dislike }: PostType) {
   return {
     type: actionTypes.ADD_POST_DATA,
     payload: {

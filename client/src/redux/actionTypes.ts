@@ -18,32 +18,32 @@ export enum actionTypes {
 };
 
 //Auth
-export interface AuthData {
+export type AuthDataType = {
   name: string,
   password: string,
 }
-export interface ResponseAuth {
+export type ResponseAuthType = {
   userId: string,
   userName: string,
   role: string,
   message: string,
   bannedTime: string,
 }
-export interface AuthUserPayload {
+export type AuthUserPayloadType = {
   type: actionTypes.AUTH_USER
   payload: {
-    authData: AuthData;
+    authData: AuthDataType;
     path: string;
   }
 }
-export interface AuthReducerIS {
+export type AuthReducerISType = {
   userId: string,
   userName: string,
   role: string,
   isAuth: boolean,
   message: string,
 }
-interface SignInUser {
+type SignInUserType = {
   type: typeof actionTypes.LOGIN_USER,
   payload: {
     userId: string,
@@ -52,86 +52,86 @@ interface SignInUser {
     bannedTime: number,
   }
 }
-interface SendMessage {
+type SendMessageType = {
   type: typeof actionTypes.AUTH_MESSAGE_RESPONSE,
   payload: {
     message: string,
   }
 }
-interface LogOutUser {
+type LogOutUserType = {
   type: typeof actionTypes.LOGOUT_USER,
 }
-export type AuthActionTypes = SignInUser | LogOutUser | SendMessage
+export type AuthActionTypes = SignInUserType | LogOutUserType | SendMessageType
 //Post
-interface Reaction {
+type ReactionType = {
   userId: string,
   status: boolean,
 }
-export interface Creator {
+export type CreatorType = {
   userName: string,
   userId: string,
 }
-interface CreatorComment {
+type CreatorCommentType = {
   userName: string,
   userId: string,
   dateComment: string,
 }
-export interface CommentType {
+export type CommentType = {
   id: string,
-  creator: CreatorComment,
+  creator: CreatorCommentType,
   text: string,
   edit: boolean,
-  like: Reaction[],
-  dislike: Reaction[],
+  like: ReactionType[],
+  dislike: ReactionType[],
 }
-export interface Post {
+export type PostType = {
   id: string,
   title: string,
   text: string,
   datePost: string,
   edit: boolean,
   comments: CommentType[]
-  creator: Creator,
-  like: Reaction[],
-  dislike: Reaction[],
+  creator: CreatorType,
+  like: ReactionType[],
+  dislike: ReactionType[],
 }
-export interface ContentReducerIS {
-  posts: Post[]
+export type ContentReducerISType = {
+  posts: PostType[]
 }
-interface PostData {
+type PostDataType = {
   type: typeof actionTypes.ADD_POST_DATA,
-  payload: Post
+  payload: PostType
 }
-interface reactionDL {
+type reactionDLType = {
   postId: string,
   userId: string,
 }
-interface DislikeAction {
+type DislikeActionType = {
   type: typeof actionTypes.DISLIKE_POST_DATA,
-  payload: reactionDL
+  payload: reactionDLType
 }
-interface LikeAction {
+type LikeActionType = {
   type: typeof actionTypes.LIKE_POST_DATA,
-  payload: reactionDL
+  payload: reactionDLType
 }
-interface CommentDataPayload {
+type CommentDataPayloadType = {
   id: string,
-  creator: CreatorComment,
+  creator: CreatorCommentType,
   text: string,
   idPost: string,
 }
-interface CommentData {
+type CommentDataType = {
   type: typeof actionTypes.ADD_COMMENT_DATA,
-  payload: CommentDataPayload
+  payload: CommentDataPayloadType
 }
 
-interface DeletePostAction {
+type DeletePostActionType = {
   type: typeof actionTypes.DELETE_POST,
   payload: {
     idPost: string,
   }
 }
-interface UpdPostAction {
+type UpdPostActionType = {
   type: typeof actionTypes.UPD_POST,
   payload: {
     title: string,
@@ -139,14 +139,14 @@ interface UpdPostAction {
     idPost: string,
   }
 }
-interface DeleteCommentAction {
+type DeleteCommentActionType = {
   type: typeof actionTypes.DELETE_COMMENT,
   payload: {
     commentId: string,
     idPost: string,
   }
 }
-interface UpdateCommentAction {
+type UpdateCommentActionType = {
   type: typeof actionTypes.UPD_COMMENT,
   payload: {
     text: string,
@@ -154,7 +154,7 @@ interface UpdateCommentAction {
     idPost: string,
   }
 }
-interface EditCommentAction {
+type EditCommentActionType = {
   type: typeof actionTypes.EDIT_COMMENT,
   payload: {
     commentId: string,
@@ -162,32 +162,32 @@ interface EditCommentAction {
   }
 }
 
-interface EditPostAction {
+type EditPostActionType = {
   type: typeof actionTypes.EDIT_POST,
   payload: {
     idPost: string,
   }
 }
-interface reactionCommentDL {
+type reactionCommentDLType = {
   commentId: string,
   postId: string,
   userId: string,
 }
-interface DislikeCommentAction {
+type DislikeCommentActionType = {
   type: typeof actionTypes.DISLIKE_COMMENT_DATA,
-  payload: reactionCommentDL
+  payload: reactionCommentDLType
 }
-interface LikeCommentAction {
+type LikeCommentActionType = {
   type: typeof actionTypes.LIKE_COMMENT_DATA,
-  payload: reactionCommentDL
+  payload: reactionCommentDLType
 }
-export interface CommentsType {
+export type CommentsType = {
   postId: string,
   comments: CommentType[],
   modal: Function,
 }
-export type ContentActionTypes = PostData | DislikeAction | LikeAction
-  | CommentData | DeletePostAction | UpdPostAction | DeleteCommentAction
-  | UpdateCommentAction | EditCommentAction | EditPostAction | DislikeCommentAction
-  | LikeCommentAction
+export type ContentActionTypes = PostDataType | DislikeActionType | LikeActionType
+  | CommentDataType | DeletePostActionType | UpdPostActionType | DeleteCommentActionType
+  | UpdateCommentActionType | EditCommentActionType | EditPostActionType | DislikeCommentActionType
+  | LikeCommentActionType
 

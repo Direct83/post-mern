@@ -105,7 +105,7 @@ router.post('/signin', function (req, res) { return __awaiter(void 0, void 0, vo
             case 3:
                 isValidPassword = _b.sent();
                 if (!isValidPassword) {
-                    return [2 /*return*/, res.json({ message: 'не тот пароль' })];
+                    return [2 /*return*/, res.json({ message: 'Пароль неверный' })];
                 }
                 req.session.user = { userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime };
                 res.json({ userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime });

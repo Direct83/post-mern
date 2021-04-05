@@ -33,12 +33,14 @@ export default function SignIn() {
         && (
           <div className="login">
             {message
-              ? (
-                <>
-                  <h3>{message}</h3>
-                  <Link to="/signup" onClick={messageNull} className={style.authSignIn}>Registration</Link>
-                </>
-              )
+              ? message === "Пароль неверный"
+                ? <h3>{message}</h3>
+                : (
+                  <>
+                    <h3>{message}</h3>
+                    <Link to="/signup" onClick={messageNull} className={style.authSignIn}>Registration</Link>
+                  </>
+                )
               : null
             }
             <form className='login-form'>

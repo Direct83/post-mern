@@ -3,10 +3,12 @@ import { likeCommentAction, dislikeCommentAction, likeAction, dislikeAction } fr
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store'
 import style from '../pages/pages.module.scss'
-interface ArrReaction {
+
+type ArrReaction = {
   userId: string,
   status: boolean
 }
+
 export default function Reaction({ like, dislike, itemId, postId, from }: {
   like: ArrReaction[],
   dislike: ArrReaction[],

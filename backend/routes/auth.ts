@@ -36,7 +36,7 @@ router.post('/signin', async (req, res) => {
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      return res.json({ message: 'не тот пароль' })
+      return res.json({ message: 'Пароль неверный' })
     }
     req.session.user = { userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime };
     res.json({ userId: user.id, userName: user.name, role: user.role, bannedTime: user.bannedTime })

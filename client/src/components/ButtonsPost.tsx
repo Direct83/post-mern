@@ -1,5 +1,5 @@
 import React from 'react'
-import { Creator } from '../redux/actionTypes'
+import { CreatorType } from '../redux/actionTypes'
 import style from '../pages/pages.module.scss'
 import { RootState } from '../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
@@ -7,7 +7,7 @@ import { deletePostAction, updatePostAction, editPostAction } from '../redux/con
 
 export default function ButtonsPost({ creator, postEdit, postId, updPost, setUpdPost, setId }
   : {
-    creator: Creator,
+    creator: CreatorType,
     postId: string
     updPost: {
       text: string,
