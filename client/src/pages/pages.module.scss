@@ -9,6 +9,7 @@ blockquote {
   & cite {
     font-size: 12px;
     font-style: normal;
+    cursor: pointer;
     }
   &:before, &:after {
       position: absolute;
@@ -40,6 +41,7 @@ blockquote {
     margin-left: 15px;
     width: 20px;
     height: 20px;
+    cursor: pointer;
   }
 }
 .authPage {
@@ -127,6 +129,7 @@ blockquote {
   .creator {
     width: 100px;
     margin: 0 auto;
+    cursor: pointer;
   }
 }
 .sendMessage {
@@ -164,7 +167,8 @@ blockquote {
 .likeDislike {
   img {
     width: 25px;
-    height: 25px
+    height: 25px;
+    cursor: pointer;
   }
   span {
     margin: 5px

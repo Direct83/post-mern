@@ -8,8 +8,9 @@ import Reaction from '../components/Reaction'
 import AutoTextArea from '../components/AutoTextArea';
 import Auth from '../components/Auth';
 import Comments from '../components/Comments';
+import { RouteComponentProps } from 'react-router-dom'
 
-export default function DiscussPage(props: { location: { state: { id: string } } }) {
+export default function DiscussPage(props: RouteComponentProps<{}, {}, { id: string }>) {
   const { posts } = useSelector((state: RootState) => state.content)
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const [modalActive, setModalActive] = useState(false)
