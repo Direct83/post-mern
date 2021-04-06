@@ -60,7 +60,7 @@ export default function Comment({ postId, comments, modal }: CommentsType) {
                 : <>
                   <p key={comment.id}>{comment.text}</p>
                   {role === 'admin'
-                    ? <cite
+                    ? <cite className={style.adminAccess}
                       onClick={() => modal(comment.creator)}
                     >
                       Автор: {comment.creator.userName}, {comment.creator.dateComment}

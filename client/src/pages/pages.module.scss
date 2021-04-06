@@ -9,8 +9,12 @@ blockquote {
   & cite {
     font-size: 12px;
     font-style: normal;
-    cursor: pointer;
     }
+  & .adminAccess{
+    font-size: 12px;
+    font-style: normal;
+    cursor: pointer;
+  }
   &:before, &:after {
       position: absolute;
       height: 2px;
@@ -131,6 +135,10 @@ blockquote {
     margin-right: auto;
   }
   .creator {
+    width: 100px;
+    margin: 0 auto;
+  }
+  .adminAccess{
     width: 100px;
     margin: 0 auto;
     cursor: pointer;

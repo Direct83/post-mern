@@ -62,7 +62,7 @@ export default function Posts({ modal }: { modal: Function }) {
               {role === 'admin'
                 ? <>
                   <div
-                    className={style.creator}
+                    className={style.adminAccess}
                     onClick={() => modal(post.creator)}
                   >
                     Автор: {post.creator.userName}

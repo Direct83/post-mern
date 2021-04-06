@@ -53,7 +53,7 @@ export default function DiscussPage(props: RouteComponentProps<{}, {}, { id: str
                 <AutoTextArea text={post.text} />
                 {role === 'admin'
                   ? <div
-                    className={style.creator}
+                    className={style.adminAccess}
                     onClick={() => onModal(post.creator)}
                   >
                     Автор: {post.creator.userName}
