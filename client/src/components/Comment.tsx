@@ -49,6 +49,7 @@ export default function Comment({ postId, comments, modal }: CommentsType) {
                     rows={2}
                     onChange={textCommentUpd}
                     defaultValue={comment.text}
+                    className={style.commentTextArea}
                   />
                   <cite>Автор: {comment.creator.userName}, {comment.creator.dateComment}</cite>
                   <img
