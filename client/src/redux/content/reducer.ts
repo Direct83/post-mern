@@ -72,7 +72,10 @@ export default function userReducer(state = initialState, action: ContentActionT
       return {
         ...state,
         posts: [...state.posts.map(post => post.id === action.payload.idPost
-          ? { ...post, edit: !post.edit }
+          ? {
+            ...post,
+            edit: !post.edit,
+          }
           : post
         )]
       };
@@ -81,8 +84,12 @@ export default function userReducer(state = initialState, action: ContentActionT
         ...state,
         posts: [...state.posts.map(post => post.id === action.payload.idPost
           ? {
-            ...post, comments: [...post.comments.map(comment => comment.id === action.payload.commentId
-              ? { ...comment, edit: !comment.edit }
+            ...post,
+            comments: [...post.comments.map(comment => comment.id === action.payload.commentId
+              ? {
+                ...comment,
+                edit: !comment.edit,
+              }
               : comment
             )]
           }
@@ -93,7 +100,12 @@ export default function userReducer(state = initialState, action: ContentActionT
       return {
         ...state,
         posts: [...state.posts.map(post => post.id === action.payload.idPost
-          ? { ...post, comments: [...post.comments.filter(comment => comment.id !== action.payload.commentId)] }
+          ? {
+            ...post,
+            comments: [
+              ...post.comments.filter(comment => comment.id !== action.payload.commentId)
+            ]
+          }
           : post
         )]
       };
@@ -104,7 +116,10 @@ export default function userReducer(state = initialState, action: ContentActionT
           ? {
             ...post,
             comments: [...post.comments.map(comment => comment.id === action.payload.commentId
-              ? { ...comment, text: action.payload.text || comment.text }
+              ? {
+                ...comment,
+                text: action.payload.text || comment.text,
+              }
               : comment
             )]
           }
@@ -115,7 +130,11 @@ export default function userReducer(state = initialState, action: ContentActionT
       return {
         ...state,
         posts: [...state.posts.map(post => post.id === action.payload.idPost
-          ? { ...post, title: action.payload.title || post.title, text: action.payload.text || post.text }
+          ? {
+            ...post,
+            title: action.payload.title || post.title,
+            text: action.payload.text || post.text,
+          }
           : post
         )]
       };
@@ -148,16 +167,30 @@ export default function userReducer(state = initialState, action: ContentActionT
               ? {
                 ...post,
                 dislike: post.dislike.map(dislike => dislike.userId === action.payload.userId
-                  ? { ...dislike, status: !dislike.status }
+                  ? {
+                    ...dislike,
+                    status: !dislike.status,
+                  }
                   : dislike),
                 like: post.like.map(like => like.userId === action.payload.userId
-                  ? { ...like, status: false }
+                  ? {
+                    ...like,
+                    status: false,
+                  }
                   : like)
               }
               : {
                 ...post,
-                dislike: [...post.dislike, { userId: action.payload.userId, status: true }],
-                like: [...post.like, { userId: action.payload.userId, status: false }]
+                dislike: [...post.dislike,
+                {
+                  userId: action.payload.userId,
+                  status: true,
+                }],
+                like: [...post.like,
+                {
+                  userId: action.payload.userId,
+                  status: false,
+                }]
               })
             : post
         )]
@@ -174,16 +207,30 @@ export default function userReducer(state = initialState, action: ContentActionT
                   ? {
                     ...comment,
                     dislike: comment.dislike.map(dislike => dislike.userId === action.payload.userId
-                      ? { ...dislike, status: !dislike.status }
+                      ? {
+                        ...dislike,
+                        status: !dislike.status,
+                      }
                       : dislike),
                     like: comment.like.map(like => like.userId === action.payload.userId
-                      ? { ...like, status: false }
+                      ? {
+                        ...like,
+                        status: false,
+                      }
                       : like)
                   }
                   : {
                     ...comment,
-                    dislike: [...comment.dislike, { userId: action.payload.userId, status: true }],
-                    like: [...comment.like, { userId: action.payload.userId, status: false }]
+                    dislike: [...comment.dislike,
+                    {
+                      userId: action.payload.userId,
+                      status: true,
+                    }],
+                    like: [...comment.like,
+                    {
+                      userId: action.payload.userId,
+                      status: false,
+                    }]
                   })
                 : comment)
             }
@@ -202,16 +249,30 @@ export default function userReducer(state = initialState, action: ContentActionT
                   ? {
                     ...comment,
                     like: comment.like.map(like => like.userId === action.payload.userId
-                      ? { ...like, status: !like.status }
+                      ? {
+                        ...like,
+                        status: !like.status,
+                      }
                       : like),
                     dislike: comment.dislike.map(dislike => dislike.userId === action.payload.userId
-                      ? { ...dislike, status: false }
+                      ? {
+                        ...dislike,
+                        status: false,
+                      }
                       : dislike)
                   }
                   : {
                     ...comment,
-                    like: [...comment.like, { userId: action.payload.userId, status: true }],
-                    dislike: [...comment.dislike, { userId: action.payload.userId, status: false }]
+                    like: [...comment.like,
+                    {
+                      userId: action.payload.userId,
+                      status: true
+                    }],
+                    dislike: [...comment.dislike,
+                    {
+                      userId: action.payload.userId,
+                      status: false
+                    }]
                   })
                 : comment)
             }
@@ -223,19 +284,34 @@ export default function userReducer(state = initialState, action: ContentActionT
         ...state,
         posts: [...state.posts.map(post =>
           action.payload.postId === post.id
-            ? (post.like.find(like => like.userId === action.payload.userId) ? {
-              ...post,
-              like: post.like.map(like => like.userId === action.payload.userId
-                ? { ...like, status: !like.status }
-                : like),
-              dislike: post.dislike.map(dislike => dislike.userId === action.payload.userId
-                ? { ...dislike, status: false }
-                : dislike)
-            }
+            ? (post.like.find(like => like.userId === action.payload.userId)
+              ? {
+                ...post,
+                like: post.like.map(like => like.userId === action.payload.userId
+                  ? {
+                    ...like,
+                    status: !like.status,
+                  }
+                  : like),
+                dislike: post.dislike.map(dislike => dislike.userId === action.payload.userId
+                  ? {
+                    ...dislike,
+                    status: false,
+                  }
+                  : dislike)
+              }
               : {
                 ...post,
-                like: [...post.like, { userId: action.payload.userId, status: true }],
-                dislike: [...post.dislike, { userId: action.payload.userId, status: false }]
+                like: [...post.like,
+                {
+                  userId: action.payload.userId,
+                  status: true,
+                }],
+                dislike: [...post.dislike,
+                {
+                  userId: action.payload.userId,
+                  status: false,
+                }]
               })
             : post
         )]
