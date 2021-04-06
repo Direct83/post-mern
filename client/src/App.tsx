@@ -10,10 +10,6 @@ import SignUp from './components/SignUp';
 import { checkAuth } from './redux/auth/actions';
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(checkAuth());
-  }, []);
   return (
     <BrowserRouter>
       <NavBar />

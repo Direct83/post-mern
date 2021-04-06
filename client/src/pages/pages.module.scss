@@ -46,9 +46,12 @@ blockquote {
 }
 .authPage {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
   padding: 10px;
+  .isAuthMessage {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
   .authItem {
     margin: 30px;
     font-size: 64px;
@@ -161,9 +164,6 @@ blockquote {
     margin: 20px;
     border-radius: 12px;
   }
-}
-.isAuthMessage {
-  text-align: center;
 }
 .likeDislike {
   img {
