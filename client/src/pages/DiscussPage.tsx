@@ -12,7 +12,7 @@ import { RouteComponentProps } from 'react-router-dom'
 
 export default function DiscussPage(props: RouteComponentProps<{}, {}, { id: string }>) {
   const { posts } = useSelector((state: RootState) => state.content)
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { isAuth, role } = useSelector((state: RootState) => state.auth);
   const [modalActive, setModalActive] = useState(false)
   const [postCreator, setPostCreator] = useState({
     userName: '',
@@ -51,12 +51,20 @@ export default function DiscussPage(props: RouteComponentProps<{}, {}, { id: str
               <div key={post.id} className={style.itemFront}>
                 <h1>{post.title}</h1>
                 <AutoTextArea text={post.text} />
-                <div
-                  className={style.creator}
-                  onClick={() => onModal(post.creator)}
-                >
-                  Автор: {post.creator.userName}
-                </div>
+                {role === 'admin'
+                  ? <div
+                    className={style.creator}
+                    onClick={() => onModal(post.creator)}
+                  >
+                    Автор: {post.creator.userName}
+                  </div>
+
+                  : <div
+                    className={style.creator}
+                  >
+                    Автор: {post.creator.userName}
+                  </div>
+                }
                 <div>Дата создания поста: {post.datePost}</div>
                 <Reaction
                   like={post.like}
