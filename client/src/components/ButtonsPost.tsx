@@ -39,14 +39,14 @@ export default function ButtonsPost({ creator, postEdit, postId, updPost, setUpd
   }
   return (
     <div className={style.buttons}>
-      {role === 'user' || role === 'admin'
+      {(role === 'user' || role === 'admin')
         && <button
           onClick={() => redirect(postId)}
         >
           Обсудить
           </button>
       }
-      {creator.userId === userId && role === 'user' || role === 'admin'
+      {(creator.userId === userId && role === 'user' || role === 'admin')
         && <>
           {postEdit
             ? <button
