@@ -23,7 +23,7 @@ export default function Modal({ active, setActive, userInfo }: {
     }));
   }
   const closeModal = () => {
-    setActive(false)
+    setActive()
   }
   const saveRole = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()

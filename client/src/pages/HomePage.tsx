@@ -5,11 +5,11 @@ import { checkAuth } from '../redux/auth/actions'
 import Modal from '../components/modal/Modal';
 import Auth from '../components/Auth';
 import Posts from '../components/Posts';
-
+import { useToggle } from '../hooks/useToggle'
 export default function HomePage() {
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const { posts } = useSelector((state: RootState) => state.content)
-  const [modalActive, setModalActive] = useState(false)
+  const [modalStatus, toggleModal] = useToggle(false)
   const [postCreator, setPostCreator] = useState({
     userName: '',
     userId: '',
@@ -24,17 +24,17 @@ export default function HomePage() {
       userName,
       userId
     })
-    setModalActive(true)
+    toggleModal()
   }
   useEffect(() => {
     dispatch(checkAuth());
   }, [posts]);
   return (
     <>
-      {modalActive
+      {modalStatus
         ? <Modal
-          active={modalActive}
-          setActive={setModalActive}
+          active={modalStatus}
+          setActive={toggleModal}
           userInfo={postCreator}
         />
         : null
