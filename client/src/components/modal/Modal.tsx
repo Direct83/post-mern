@@ -22,9 +22,6 @@ export default function Modal({ active, setActive, userInfo }: {
       role: event.target.value
     }));
   }
-  const closeModal = () => {
-    setActive()
-  }
   const saveRole = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     dispatch(roleFetchThunk(
@@ -58,7 +55,7 @@ export default function Modal({ active, setActive, userInfo }: {
       <div className='modal-content'>
         <img
           src={'img/cross.png'}
-          onClick={closeModal}
+          onClick={() => setActive()}
         />
         <form
           onSubmit={(event) => saveRole(event)}
