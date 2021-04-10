@@ -32,12 +32,11 @@ export default function HomePage() {
   return (
     <>
       {modalStatus
-        ? <Modal
+        && <Modal
           active={modalStatus}
           setActive={toggleModal}
           userInfo={postCreator}
         />
-        : null
       }
       {!isAuth
         ? <Auth />

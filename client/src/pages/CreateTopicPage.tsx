@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store'
 import { postData } from '../redux/content/actions'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import style from './pages.module.scss'
 import Auth from '../components/Auth';
 
@@ -44,7 +44,7 @@ export default function CreateTopic() {
   }
   return (
     <>
-      {redirect ? <Redirect to={'/'} /> : null}
+      {redirect && <Redirect to={'/'} />}
       {!isAuth
         ? <Auth />
         : (

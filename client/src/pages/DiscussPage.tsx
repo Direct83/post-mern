@@ -36,12 +36,11 @@ export default function DiscussPage(props: RouteComponentProps<{}, {}, { id: str
   return (
     <>
       {modalActive
-        ? <Modal
+        && <Modal
           active={modalActive}
           setActive={setModalActive}
           userInfo={postCreator}
         />
-        : null
       }
       {!isAuth
         ? <Auth />

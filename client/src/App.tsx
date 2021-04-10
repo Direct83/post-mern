@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import CreateTopicPage from './pages/CreateTopicPage';
 import DiscussPage from './pages/DiscussPage';
 import HomePage from './pages/HomePage';
 import NavBar from './components/NavBar';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import { checkAuth } from './redux/auth/actions';
 
 function App() {
   return (

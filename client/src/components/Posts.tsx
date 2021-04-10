@@ -24,10 +24,10 @@ export default function Posts({ modal }: { modal: Function }) {
   };
   return (
     <>
-      {id ? <Redirect to={{
+      {id && <Redirect to={{
         pathname: '/discuss',
         state: { id }
-      }} /> : null}
+      }} />}
       <div className={style.wrapper}>
         {posts.map(post => {
           return (
